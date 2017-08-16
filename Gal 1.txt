@@ -1,0 +1,41 @@
+<html>
+   <body>
+   <h1>Galactic Conquest</h1>
+<script> 
+function myFunction() {money = money * 1.08}
+</script>
+      <script language="javascript" type="text/javascript">
+         <!--
+      var money;
+      var name = "Bob"
+	  money	= 100;
+            document.write("Hello World!!!")
+			result = money * 2;
+            document.write(result);
+         //-->
+      </script>
+	<input type="form" onforminput="document.write(result);" value=money * money />
+	 <input type="button" onclick="document.getElementById('demo').innerHTML = money" value="Submit Bid" />
+
+	 <p id="demo"></p>
+<script>
+var myNumber = 128;
+document.getElementById("demo").innerHTML = "Offer: " + 
+myNumber
+</script>
+	 
+	 
+	 
+   </body>
+
+</head>
+
+<body>
+
+<h2>JavaScript in Head</h2>
+
+<p id="demo">A Paragraph.</p>
+
+<button type="button" onclick="myFunction()">New Turn</button>
+   
+</html>

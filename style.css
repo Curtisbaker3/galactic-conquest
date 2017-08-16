@@ -1,0 +1,163 @@
+h1 {
+  color: rgba(50,200,200,.9);
+  font-size: 20px;
+  text-align: center;
+}
+
+h2 {
+  color: green;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  font-size: 20px;
+}
+
+* {
+  font-family: Comic Sans MS, Arial, Helvetica, sans-serif;
+}
+
+#CashRow, #IncomeRow {
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  top: 10%;
+  width: 10%;
+  border-style: dashed;
+}
+
+#space {
+  font-size: 15px;
+}
+
+#TurnCounter {
+  display:inline;
+}
+
+.improvementtitle {
+  font-size: 13px;
+  font-style: bold;
+  font-weight: 10px;
+  text-align: center;
+}
+
+.ImprovementFunction {
+margin: 0 auto;
+font-size: 13px;
+position: fixed;
+right: 0;
+width: 300px;
+height: 300px;
+
+}
+
+/*html {
+background-image: url(http://www.storywarren.com/wp-content/uploads/2016/09/space-1.jpg);
+}*/
+
+.Improvementcost {
+margin: 0 auto;
+font-size: 13px;
+position: fixed;
+right: 300px;
+width: 80px;
+height: 300px;
+}
+
+
+
+.ImprovementButtons {
+margin: 0 auto;
+font-size: 8px;
+position: fixed;
+right: 380px;
+width: 120px;
+height: 300px;
+}
+
+.Improvementquantity {
+margin: 0 auto;
+font-size: 13px;
+position: fixed;
+right: 500px;
+width: 120px;
+height: 300px;
+}
+
+.Productionquantity {
+margin: 0 auto;
+font-size: 13px;
+position: fixed;
+right: 620px;
+width: 120px;
+height: 300px;
+}
+
+.Improvementcharts{
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  top: 7%;
+  border: solid;
+  border-color: rgb(100,100,255);
+}
+
+#planetcontainer {
+  display:flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#planetlist {
+  border-radius: 4px;
+  padding: 5px;
+  text-align: left;
+  bottom: 20%;
+  border: solid;
+  border-color: rgb(200,100,255);
+  margin: 0 0;
+  font-size: 15px;
+  left: 5px;
+  margin-right: 50px;
+}
+
+#populationlist {
+  border-radius: 4px;
+  padding: 5px;
+  text-align: left;
+  bottom: 20%;
+  border: solid;
+  border-color: rgb(200,100,255);
+  margin: 0 0;
+  font-size: 15px;
+  left: 120px;
+}
+
+#incomelist {
+  border-radius: 4px;
+  padding: 5px;
+  text-align: left;
+  bottom: 20%;
+  border: solid;
+  border-color: rgb(200,100,255);
+  margin: 0 0;
+  font-size: 15px;
+  left: 180px;
+}
+
+.ImprovementContainer {
+  display:flex;
+
+}
+
+.Improvementbutton {
+  font-size: 10px;
+  padding: 0px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}

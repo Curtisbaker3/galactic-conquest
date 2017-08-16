@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+        <head>"Galactic Conquest"
+        <link href="style.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Galactic Conquest</h1>
+        <h1 id="playerName">Player Name</h1>
+        <input type="number" id="input" onforminput="document.write(result);" value="1.08" onkeyup="handleEnterKey()" />
+        <input type="button" onclick="document.getElementById('OfferRow').innerHTML = money" value="Submit Bid" />
+
+	    <p id="demo"></p>
+
+        <h2>Available Offers</h2>
+        <p id="RandomTradeRow">
+            Tade center: $<span id="amount">100</span> at 
+            <span id="Traderate"></span>%. Generates $
+            <span id="TradeIncomeGenerated"></span>
+            <button type="button" onclick="onTradeBuy()">Buy Trade Center</button>
+        </p>
+    <div class="Improvementcharts">
+        <div class="Improvements Improvementcharts">
+            <div class="improvementtitle">Cost</div>
+            $<span id="farmcost">30</span> <br>
+            $<span id="steelfactorycost">50</span> <br>
+            $<span id="housecost">100</span> <br>
+        </div> 
+        <div class="ImprovementFunction Improvementcharts">
+            <div class="improvementtitle">Function</div><br>
+            Increases food by: <span id="farmfx">10</span> per turn <br>
+            Increases steel by: <span id="steelfactoryfx">3</span> per turn <br>
+            Increases max population by: <span id="houseimprovementfx">500</span> <br> 
+        </div>
+        <div class="ImprovementButtons Improvementcharts">
+            <div class="improvementtitle">Improvements</div><br id="space">
+            <button type="button" class="Improvementbutton" onclick="onbuyfarm()">Farm</button><br>
+            <button type="button" class="Improvementbutton" onclick="onbuysteelfactory()">Steel factory</button><br>
+            <button type="button" class="Improvementbutton" onclick="onbuyhouse()">Housing</button><br>
+        </div>
+    </div>
+        <h3>Your Financials</h3>
+
+        <p id="FinanicalOfferRow">Cash: + money</p>
+        <p id="CashRow">Cash: 100</p>
+        <p id="IncomeRow">Income: 0</p>
+        <p id="TurnCounter">Turn: 1</p>
+
+
+        <button type="button" onclick="onNewTurn()">New Turn</button>
+        <script src="main.js"></script>
+   </body>
+</html>
