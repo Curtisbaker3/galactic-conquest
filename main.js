@@ -7,12 +7,6 @@ function onNewTurn() {
     randomTradeRate = Number((5 + Math.random() * 10).toFixed(2));
     randomBankRate = Math.random();
     randomTradeString = randomTradeRate.toString() + (randomNumber*randomTradeRate*.01).toFixed(2).toString() + randomNumber.toString() + (Math.round(money)).toString();
-        var t = document.createTextNode(randomTradeString);
-    //document.body.appendChild(t);
-    document.getElementById('Traderate').innerHTML = randomTradeRate.toString();
-    document.getElementById('TradeIncomeGenerated').innerHTML = (randomNumber*randomTradeRate*.01).toFixed(2).toString();
-    document.getElementById('amount').innerHTML = randomNumber.toString();
-    document.getElementById('CashRow').innerHTML = (Math.round(money)).toString();
 
     for (var i = 0; i < planets.length; i++) {
         if (planets[i].population < planets[i].maxpopulation) {
@@ -26,17 +20,6 @@ function onNewTurn() {
         planets[i].income = planets[i].population * .1;
     }
     redrawPlanets();
-
-    if (populationmax > populationcurrent) {
-        if (populationmax > populationcurrent * populationgrowthrate) {      
-            populationcurrent = populationcurrent * populationgrowthrate;}
-        else {
-            populationcurrent = populationmax;
-        }}
-    else {
-    }
-    document.getElementById('populationcurrent').innerHTML = (Math.round(populationcurrent)).toString();
-    
 };
 
 function onTradeBuy() {
