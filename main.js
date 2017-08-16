@@ -113,30 +113,6 @@ function onSubmitPlanet() {
     redrawPlanets();
 }
 
-/*function handleEnterKey(event) {
-    var x = event.keyCode;
-    if (x == 13) {
-     var input = document.getElementById('input').value;
-     document.getElementById('farmquantity').innerHTML = input;
-    }
-    
-}*/
-
-/*function myfunction() {
-Var newparagraph = document.createElement(“P”); //creates a new paragraph
-Var t = document.createTextNode(“Trade center at 10%”); //
-Newparagraph.appendChild(t);
-Document.getElementById(“myDIV”).appendChild(Newparagraph);
-}*/
-
-
-/*var person = {
-    firstName : prompt("What is your name?")
-};
-
-document.getElementById("playerName").innerHTML =
-person.firstName;
-*/
 var money = 100;
 var steelfactorycost = 50;
 var steelfactoryquantity = 0;
@@ -158,5 +134,3 @@ var randomBankRate;
 var income = 0;
 var TurnCount = 1;
 var name = "Bob";
-document.write("Hello World!!!")
-result = money * 2;
