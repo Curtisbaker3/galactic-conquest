@@ -17,7 +17,7 @@ function onNewTurn() {
             }
         }
         
-        planets[i].income = planets[i].population * .1;
+        planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier;
     }
     redrawPlanets();
 };
@@ -101,10 +101,13 @@ function onSubmitPlanet() {
     if (!nameInput.value || !populationInput.value) {
         return;
     }
+    var population = Number(populationInput.value);
+    var randomIncomeModifier = Math.random();
     planets.push({
         name: nameInput.value,
-        population: Number(populationInput.value),
-        income: Number(populationInput.value * .1),
+        population: population,
+        randomIncomeModifier: randomIncomeModifier,
+        income: Number(population * .1 - 10 * randomIncomeModifier),    
         maxpopulation: Number(50 + Math.random() * 50)
     });
     nameInput.value = '';
