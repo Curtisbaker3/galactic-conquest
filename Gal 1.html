@@ -9,7 +9,7 @@
         <div class="navbar bg-primary-1">
             <div class="grid">
                 <div class="grid-item">
-                    <h1>Galactic Conquest |&nbsp;<span id="TurnCounter">Turn: 1<span></h1>
+                    <h1>Galactic Conquest |&nbsp;<span onclick="onNewTurn()" id="TurnCounter">Turn: 1<span></h1>
                 </div>
                 <div class="grid-item end">
                     <div class="nav-item">
@@ -25,13 +25,12 @@
             </div>
         </div>
 
-        <button type="button" onclick="onNewTurn()">New Turn</button>
         <script src="main.js"></script>
         
         <div>
             <input type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
             <input type="number" id="input" onforminput="document.write(result);" placeholder="population" />
-            <input type="button" onclick="onSubmitPlanet()" value="Submit Planet" />
+            <button onclick="onSubmitPlanet()">Submit Planet</button>
         </div>
         
         <div id="planetcontainer">

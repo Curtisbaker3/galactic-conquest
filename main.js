@@ -22,6 +22,10 @@ function onNewTurn() {
     redrawPlanets();
 };
 
+function formatMoney(number) {
+    return number.toLocaleString('us-en', { style: 'currency', currency: 'USD' });
+}
+
 function onTradeBuy() {
     if (money > randomNumber) {
         if (!TradeBoolean) {
