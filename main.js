@@ -15,7 +15,15 @@ function onNewTurn() {
     document.getElementById('CashRow').innerHTML = (Math.round(money)).toString();
 
     for (var i = 0; i < planets.length; i++) {
-        planets[i].population = planets[i].population * 1.05;  
+        if (planets[i].population < planets[i].maxpopulation) {
+            if (planets[i].population + planets[i].population * .05 < planets[i].maxpopulation) {
+                planets[i].population = planets[i].population * 1.05;
+            } else {
+                planets[i].population = planets[i].maxpopulation
+            }
+        }
+        
+        planets[i].income = planets[i].population * .1;
     }
     redrawPlanets();
 
@@ -79,15 +87,29 @@ function redrawPlanets() {
     planetList.innerHTML = '';
     var planetPopulation = document.getElementById('populationlist');
     planetPopulation.innerHTML = '';
+    var planetIncome = document.getElementById('incomelist');
+    planetIncome.innerHTML = '';
+    var planetMaxPopulation = document.getElementById('maxpopulationlist');
+    planetMaxPopulation.innerHTML = '';
 
     for (var i = 0; i < planets.length; i++) {
         var planet = planets[i];
+
         var planetNameDiv = document.createElement('div');
         planetNameDiv.innerText = planet.name;
         planetList.appendChild(planetNameDiv);
+
         var planetPopulationDiv = document.createElement('div');
         planetPopulationDiv.innerText = (planet.population).toFixed(0);
         planetPopulation.appendChild(planetPopulationDiv);
+
+        var planetIncomeDiv = document.createElement('div');
+        planetIncomeDiv.innerText = (planet.income).toFixed(1);
+        planetIncome.appendChild(planetIncomeDiv);
+
+        var planetMaxPopulationDiv = document.createElement('div');
+        planetMaxPopulationDiv.innerText = (planet.maxpopulation).toFixed(0);
+        planetMaxPopulation.appendChild(planetMaxPopulationDiv);
     }
 };
 function onSubmitPlanet() {
@@ -99,7 +121,8 @@ function onSubmitPlanet() {
     planets.push({
         name: nameInput.value,
         population: Number(populationInput.value),
-        income: Number(populationInput.value * .1)
+        income: Number(populationInput.value * .1),
+        maxpopulation: Number(50 + Math.random() * 50)
     });
     nameInput.value = '';
     populationInput.value = '';
