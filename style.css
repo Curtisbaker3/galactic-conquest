@@ -1,23 +1,108 @@
-h1 {
-  color: rgba(50,200,200,.9);
-  font-size: 20px;
-  text-align: center;
+.color-primary-0 { color: #28774F }	/* Main Primary color */
+.color-primary-1 { color: #77B395 }
+.color-primary-2 { color: #4B956F }
+.color-primary-3 { color: #0F5934 }
+.color-primary-4 { color: #003C1D }
+
+.color-secondary-1-0 { color: #28536C }	/* Main Secondary color (1) */
+.color-secondary-1-1 { color: #6F8FA2 }
+.color-secondary-1-2 { color: #477087 }
+.color-secondary-1-3 { color: #113951 }
+.color-secondary-1-4 { color: #032336 }
+
+.color-secondary-2-0 { color: #679933 }	/* Main Secondary color (2) */
+.color-secondary-2-1 { color: #C0E699 }
+.color-secondary-2-2 { color: #90BF60 }
+.color-secondary-2-3 { color: #437313 }
+.color-secondary-2-4 { color: #274D00 }
+
+.bg-primary-0 { background-color: #28774F }	/* Main Primary background-color */
+.bg-primary-1 { background-color: #77B395 }
+.bg-primary-2 { background-color: #4B956F }
+.bg-primary-3 { background-color: #0F5934 }
+.bg-primary-4 { background-color: #003C1D }
+
+.bg-secondary-1-0 { background-color: #28536C }	/* Main Secondary background-color (1) */
+.bg-secondary-1-1 { background-color: #6F8FA2 }
+.bg-secondary-1-2 { background-color: #477087 }
+.bg-secondary-1-3 { background-color: #113951 }
+.bg-secondary-1-4 { background-color: #032336 }
+
+.bg-secondary-2-0 { background-color: #679933 }	/* Main Secondary background-color (2) */
+.bg-secondary-2-1 { background-color: #C0E699 }
+.bg-secondary-2-2 { background-color: #90BF60 }
+.bg-secondary-2-3 { background-color: #437313 }
+.bg-secondary-2-4 { background-color: #274D00 }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+}
+
+body {
+  background-color: #f2f2f2;
+}
+
+div.navbar {
+  height: 56px;
+  width: 100%;
+  border-bottom: 1px solid #28774F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.grid {
+  display: flex;
+  align-items: space-between;
+  justify-content: center;
+  width: 90%;
+}
+
+div.grid-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+div.grid-item.end {
+  justify-content: flex-end;
+}
+
+div.navbar h1 {
+  font-size: 25px;
+  letter-spacing: 3px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+div.navbar h1>span {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+div.nav-item {
+  letter-spacing: 2px;
+  color: white;
+  padding-left: 30px;
+}
+
+div.nav-item span {
+  font-weight: 800;
 }
 
 h2 {
   color: green;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 p {
   font-size: 20px;
-}
-
-* {
-  font-family: Comic Sans MS, Arial, Helvetica, sans-serif;
 }
 
 #CashRow, #IncomeRow {

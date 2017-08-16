@@ -1,99 +1,49 @@
 <!DOCTYPE html>
 <html>
-        <head>
+    <head>
+        <title>Galactic Conquest</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
         <link href="style.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-        <h1 id="gametitle">Galactic Conquest<span id="playerName"> Player Name<span></h1>
+        <div class="navbar bg-primary-1">
+            <div class="grid">
+                <div class="grid-item">
+                    <h1>Galactic Conquest |&nbsp;<span id="TurnCounter">Turn: 1<span></h1>
+                </div>
+                <div class="grid-item end">
+                    <div class="nav-item">
+                        <div>Cash: <span id="cash">$100.00</span></div>
+                    </div>
+                    <div class="nav-item">
+                        <div>Income: <span id="income">$0.00</span></div>
+                    </div>
+                    <div class="nav-item">
+                        <div>Total Population: <span id="population">0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" onclick="onNewTurn()">New Turn</button>
+        <script src="main.js"></script>
         
+        <div>
+            <input type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
+            <input type="number" id="input" onforminput="document.write(result);" placeholder="population" />
+            <input type="button" onclick="onSubmitPlanet()" value="Submit Planet" />
+        </div>
         
-        <input type="button" onclick="document.getElementById('OfferRow').innerHTML = money" value="Submit Bid" />
-
-        <h2>Available Offers</h2>
-        <p id="RandomTradeRow">
-            Trade center: $<span id="amount">100</span> at 
-            <span id="Traderate"></span>%. Generates $
-            <span id="TradeIncomeGenerated"></span>
-            <button type="button" onclick="onTradeBuy()">Buy Trade Center</button>
-        </p>
-    <div class="ImprovementContainer">
-        <div class="Improvementcost Improvementcharts">
-            <div class="improvementtitle">Cost</div><br>
-            $<span id="farmcost">30</span> <br>
-            $<span id="steelfactorycost">50</span> <br>
-            $<span id="housecost">100</span> <br>
-        </div> 
-        <div class="Improvementquantity Improvementcharts">
-            <div class="improvementtitle">You have:</div><br>
-            <span id="farmquantity">1</span> farms <br>
-            <span id="steelfactoryquantity">0</span> factories <br>
-            <span id="housequantity">1</span> houses <br>
-        </div> 
-        <div class="Productionquantity Improvementcharts">
-            <div class="improvementtitle">Production</div><br>
-            <span id="foodproduction">10</span> food <br>
-            <span id="steelproduction">0</span> steel <br>
-            <span id="maxpopulation">100</span> max pop <br>
-        </div> 
-        <div class="ImprovementFunction Improvementcharts">
-            <div class="improvementtitle">Function</div><br>
-            Increases food by: <span id="farmfx">10</span> per turn <br>
-            Increases steel by: <span id="steelfactoryfx">3</span> per turn <br>
-            Increases max population by: <script>var houseimprovementfx</script> <br> 
+        <div id="planetcontainer">
+            <div id="planetlist">
+            </div>
+            <div id="populationlist">
+            </div>
+            <div id="incomelist">
+            </div>
+            <div id="maxpopulationlist">
+            </div>
         </div>
-        <div class="ImprovementButtons Improvementcharts">
-            <div class="improvementtitle">Improvements</div><br id="space">
-            <button type="button" class="Improvementbutton" onclick="onbuyfarm()">Farm</button><br>
-            <button type="button" class="Improvementbutton" onclick="onbuysteelfactory()">Steel factory</button><br>
-            <button type="button" class="Improvementbutton" onclick="onbuyhouse()">Housing</button><br>
-        </div>
-    </div>
-
-<table style="width:10%">
-    <th colspan="2">
-        Curtis
-    </th>
-  <tr>
-    <td>Cash</td>
-    <td id="CashRow">100</td>
-  </tr>
-  <tr>
-    <td>Income</td>
-    <td id="IncomeRow">0</td>
-  </tr>
-  <tr>
-    <td>Moon Capacity</td>
-    <td id="mooncapacity">20</td>
-  </tr>
-  <tr>
-    <td>Population</td>
-    <td id="populationcurrent">50</td>
-  </tr>
-</table>
-    
-    <p id="FinanicalOfferRow">Cash: + money</p>
-    <div id="TurnCounter">Turn: 1</div>
-
-
-    <button type="button" onclick="onNewTurn()">New Turn</button>
-    <script src="main.js"></script>
-    
-    <div>
-        <input type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
-        <input type="number" id="input" onforminput="document.write(result);" placeholder="population" />
-        <input type="button" onclick="onSubmitPlanet()" value="Submit Planet" />
-    </div>
-    
-    <div id="planetcontainer">
-        <div id="planetlist">
-        </div>
-        <div id="populationlist">
-        </div>
-        <div id="incomelist">
-        </div>
-        <div id="maxpopulationlist">
-        </div>
-    </div>
 
    </body>
 </html>
