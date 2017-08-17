@@ -85,7 +85,13 @@ const renderPlanet = (planet, i) => {
 
 function drawMoney(cash) {
     document.getElementById('cash').innerText = formatMoney(cash);
-};
+}
+function drawIncome(cash) {
+    document.getElementById('income').innerText = formatMoney(cash);
+}
+function drawPopulation(population) {
+    document.getElementById('population').innerText = population.toFixed(0);
+}
 
 function redrawPlanets() {
     var planetList = document.getElementById('planetlist');
