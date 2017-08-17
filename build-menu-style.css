@@ -1,0 +1,34 @@
+div.bottom-drawer {
+  width: 100%;
+  height: 300px;
+  position: fixed;
+  bottom: -300px;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+div.bottom-drawer.shown {
+  bottom: 0px;
+}
+
+div.bottom-drawer-title {
+  padding: 15px;
+  display: flex;
+}
+
+div.bottom-drawer span.close-button {
+  font-size: 40px;
+  font-weight: 100;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background-color: rgba(0,0,0,0.03);
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+div.bottom-drawer span.close-button:hover {
+  background-color: rgba(0,0,0,0.1);
+}

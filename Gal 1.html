@@ -5,10 +5,12 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
         <link href="style.css" type="text/css" rel="stylesheet">
         <link href="table-style.css" type="text/css" rel="stylesheet">
+        <link href="build-menu-style.css" type="text/css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     </head>
     <body>
+        <!-- Top Navbar -->
         <div class="navbar bg-primary-1">
             <div class="grid">
                 <div class="grid-item">
@@ -28,6 +30,7 @@
             </div>
         </div>
         
+        <!-- Split section with cards -->
         <div class="section">
             <div class="card" style="flex-grow:2;">
                 <div class="submit-planet">
@@ -36,7 +39,8 @@
                     <button style="margin-left:3px;" onclick="onSubmitPlanet()">Submit Planet</button>
                 </div>
                 
-                <div id="planetcontainer" class="table">
+                <!-- Planet Table -->
+                <div class="table" id="planetcontainer">
                     <div class="table-header">
                         <div class="table-title two">Name</div>
                         <div class="table-title right">Income</div>                        
@@ -46,14 +50,25 @@
                         <div class="table-title half right">Safety %</div>                        
                     </div>
                     <div id="planetlist" class="table-body">
+                        <!-- Planet Items -->
                     </div>
                 </div>
             </div>
             <div class="card">
-
+                
             </div>
         </div>
 
+        <!--Store Menu-->
+        <div class="bottom-drawer shown">
+            <div class="grid">
+                <h1>Build Menu</h1>
+                <span class="close-button">X</span>
+            </div>
+            <div class="bottom-drawer-shop"></div>
+        </div>
+
         <script src="main.js"></script>
+        <script src="bottom-drawer.js"></script>
    </body>
 </html>
