@@ -62,7 +62,7 @@ const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
     return `
         <div class="table-row">
-            <div class="table-text">${ planet.name }</div>
+            <div class="table-text two">${ planet.name }</div>
             <div class="table-text right">${ planet.population.toFixed(0) }</div>
             <div class="table-text right">${ formatMoney(planet.income) }</div>
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>

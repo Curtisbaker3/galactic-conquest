@@ -30,16 +30,16 @@
         </div>
         
         <div class="section">
-            <div class="card">
+            <div class="card" style="flex-grow:2;">
                 <div class="submit-planet">
-                    <input type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
-                    <input type="number" id="input" onforminput="document.write(result);" placeholder="population" />
-                    <button onclick="onSubmitPlanet()">Submit Planet</button>
+                    <input style="margin-right:3px;" type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
+                    <input style="margin-left:3px;margin-right:3px;" type="number" id="input" onforminput="document.write(result);" placeholder="population" />
+                    <button style="margin-left:3px;" onclick="onSubmitPlanet()">Submit Planet</button>
                 </div>
                 
                 <div id="planetcontainer" class="table">
                     <div class="table-header">
-                        <div class="table-title">Name</div>
+                        <div class="table-title two">Name</div>
                         <div class="table-title right">Population</div>
                         <div class="table-title right">Income</div>
                         <div class="table-title right">Max Pop</div>
