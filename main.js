@@ -9,6 +9,9 @@ function onNewTurn() {
     randomTradeString = randomTradeRate.toString() + (randomNumber*randomTradeRate*.01).toFixed(2).toString() + randomNumber.toString() + (Math.round(money)).toString();
 
     for (var i = 0; i < planets.length; i++) {
+        planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier - planets[i].expenses;
+        planets[i].invasionRisk = planets[i].invasionRisk * 1.2 + 2
+
         if (planets[i].population < planets[i].maxpopulation) {
             if (planets[i].population + planets[i].population * .05 < planets[i].maxpopulation) {
                 planets[i].population = planets[i].population * 1.05;
@@ -17,29 +20,29 @@ function onNewTurn() {
             }
         }
         
-        planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier;
+
     }
     redrawPlanets();
+};
+
+
+function onPlanetDevelopment(index) {
+    var planet = planets[index];
+    var nextPlanetRequirement = nextPlanetRequirements[planet.level]
+    if (money > nextPlanetRequirement.cost) {
+        money -= nextPlanetRequirement.cost;
+        planet.level++;
+        planet.expenses += nextPlanetRequirement.cost;
+        planet.maxpopulation = planet.maxpopulation * 2 * (1 + (Math.random()/5));
+        redrawPlanets();
+    } else {
+        alert("Not Enough Funds");
+    }
 };
 
 function formatMoney(number) {
     return number.toLocaleString('us-en', { style: 'currency', currency: 'USD' });
 }
-
-function onTradeBuy() {
-    if (money > randomNumber) {
-        if (!TradeBoolean) {
-            money = money - randomNumber;
-            income = income + randomNumber*randomTradeRate*.01
-            document.getElementById('CashRow').innerHTML = Math.round(money);
-            document.getElementById('IncomeRow').innerHTML = Math.round(income);
-            TradeBoolean = true
-        }
-        else {alert("Trade has already been purchased")}
-    } else {
-        alert("Not Enough Funds");
-            }
-};
 
 function onbuyfarm() {
     if (money > farmcost) {
@@ -111,6 +114,9 @@ function onSubmitPlanet() {
         name: nameInput.value,
         population: population,
         randomIncomeModifier: randomIncomeModifier,
+        level: 0,
+        expenses: 0,
+        invasionRisk: 0,
         income: Number(population * .1 - 10 * randomIncomeModifier),    
         maxpopulation: Number(50 + Math.random() * 50)
     });
@@ -141,3 +147,24 @@ var randomBankRate;
 var income = 0;
 var TurnCount = 1;
 var name = "Bob";
+var nextPlanetRequirements = [{
+    name: 'Farm',
+    cost: 30,
+    incomeCost: 3,
+}, {
+    name: 'Aqueduct',
+    cost: 50,
+    incomeCost: 5,
+}, {
+    name: 'Hospital',
+    cost: 100,
+    incomeCost: 8,
+}, {
+    name: 'Library',
+    cost: 200,
+    incomeCost: 10,
+}, {
+    name: 'Factory',
+    cost: 300,
+    incomeCost: 13,
+}]
