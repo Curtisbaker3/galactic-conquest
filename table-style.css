@@ -64,6 +64,7 @@ div.table button {
   height: 100%;
 }
 
+div.table .half { flex-grow: .5; }
 div.table .one { flex-grow: 1; }
 div.table .two { flex-grow: 2; }
 div.table .three { flex-grow: 3; }
