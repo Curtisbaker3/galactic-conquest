@@ -18,7 +18,7 @@
                 </div>
                 <div class="grid-item end">
                     <div class="nav-item">
-                        <div>Cash: <span id="cash">$100.00</span></div>
+                        <div>Cash: <span id="cash" onclick="takeMoney()">$100.00</span></div>
                     </div>
                     <div class="nav-item">
                         <div>Income: <span id="income">$0.00</span></div>
@@ -62,7 +62,7 @@
         <!--Store Menu-->
         <div class="bottom-drawer" id="build-menu">
             <span class="close-button" onclick="toggleBuildMenu()">X</span>
-            <h1 class="bottom-drawer-title">Build Menu</h1>
+            <h1 class="bottom-drawer-title">Build Menu - <span id="build-menu-title"></span></h1>
             <div class="bottom-drawer-shop" id="build-menu-items">
             <!--<div class="bottom-drawer-shop-item">
                     <div class="bottom-drawer-item-title">${ buildItem.title }</div>

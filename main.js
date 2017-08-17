@@ -42,6 +42,23 @@ function onNewTurn() {
     drawPopulation(calculateTotalPopulation());
 };
 
+function takeMoney() {
+    var cashInput;
+    var promptInput = prompt("Enter cash amount:", "$100");
+    var parsed = Number(promptInput);
+    if (isNaN(parsed)) {
+        return;
+    }
+
+    if (promptInput == null || promptInput == "") {
+        cashInput = 0;
+    } else {
+        cashInput = promptInput;
+    }
+    money -= Number(cashInput);
+    drawMoney();
+}
+
 function calculateIndividualPlanetIncomes() {
     for (var i = 0; i < planets.length; i++) {
         planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier - planets[i].expenses;
@@ -73,10 +90,10 @@ function onPlanetDevelopment(index, event) {
     event.preventDefault();
     event.stopPropagation();
     var planet = planets[index];
-    var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level]
+    var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level + 1]
     if (money > nextPlanetRequirement.cost) {
-        money -= nextPlanetRequirement.cost;
         planet.level++;
+        money -= nextPlanetRequirement.cost;
         planet.expenses += nextPlanetRequirement.incomeCost;
         planet.income -= nextPlanetRequirement.incomeCost;
         planet.maxpopulation = planet.maxpopulation * 2 * (1 + (Math.random()/5));
@@ -115,7 +132,7 @@ function drawPlanets() {
 const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
     return `
-        <div onclick="openPlanetBuildMenu(${i})" class="table-row clickable">
+        <div onclick="onPlanetRowClicked(${i})" class="table-row clickable">
             <div class="table-text two">${ planet.name }</div>
             <div class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text right">${ planet.population.toFixed(0) }</div>
@@ -140,6 +157,7 @@ function onSubmitPlanet() {
         randomIncomeModifier: randomIncomeModifier,
         level: 0,
         nextPlanetRequirements: _.clone(nextPlanetRequirements),
+        availableBuildItems: _.clone(availableBuildItems),
         expenses: 0,
         safetyLevel: 100,
         enemies: 0,
@@ -179,7 +197,8 @@ function erase() {
 }
 
 var planets = [];
-var money = 100;
+var money = 500;
+drawMoney();
 var housecost = 100;
 var housequantity = 0;
 var houseimprovementfx = 50;
