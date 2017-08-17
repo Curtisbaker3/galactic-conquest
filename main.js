@@ -42,7 +42,7 @@ function onNewTurn() {
     drawPopulation(calculateTotalPopulation());
 };
 
-function onSendLocalTroops()
+function onSendLocalTroops() {}
 
 function calculateTotalPopulation() {
     var totalPopulation = 0
@@ -109,14 +109,13 @@ function drawPlanets() {
 const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
     return `
-        <div class="table-row">
+        <div class="table-row clickable">
             <div class="table-text two">${ planet.name }</div>
             <div class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text right">${ planet.population.toFixed(0) }</div>
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
             <div class="table-text right" style="display:flex;"><button onclick="onPlanetDevelopment(${i})">${ pr.name } (${ formatMoney(pr.cost) })</button></div>            
             <div class="table-text half right">${ planet.safetyLevel.toFixed(0) }</div>      
-
         </div>
     `
 };
