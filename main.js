@@ -75,12 +75,16 @@ const renderPlanet = (planet, i) => {
     return `
         <div class="table-row">
             <div class="table-text">${ planet.name }</div>
-            <div class="table-text right">${ planet.population }</div>
-            <div class="table-text right">${ planet.income }</div>
-            <div class="table-text right">${ planet.maxpopulation }</div>
+            <div class="table-text right">${ planet.population.toFixed(0) }</div>
+            <div class="table-text right">${ formatMoney(planet.income) }</div>
+            <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
             <div class="table-text right"><button onclick="onPlanetDevelopment(${i})">${ pr.name } (${ formatMoney(pr.cost) })</button></div>
         </div>
     `
+};
+
+function drawMoney(cash) {
+    document.getElementById('cash').innerText = formatMoney(cash);
 };
 
 function redrawPlanets() {
