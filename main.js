@@ -45,6 +45,7 @@ function onNewTurn() {
 function calculateIndividualPlanetIncomes() {
     for (var i = 0; i < planets.length; i++) {
         planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier - planets[i].expenses;
+    }
 }
 
 function calculateTotalPopulation() {
