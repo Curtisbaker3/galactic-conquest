@@ -25,7 +25,19 @@ function onNewTurn() {
     
     drawIncome(calculateIncome());
     drawPlanets();
+    drawPopulation(calculateTotalPopulation());
 };
+
+function calculateTotalPopulation() {
+    var totalPopulation = 0
+    for (var i = 0; i < planets.length; i++) {
+        var planet = planets[i];
+        totalPopulation += planet.population;
+        //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
+    }
+    return totalPopulation
+
+}
 
 function calculateIncome() {
     var incomeTotal = 0
@@ -113,6 +125,7 @@ function onSubmitPlanet() {
     nameInput.focus();
     drawPlanets();
     drawIncome(calculateIncome());
+    drawPopulation(calculateTotalPopulation());
 }
 
 var planets = [];
