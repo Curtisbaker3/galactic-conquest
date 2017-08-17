@@ -11,7 +11,7 @@ function onNewTurn() {
     randomTradeString = randomTradeRate.toString() + (randomNumber*randomTradeRate*.01).toFixed(2).toString() + randomNumber.toString() + (Math.round(money)).toString();
 
     for (var i = 0; i < planets.length; i++) {
-        planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier - planets[i].expenses;
+        calculateIndividualPlanetIncomes();
         var safetyModification = (100 - planets[i].safetyLevel) * Math.random() * .4 + Math.random() * 4 //modfication set to 20% of the current difference + 2
 
         if (planets[i].safetyLevel > 0) {
@@ -42,7 +42,11 @@ function onNewTurn() {
     drawPopulation(calculateTotalPopulation());
 };
 
-function onSendLocalTroops()
+function calculateIndividualPlanetIncomes() {
+    for (var i = 0; i < planets.length; i++) {
+        planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier - planets[i].expenses;
+}
+}
 
 function calculateTotalPopulation() {
     var totalPopulation = 0
