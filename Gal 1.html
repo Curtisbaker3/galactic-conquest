@@ -5,6 +5,9 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
         <link href="style.css" type="text/css" rel="stylesheet">
         <link href="table-style.css" type="text/css" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+        <script src="main.js"></script>
     </head>
     <body>
         <div class="navbar bg-primary-1">
@@ -25,24 +28,29 @@
                 </div>
             </div>
         </div>
-
-        <script src="main.js"></script>
         
-        <div>
-            <input type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
-            <input type="number" id="input" onforminput="document.write(result);" placeholder="population" />
-            <button onclick="onSubmitPlanet()">Submit Planet</button>
-        </div>
-        
-        <div id="planetcontainer" class="table">
-            <div class="table-header">
-                <div class="table-title">Name</div>
-                <div class="table-title right">Population</div>
-                <div class="table-title right">Income</div>
-                <div class="table-title right">Max Pop</div>
-                <div class="table-title right">Requirements</div>
+        <div class="section">
+            <div class="card">
+                <div class="submit-planet">
+                    <input type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
+                    <input type="number" id="input" onforminput="document.write(result);" placeholder="population" />
+                    <button onclick="onSubmitPlanet()">Submit Planet</button>
+                </div>
+                
+                <div id="planetcontainer" class="table">
+                    <div class="table-header">
+                        <div class="table-title">Name</div>
+                        <div class="table-title right">Population</div>
+                        <div class="table-title right">Income</div>
+                        <div class="table-title right">Max Pop</div>
+                        <div class="table-title center button">Requirements</div>
+                    </div>
+                    <div id="planetlist" class="table-body">
+                    </div>
+                </div>
             </div>
-            <div id="planetlist" class="table-body">
+            <div class="card">
+
             </div>
         </div>
 

@@ -20,6 +20,9 @@ div.table-title {
 div.table-title.right {
   text-align: right;
 }
+div.table-title.center {
+  text-align: center;
+}
 
 div.table-body {
   width: 100%;
@@ -52,4 +55,6 @@ div.table-text.right {
 div.table button {
   padding: 0 10px;
   letter-spacing: normal;
+  width: 100%;
+  height: 100%;
 }
