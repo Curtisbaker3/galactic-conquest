@@ -1,5 +1,7 @@
 function onNewTurn() {
-    money = money + income;
+    var tempIncome = calculateIncome();
+    money = money + tempIncome;
+    drawMoney();
     TurnCount = TurnCount + 1;
     TradeBoolean = false
     document.getElementById('TurnCounter').innerHTML = "Turn: " + TurnCount;
@@ -19,22 +21,34 @@ function onNewTurn() {
                 planets[i].population = planets[i].maxpopulation
             }
         }
-        
-
     }
-    redrawPlanets();
+    
+    drawIncome(calculateIncome());
+    drawPlanets();
 };
 
+function calculateIncome() {
+    var incomeTotal = 0
+    for (var i = 0; i < planets.length; i++) {
+        var planet = planets[i];
+        incomeTotal += planet.income;
+        //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
+    }
+    return incomeTotal
+}
 
 function onPlanetDevelopment(index) {
     var planet = planets[index];
-    var nextPlanetRequirement = nextPlanetRequirements[planet.level]
+    var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level]
     if (money > nextPlanetRequirement.cost) {
         money -= nextPlanetRequirement.cost;
         planet.level++;
-        planet.expenses += nextPlanetRequirement.cost;
+        planet.expenses += nextPlanetRequirement.incomeCost;
+        planet.income -= nextPlanetRequirement.incomeCost;
         planet.maxpopulation = planet.maxpopulation * 2 * (1 + (Math.random()/5));
-        redrawPlanets();
+        drawPlanets();
+        drawMoney();
+        drawIncome(calculateIncome());
     } else {
         alert("Not Enough Funds");
     }
@@ -44,34 +58,8 @@ function formatMoney(number) {
     return number.toLocaleString('us-en', { style: 'currency', currency: 'USD' });
 }
 
-function onbuyfarm() {
-    if (money > farmcost) {
-            money = money - farmcost;
-            document.getElementById('CashRow').innerHTML = Math.round(money);
-            farmcost = farmcost * 1.1;
-            document.getElementById('farmcost').innerHTML = farmcost;
-            farmquantity = farmquantity + 1;
-            document.getElementById('farmquantity').innerHTML = farmquantity;
-            foodproduction = foodproduction + farmcapacity;
-            document.getElementById('foodproduction').innerHTML = foodproduction;
-
-    } else {
-        alert("Not Enough Funds");
-            }
-};
-
-function onSubmitPlanet() {
-        var newdiv = document.createElement("DIV");
-        newdiv.setAttribute("id", planetcount++); //returns the value, then increments
-        var input = document.getElementById('stringinput').value;
-        document.getElementById('stringinput').value="";
-        newdiv.innerText = input
-        document.getElementById("planetlist").appendChild(newdiv);
-
-}
-
 const renderPlanet = (planet, i) => {
-    const pr = nextPlanetRequirements[planet.level];
+    const pr = nextPlanetRequirements[planet.level + 1];
     return `
         <div class="table-row">
             <div class="table-text">${ planet.name }</div>
@@ -83,17 +71,17 @@ const renderPlanet = (planet, i) => {
     `
 };
 
-function drawMoney(cash) {
-    document.getElementById('cash').innerText = formatMoney(cash);
-}
-function drawIncome(cash) {
-    document.getElementById('income').innerText = formatMoney(cash);
+function drawIncome(income) {
+    document.getElementById('income').innerText = formatMoney(income);
 }
 function drawPopulation(population) {
     document.getElementById('population').innerText = population.toFixed(0);
 }
+function drawMoney() {
+    document.getElementById('cash').innerText = formatMoney(money);
+};
 
-function redrawPlanets() {
+function drawPlanets() {
     var planetList = document.getElementById('planetlist');
     while (planetList.firstChild) {
         planetList.removeChild(planetList.firstChild);
@@ -114,6 +102,7 @@ function onSubmitPlanet() {
         population: population,
         randomIncomeModifier: randomIncomeModifier,
         level: 0,
+        nextPlanetRequirements: _.clone(nextPlanetRequirements),
         expenses: 0,
         invasionRisk: 0,
         income: Number(population * .1 - 10 * randomIncomeModifier),    
@@ -122,7 +111,8 @@ function onSubmitPlanet() {
     nameInput.value = '';
     populationInput.value = '';
     nameInput.focus();
-    redrawPlanets();
+    drawPlanets();
+    drawIncome(calculateIncome());
 }
 
 var planets = [];
@@ -148,6 +138,10 @@ var income = 0;
 var TurnCount = 1;
 var name = "Bob";
 var nextPlanetRequirements = [{
+    name: 'Default',
+    cost: 0,
+    incomeCost: 0
+}, {
     name: 'Farm',
     cost: 30,
     incomeCost: 3,
@@ -164,7 +158,11 @@ var nextPlanetRequirements = [{
     cost: 200,
     incomeCost: 10,
 }, {
-    name: 'Factory',
+    name: 'Market',
     cost: 300,
     incomeCost: 13,
-}]
+}, ..._.range(100).map((n) => ({
+    name: 'Factory ' + (n + 1), 
+    cost: 300 + (n * n * 30), 
+    incomeCost: 15 + (n * 5)
+}))]
