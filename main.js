@@ -69,7 +69,9 @@ function calculateIncome() {
     return incomeTotal
 }
 
-function onPlanetDevelopment(index) {
+function onPlanetDevelopment(index, event) {
+    event.preventDefault();
+    event.stopPropagation();
     var planet = planets[index];
     var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level]
     if (money > nextPlanetRequirement.cost) {
@@ -113,12 +115,12 @@ function drawPlanets() {
 const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
     return `
-        <div class="table-row clickable">
+        <div onclick="openPlanetBuildMenu(${i})" class="table-row clickable">
             <div class="table-text two">${ planet.name }</div>
             <div class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text right">${ planet.population.toFixed(0) }</div>
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
-            <div class="table-text right" style="display:flex;"><button onclick="onPlanetDevelopment(${i})">${ pr.name } (${ formatMoney(pr.cost) })</button></div>            
+            <div class="table-text right" style="display:flex;"><button onclick="onPlanetDevelopment(${i}, event)">${ pr.name } (${ formatMoney(pr.cost) })</button></div>            
             <div class="table-text half right">${ planet.safetyLevel.toFixed(0) }</div>      
         </div>
     `

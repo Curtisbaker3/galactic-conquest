@@ -32,6 +32,7 @@ div.table-body {
 div.table-row {
   width: 100%;
   display: flex;
+  transition: all 0.2s ease-in-out;
 }
 div.table-row:nth-child(1) {
   border-top: 1px solid black;
@@ -41,6 +42,12 @@ div.table-row:nth-child(even) {
 }
 div.table-row:nth-child(odd) {
   background-color: #477087;
+}
+div.table-row.clickable {
+  cursor: pointer;
+}
+div.table-row.clickable:hover {
+  background-color: #3c6279;
 }
 
 div.table-text {

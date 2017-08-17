@@ -2,6 +2,11 @@ function toggleBuildMenu() {
   document.getElementById('build-menu').classList.toggle('shown');
 }
 
+function openPlanetBuildMenu(i) {
+  console.log('Opening planet build menu ', i);
+  toggleBuildMenu();
+}
+
 const availableBuildItems = [
   ..._.range(1000).map(() => ({
     title: 'Some Purchase',
