@@ -78,7 +78,7 @@ const renderPlanet = (planet, i) => {
             <div class="table-text right">${ planet.population.toFixed(0) }</div>
             <div class="table-text right">${ formatMoney(planet.income) }</div>
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
-            <div class="table-text right"><button onclick="onPlanetDevelopment(${i})">${ pr.name } (${ formatMoney(pr.cost) })</button></div>
+            <div class="table-text right" style="display:flex;"><button onclick="onPlanetDevelopment(${i})">${ pr.name } (${ formatMoney(pr.cost) })</button></div>
         </div>
     `
 };
@@ -126,6 +126,29 @@ function onSubmitPlanet() {
     drawPlanets();
     drawIncome(calculateIncome());
     drawPopulation(calculateTotalPopulation());
+}
+
+function save() {
+    localStorage.setItem('game', JSON.stringify({
+        money: money,
+        planets: planets,
+        TurnCount: TurnCount
+    }));
+}
+
+function load() {
+    const game = JSON.parse(localStorage.getItem('game'));
+    planets = game.planets;
+    money = game.money;
+    TurnCount = game.TurnCount;
+    drawMoney();
+    drawPlanets();
+    drawPopulation(calculateTotalPopulation());
+    drawIncome(calculateIncome());
+}
+
+function erase() {
+    localStorage.clear();
 }
 
 var planets = [];
@@ -179,3 +202,7 @@ var nextPlanetRequirements = [{
     cost: 300 + (n * n * 30), 
     incomeCost: 15 + (n * 5)
 }))]
+
+if (localStorage.getItem('game')) {
+    load();
+}

@@ -2,8 +2,8 @@ div.table {
   width: 100%;
   color: white;
   overflow: hidden;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 div.table-header {
@@ -32,7 +32,6 @@ div.table-body {
 div.table-row {
   width: 100%;
   display: flex;
-  border-bottom: 1px solid black;
 }
 div.table-row:nth-child(1) {
   border-top: 1px solid black;
@@ -49,9 +48,13 @@ div.table-text {
   padding: 8px;
   font-weight: 100;
   flex: 1;
+  border-left: 1px solid #5e8296;
 }
 div.table-text.right {
   text-align: right;
+}
+div.table-text:first-child {
+  border-left: none;
 }
 
 div.table button {
