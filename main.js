@@ -145,6 +145,7 @@ function load() {
     drawPlanets();
     drawPopulation(calculateTotalPopulation());
     drawIncome(calculateIncome());
+    document.getElementById('TurnCounter').innerHTML = "Turn: " + TurnCount;
 }
 
 function erase() {
@@ -201,7 +202,7 @@ var nextPlanetRequirements = [{
     name: 'Factory ' + (n + 1), 
     cost: 300 + (n * n * 30), 
     incomeCost: 15 + (n * 5)
-}))]
+}))];
 
 if (localStorage.getItem('game')) {
     load();
