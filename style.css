@@ -46,15 +46,6 @@ body {
   background-color: #f2f2f2;
 }
 
-div.navbar {
-  height: 56px;
-  width: 100%;
-  border-bottom: 1px solid #28774F;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 div.grid {
   display: flex;
   align-items: space-between;
@@ -73,6 +64,15 @@ div.grid-item.end {
   justify-content: flex-end;
 }
 
+div.navbar {
+  height: 56px;
+  width: 100%;
+  border-bottom: 1px solid #28774F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 div.navbar h1 {
   font-size: 25px;
   letter-spacing: 3px;
@@ -89,6 +89,8 @@ div.navbar h1>span {
   cursor: pointer;
   border-radius: 3px;
   transition: 0.1s all ease-in-out;
+  user-select: none;
+  background-color: rgba(0,0,0,0.03);
 }
 
 div.navbar h1>span:hover {

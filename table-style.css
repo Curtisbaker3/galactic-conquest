@@ -1,0 +1,55 @@
+div.table {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+div.table-header {
+  width: 100%;
+  display: flex;
+  background-color: #113951;
+}
+
+div.table-title {
+  width: 100%;
+  padding: 12px 8px;
+  font-weight: 500;
+}
+div.table-title.right {
+  text-align: right;
+}
+
+div.table-body {
+  width: 100%;
+}
+
+div.table-row {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+}
+div.table-row:nth-child(1) {
+  border-top: 1px solid black;
+}
+div.table-row:nth-child(even) {
+  background-color: #6F8FA2;
+}
+div.table-row:nth-child(odd) {
+  background-color: #477087;
+}
+
+div.table-text {
+  width: 100%;
+  padding: 8px;
+  font-weight: 100;
+}
+div.table-text.right {
+  text-align: right;
+}
+
+div.table button {
+  padding: 0 10px;
+  letter-spacing: normal;
+}

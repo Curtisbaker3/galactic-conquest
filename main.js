@@ -70,38 +70,27 @@ function onSubmitPlanet() {
 
 }
 
+const renderPlanet = (planet, i) => {
+    const pr = nextPlanetRequirements[planet.level];
+    return `
+        <div class="table-row">
+            <div class="table-text">${ planet.name }</div>
+            <div class="table-text right">${ planet.population }</div>
+            <div class="table-text right">${ planet.income }</div>
+            <div class="table-text right">${ planet.maxpopulation }</div>
+            <div class="table-text right"><button onclick="onPlanetDevelopment(${i})">${ pr.name } (${ formatMoney(pr.cost) })</button></div>
+        </div>
+    `
+};
 
-var planets = []
 function redrawPlanets() {
     var planetList = document.getElementById('planetlist');
-    planetList.innerHTML = '';
-    var planetPopulation = document.getElementById('populationlist');
-    planetPopulation.innerHTML = '';
-    var planetIncome = document.getElementById('incomelist');
-    planetIncome.innerHTML = '';
-    var planetMaxPopulation = document.getElementById('maxpopulationlist');
-    planetMaxPopulation.innerHTML = '';
-
-    for (var i = 0; i < planets.length; i++) {
-        var planet = planets[i];
-
-        var planetNameDiv = document.createElement('div');
-        planetNameDiv.innerText = planet.name;
-        planetList.appendChild(planetNameDiv);
-
-        var planetPopulationDiv = document.createElement('div');
-        planetPopulationDiv.innerText = (planet.population).toFixed(0);
-        planetPopulation.appendChild(planetPopulationDiv);
-
-        var planetIncomeDiv = document.createElement('div');
-        planetIncomeDiv.innerText = (planet.income).toFixed(1);
-        planetIncome.appendChild(planetIncomeDiv);
-
-        var planetMaxPopulationDiv = document.createElement('div');
-        planetMaxPopulationDiv.innerText = (planet.maxpopulation).toFixed(0);
-        planetMaxPopulation.appendChild(planetMaxPopulationDiv);
+    while (planetList.firstChild) {
+        planetList.removeChild(planetList.firstChild);
     }
+    planetList.innerHTML = planets.map((p, i) => renderPlanet(p, i)).join('');
 };
+
 function onSubmitPlanet() {
     var nameInput = document.getElementById('stringinput');
     var populationInput = document.getElementById('input');
@@ -126,6 +115,7 @@ function onSubmitPlanet() {
     redrawPlanets();
 }
 
+var planets = [];
 var money = 100;
 var steelfactorycost = 50;
 var steelfactoryquantity = 0;
