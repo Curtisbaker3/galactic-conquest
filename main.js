@@ -22,12 +22,17 @@ function onNewTurn() {
             }
         }
 
+        if (planets[i].safetyLevel < Math.random() * 100) {
+            tempEnemyIncrease = planets[i].population * Math.random();
+            planets[i].enemies += tempEnemyIncrease;
+        }
+
         if (planets[i].population < planets[i].maxpopulation) {
-            tempPopIncrease = planets[i].population * .05
+            tempPopIncrease = planets[i].population * .05 * (planets[i].safetyLevel * .011) //Multiplies pop incr. by 110% of safety level
             if (planets[i].population + tempPopIncrease < planets[i].maxpopulation) {
                 planets[i].population = planets[i].population + tempPopIncrease;
             } else {
-                planets[i].population = planets[i].maxpopulation
+                planets[i].population = planets[i].maxpopulation;
             }
         }
     }
@@ -36,6 +41,8 @@ function onNewTurn() {
     drawPlanets();
     drawPopulation(calculateTotalPopulation());
 };
+
+function onSendLocalTroops()
 
 function calculateTotalPopulation() {
     var totalPopulation = 0
@@ -130,6 +137,7 @@ function onSubmitPlanet() {
         nextPlanetRequirements: _.clone(nextPlanetRequirements),
         expenses: 0,
         safetyLevel: 100,
+        enemies: 0,
         income: Number(population * .1 - 10 * randomIncomeModifier),    
         maxpopulation: Number(50 + Math.random() * 50)
     });
