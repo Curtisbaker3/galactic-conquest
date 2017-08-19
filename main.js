@@ -28,7 +28,7 @@ function onNewTurn() {
         }
 
         if (planets[i].population < planets[i].maxpopulation) {
-            tempPopIncrease = planets[i].population * .1 * (planets[i].safetyLevel * .011) - (.3 * planets[i].enemies); //Multiplies pop incr. by 110% of safety level
+            tempPopIncrease = planets[i].population * .08 * (planets[i].safetyLevel * .011) - (.3 * planets[i].enemies); //Multiplies pop incr. by 110% of safety level
             if (planets[i].population + tempPopIncrease <= 0) {
                 planets[i].population = 0;
             } else {
@@ -45,7 +45,7 @@ function onNewTurn() {
     drawIncome(calculateIncome());
     drawPlanets();
     drawTotalPopulation(calculateTotalPopulation());
-    shipPopulation *= 1.03;
+    shipPopulation *= 1.02;
     drawShipPopulation();
 };
 
@@ -224,7 +224,7 @@ function erase() {
 }
 
 var planets = [];
-var money = 500;
+var money = 1000;
 drawMoney();
 var shipPopulation = 70;
 drawShipPopulation();
