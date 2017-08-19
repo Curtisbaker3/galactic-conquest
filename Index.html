@@ -14,14 +14,14 @@
         <div class="navbar bg-primary-1">
             <div class="grid">
                 <div class="grid-item">
-                    <h1>Galactic Conquest |&nbsp;<span onclick="onNewTurn()" id="TurnCounter">Turn: 1<span></h1>
+                    <h1>Galactic Conquest |&nbsp;<span class="title-bar-button" onclick="onNewTurn()" id="TurnCounter">Turn: 1<span></h1>
                 </div>
                 <div class="grid-item end">
                     <div class="nav-item">
-                        <div>Ship Pop: <span id="shipPopulation" onclick="takePopulation()">70</span></div>
+                        <div>Ship Pop: <span id="shipPopulation" class="title-bar-button" onclick="takePopulation()">70</span></div>
                     </div>                    
                     <div class="nav-item">
-                        <div>Cash: <span id="cash" onclick="takeMoney()">$100.00</span></div>
+                        <div>Cash: <span id="cash" class="title-bar-button" onclick="takeMoney()">$100.00</span></div>
                     </div>
                     <div class="nav-item">
                         <div>Income: <span id="income">$0.00</span></div>
@@ -36,11 +36,6 @@
         <!-- Split section with cards -->
         <div class="section">
             <div class="card" style="flex-grow:2;">
-                <div class="submit-planet">
-                    <input style="margin-right:3px;" type="string" id="stringinput" onforminput="document.write(result);" placeholder="Planet Name" />
-                    <input style="margin-left:3px;margin-right:3px;" type="number" id="input" onforminput="document.write(result);" placeholder="population" />
-                    <button style="margin-left:3px;" onclick="onSubmitPlanet()">Submit Planet</button>
-                </div>
                 
                 <!-- Planet Table -->
                 <div class="table" id="planetcontainer">

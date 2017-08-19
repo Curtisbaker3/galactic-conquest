@@ -89,10 +89,17 @@ div.table .five { flex-grow: 5; }
 div.table .six { flex-grow: 6; }
 
 
+div.table-row-unique.table-row {
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
 /* Rows of unique planet resources*/
 div.table-row-unique:nth-child(even) {
   background-color: #80FFC0;
 }
 div.table-row-unique:nth-child(odd) {
   background-color: #0CC8E8;
+}
+div.table-row-unique.table-row:hover {
+  background-color: #e3f7ed;
 }

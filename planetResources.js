@@ -203,14 +203,14 @@ drawUniqueUnknownPlanets();
 function drawUniqueUnknownPlanets() {
     var unknownPlanetList = document.getElementById('uniquePlanetData');
     while (unknownPlanetList.firstChild) {
-    unknownPlanetList.removeChild(unknownPlanetList.firstChild);
+        unknownPlanetList.removeChild(unknownPlanetList.firstChild);
     }
     unknownPlanetList.innerHTML = planetResources.map((p, i) => renderUniquePlanet(i)).join('');
 };
 
 function renderUniquePlanet (i) {
     return `
-        <div class="table-row-unique table-row">
+        <div class="table-row-unique table-row" onclick="onSubmitPlanet(${i})">
             <div class="table-text one">${ planetResources[i].title }</div>
             <div class="table-text right one style="display:flex;">${ planetResources[i].resource }</div>           
         </div>
