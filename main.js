@@ -161,6 +161,9 @@ const renderPlanet = (planet, i) => {
 
 function onSubmitPlanet(planetResourceIndex) {
     var populationInput = prompt('Enter population you\'d like to send to this planet.');
+    if (populationInput === null) {
+        return;
+    }
     var population = Number(populationInput);
     var randomIncomeModifier = Math.random();
     console.log(population, shipPopulation);
