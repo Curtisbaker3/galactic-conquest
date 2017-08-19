@@ -49,6 +49,10 @@ const availableBuildItems = [{
     title: 'Hire Foreigners',
     description: 'Hires 10 foreigners to repopulate the planet',
     cost: 100
+}, {
+    title: 'Evacuate Citizens',
+    description: 'Evacuates 10 citizens to the ship',
+    cost: 30
 }, ];
 
 function renderBuildMenuItem(buildItem, i) {
@@ -99,6 +103,9 @@ function onBuildItemClicked(index) {
       case 'Hire Foreigners': 
         onHireForeigners(currentBuildPlanetIndex);
         break;
+      case 'Evacuate Citizens': 
+        onEvacuateCitizens(currentBuildPlanetIndex);
+        break;
       case 'Gold Mine': 
         onBuildGoldMine(currentBuildPlanetIndex, index); //index is the current build item
         break; 
@@ -142,10 +149,10 @@ function onBuildBank(index, buildItem) {
 function onBuildWaterGenerator(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].waterGenerated += t.waterGenerated;
-  t.incomeCost *= 2;
-  t.cost *= 2;
   x = t.incomeCost;
   planets[index].expenses += x;
+  t.incomeCost *= 2;
+  t.cost *= 2;
   t.waterGenerated *= 2;
   y = t.waterGenerated;
   t.description = 'Generates ' + y + 't water. Decreases income by ' + x;  
@@ -157,10 +164,10 @@ function onBuildWaterGenerator(index, buildItem) {
 function onBuildOilExtractor(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].oilGenerated += t.oilGenerated;
-  t.incomeCost *= 2;
-  t.cost *= 2;
   x = t.incomeCost;
   planets[index].expenses += x;
+  t.incomeCost *= 2;
+  t.cost *= 2;
   t.oilGenerated *= 2;
   y = t.oilGenerated;
   t.description = 'Generates ' + y + 't oil. Decreases income by ' + x;  
@@ -220,10 +227,14 @@ function onTransferWater(planetIndex) {
   var planetTarget = planets[planetIndex];
   var totalWaterTaken = 0;
   var eachWaterTaken = 0;
-  for (var i = 0; i < planets.length; i++) {
-    eachWaterTaken = planets[i].water * .1;
+  const waterPlanets = _.filter(planets, {resource: 'Water'}); // filtered version, with all the water planets
+  for (var i = 0; i < waterPlanets.length; i++) {
+    if (planetTarget === waterPlanets[i]) {
+      continue;
+    }
+    eachWaterTaken = waterPlanets[i].water * .1;
     totalWaterTaken += Number(eachWaterTaken);
-    planets[i].water -= eachWaterTaken;
+    waterPlanets[i].water -= eachWaterTaken;
   }
   planetTarget.water += totalWaterTaken;
   drawPlanets();
@@ -233,7 +244,11 @@ function onTransferOil(planetIndex) {
   var planetTarget = planets[planetIndex];
   var totalOilTaken = 0;
   var eachOilTaken = 0;
+  const oilPlanets = _.filter(planets, {resource: 'Oil'});
   for (var i = 0; i < planets.length; i++) {
+    if (planetTarget === oilPlanets[i]) { //skips planet if
+      continue;
+    }
     eachOilTaken = planets[i].oil * .1;
     totalOilTaken += Number(eachOilTaken);
     planets[i].oil -= eachOilTaken;
@@ -253,6 +268,23 @@ function onHireForeigners(index) {
       drawIncome(calculateIncome());
     } else {
       alert('Not enough population space!');
+    }
+
+}
+
+function onEvacuateCitizens(index) {
+    var planetTarget = planets[index];
+    var tempPopulationToSend = 10;
+    if (planetTarget.population - 10 >= 0) {
+      planetTarget.population -= tempPopulationToSend;
+      shipPopulation += 10;
+      drawShipPopulation();
+      drawTotalPopulation(calculateTotalPopulation());
+      drawPlanets();
+      calculateIndividualPlanetIncomes();
+      drawIncome(calculateIncome());
+    } else {
+      alert('Not enough citizens!');
     }
 
 }

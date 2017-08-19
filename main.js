@@ -184,7 +184,6 @@ function onSubmitPlanet(planetResourceIndex) {
         availableBuildItems: _.clone(availableBuildItems),
         expenses: 0,
         safetyLevel: 100,
-        resource: 'null',
         water: 0,
         waterGenerated: 0,
         waterUsageFactor: 1,

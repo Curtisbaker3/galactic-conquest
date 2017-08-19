@@ -58,11 +58,11 @@ function calculateIncome() {
     for (var i = 0; i < planets.length; i++) {
         var planet = planets[i];
         incomeTotal += planet.income;
+    }
     if (money < 0) {
-        var x = money * .07; //interest on debt
+        var x = money * .08; //interest on debt
         incomeTotal += x;
     }
-        //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
-    }
     return incomeTotal
-}
+        //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
+    } 

@@ -36,7 +36,7 @@ function createSpecialButtons(i) {
             planets[i].availableBuildItems.push({
             title: 'Water Generator',
             description: 'Generates 100t water/yr. -1 inc.',
-            cost: 40,
+            cost: 20,
             incomeCost: 1,
             buildCount: 0,
             waterGenerated: 100
@@ -45,9 +45,9 @@ function createSpecialButtons(i) {
         case 'Oil': 
             planets[i].availableBuildItems.push({
             title: 'Oil Extractor',
-            description: 'Generates 50t oil/yr. -3 inc.',
-            cost: 60,
-            incomeCost: 3,
+            description: 'Generates 50t oil/yr. -2 inc.',
+            cost: 30,
+            incomeCost: 2,
             buildCount: 0,
             oilGenerated: 50,
         });
