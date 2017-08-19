@@ -48,7 +48,8 @@ function createSpecialButtons(i) {
             description: 'Generates 50t oil/yr. -3 inc.',
             cost: 60,
             incomeCost: 3,
-            buildCount: 0
+            buildCount: 0,
+            oilGenerated: 50,
         });
         break;
         default:
@@ -75,7 +76,7 @@ const planetResources = [{
     resource: 'Gold',
 }, {
     title: 'Callisto',
-    resource: 'Copper',
+    resource: 'Oil',
 }, {
     title: 'IO',
     resource: 'Gold',
@@ -105,7 +106,7 @@ const planetResources = [{
     resource: 'Gold',
 }, {
     title: 'Tethys',
-    resource: 'Copper',
+    resource: 'Oil',
 }, {
     title: 'Janus',
     resource: 'Water',

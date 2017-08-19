@@ -152,6 +152,21 @@ function onBuildWaterGenerator(index, buildItem) {
   drawBuildMenu();
 }
 
+function onBuildOilExtractor(index, buildItem) {
+  var t = planets[index].availableBuildItems[buildItem];
+  planets[index].oilGenerated += t.oilGenerated;
+  t.incomeCost *= 2;
+  t.cost *= 2;
+  x = t.incomeCost;
+  planets[index].expenses += x;
+  t.oilGenerated *= 2;
+  y = t.oilGenerated;
+  t.description = 'Generates ' + y + 't oil. Decreases income by ' + x;  
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+
 function onSendTroops(index) {
     var planet = planets[index];
     var tempTroopsToSend = planet.enemies * .8;
@@ -209,6 +224,19 @@ function onTransferWater(planetIndex) {
     planets[i].water -= eachWaterTaken;
   }
   planetTarget.water += totalWaterTaken;
+  drawPlanets();
+}
+
+function onTransferOil(planetIndex) {
+  var planetTarget = planets[planetIndex];
+  var totalOilTaken = 0;
+  var eachOilTaken = 0;
+  for (var i = 0; i < planets.length; i++) {
+    eachOilTaken = planets[i].oil * .1;
+    totalOilTaken += Number(eachOilTaken);
+    planets[i].oil -= eachOilTaken;
+  }
+  planetTarget.oil += totalOilTaken;
   drawPlanets();
 }
 
