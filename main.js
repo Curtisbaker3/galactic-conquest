@@ -22,24 +22,32 @@ function onNewTurn() {
             }
         }
 
-        if (planets[i].safetyLevel < Math.random() * 100) {
-            tempEnemyIncrease = planets[i].population * Math.random();
+        if (planets[i].safetyLevel < Math.random() * 80) {
+            tempEnemyIncrease = planets[i].population * Math.random() * .2;
             planets[i].enemies += tempEnemyIncrease;
         }
 
         if (planets[i].population < planets[i].maxpopulation) {
-            tempPopIncrease = planets[i].population * .05 * (planets[i].safetyLevel * .011) //Multiplies pop incr. by 110% of safety level
-            if (planets[i].population + tempPopIncrease < planets[i].maxpopulation) {
-                planets[i].population = planets[i].population + tempPopIncrease;
+            tempPopIncrease = planets[i].population * .05 * (planets[i].safetyLevel * .011) - (.3 * planets[i].enemies); //Multiplies pop incr. by 110% of safety level
+            if (planets[i].population + tempPopIncrease <= 0) {
+                planets[i].population = 0;
             } else {
-                planets[i].population = planets[i].maxpopulation;
+                if (planets[i].population + tempPopIncrease < planets[i].maxpopulation) {
+                    planets[i].population = planets[i].population + tempPopIncrease;
+                } else {
+                    planets[i].population = planets[i].maxpopulation;
+                }
             }
         }
+
+        calculatePlanetaryWater();
+        calculatePlanetaryOil();
+
     }
     
     drawIncome(calculateIncome());
     drawPlanets();
-    drawPopulation(calculateTotalPopulation());
+    drawTotalPopulation(calculateTotalPopulation());
 };
 
 function takeMoney() {
@@ -57,38 +65,23 @@ function takeMoney() {
     }
     money -= Number(cashInput);
     drawMoney();
-}
-
-function calculateIndividualPlanetIncomes() {
-    for (var i = 0; i < planets.length; i++) {
-        planets[i].income = planets[i].population * .1 - 10 * planets[i].randomIncomeModifier - planets[i].expenses;
-    }
-}
-
-function calculateTotalPopulation() {
-    var totalPopulation = 0
-    for (var i = 0; i < planets.length; i++) {
-        var planet = planets[i];
-        totalPopulation += planet.population;
-        //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
-    }
-    return totalPopulation
-
-}
-
-function calculateIncome() {
-    var incomeTotal = 0
-    for (var i = 0; i < planets.length; i++) {
-        var planet = planets[i];
-        incomeTotal += planet.income;
-        //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
-    }
-    return incomeTotal
+    drawIncome(calculateIncome());
 }
 
 function onPlanetDevelopment(index, event) {
     event.preventDefault();
     event.stopPropagation();
+
+    if (planets[index].water <= 0 && planets[index].level == 1) {
+        alert('Not enough water to develop planet!')
+        return;
+    }
+
+    if (planets[index].oil <= 0 && planets[index].level == 2) {
+        alert('Not enough oil to develop planet!')
+        return;
+    }
+
     var planet = planets[index];
     var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level + 1]
     if (money > nextPlanetRequirement.cost) {
@@ -96,7 +89,7 @@ function onPlanetDevelopment(index, event) {
         money -= nextPlanetRequirement.cost;
         planet.expenses += nextPlanetRequirement.incomeCost;
         planet.income -= nextPlanetRequirement.incomeCost;
-        planet.maxpopulation = planet.maxpopulation * 2 * (1 + (Math.random()/5));
+        planet.maxpopulation = planet.maxpopulation * 1.6 * (1 + (Math.random()/5));
         drawPlanets();
         drawMoney();
         drawIncome(calculateIncome());
@@ -105,16 +98,19 @@ function onPlanetDevelopment(index, event) {
     }
 };
 
+function test() {
+    var x = 10
+    console.log(formatMoney(x))
+}
+
 function formatMoney(number) {
     return number.toLocaleString('us-en', { style: 'currency', currency: 'USD' });
 }
 
-
-
 function drawIncome(income) {
     document.getElementById('income').innerText = formatMoney(income);
 }
-function drawPopulation(population) {
+function drawTotalPopulation(population) {
     document.getElementById('population').innerText = population.toFixed(0);
 }
 function drawMoney() {
@@ -133,12 +129,15 @@ const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
     return `
         <div onclick="onPlanetRowClicked(${i})" class="table-row clickable">
-            <div class="table-text two">${ planet.name }</div>
+            <div class="table-text">${ planet.name }</div>
             <div class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text right">${ planet.population.toFixed(0) }</div>
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
             <div class="table-text right" style="display:flex;"><button onclick="onPlanetDevelopment(${i}, event)">${ pr.name } (${ formatMoney(pr.cost) })</button></div>            
-            <div class="table-text half right">${ planet.safetyLevel.toFixed(0) }</div>      
+            <div class="table-text half right">${ planet.safetyLevel.toFixed(0) }</div>
+            <div class="table-text half right">${ planet.enemies.toFixed(0) }</div> 
+            <div class="table-text half right">${ planet.water.toFixed(0) }</div> 
+            <div class="table-text half right">${ planet.oil.toFixed(0) }</div>
         </div>
     `
 };
@@ -160,17 +159,28 @@ function onSubmitPlanet() {
         availableBuildItems: _.clone(availableBuildItems),
         expenses: 0,
         safetyLevel: 100,
+        resource: 'null',
+        water: 0,
+        waterGenerated: 0,
+        waterUsageFactor: 1,
+        oil: 0,
+        oilGenerated: 0,
+        oilUsageFactor: 1,
         enemies: 0,
-        income: Number(population * .1 - 10 * randomIncomeModifier),    
+        income: Number(population * .1 - (5 * randomIncomeModifier + 1)),    
+        incomeBonuses: 0,
         maxpopulation: Number(50 + Math.random() * 50)
     });
     nameInput.value = '';
     populationInput.value = '';
     nameInput.focus();
+    findRandomResource(planets.length - 1);
+    createSpecialButtons(planets.length - 1);
     drawPlanets();
     drawIncome(calculateIncome());
-    drawPopulation(calculateTotalPopulation());
+    drawTotalPopulation(calculateTotalPopulation());
 }
+
 
 function save() {
     localStorage.setItem('game', JSON.stringify({
@@ -187,7 +197,7 @@ function load() {
     TurnCount = game.TurnCount;
     drawMoney();
     drawPlanets();
-    drawPopulation(calculateTotalPopulation());
+    drawTotalPopulation(calculateTotalPopulation());
     drawIncome(calculateIncome());
     document.getElementById('TurnCounter').innerHTML = "Turn: " + TurnCount;
 }
@@ -205,9 +215,6 @@ var houseimprovementfx = 50;
 var populationcurrent = 50;
 var populationgrowthrate = 1.05;
 var populationmax = 100;
-var farmcost = 30;
-var farmquantity = 1 // number of farms
-var farmcapacity = 10; //how much one farm produces per turn
 var foodproduction = 10; //player's current food production
 var foodcurrent = 100;
 var TradeBoolean = false;
@@ -224,23 +231,23 @@ var nextPlanetRequirements = [{
 }, {
     name: 'Farm',
     cost: 30,
-    incomeCost: 4,
+    incomeCost: 2,
 }, {
     name: 'Aqueduct',
     cost: 50,
-    incomeCost: 9,
+    incomeCost: 5,
 }, {
-    name: 'Hospital',
+    name: 'Refinery',
     cost: 100,
-    incomeCost: 18,
+    incomeCost: 11,
 }, {
     name: 'Library',
     cost: 200,
-    incomeCost: 26,
+    incomeCost: 18,
 }, {
     name: 'Market',
     cost: 300,
-    incomeCost: 40,
+    incomeCost: 30,
 }, ..._.range(100).map((n) => ({
     name: 'Factory ' + (n + 1), 
     cost: 300 + (n * n * 30), 
