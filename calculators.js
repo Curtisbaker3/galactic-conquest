@@ -25,7 +25,7 @@ function calculatePlanetaryWater() {
 
 function calculatePlanetaryOil() {
     for (var i = 0; i < planets.length; i++) {
-        planets[i].oil += planets[i].oilGenerated
+        planets[i].oil += planets[i].oilGenerated;
         if (planets[i].level >= 3) {
             var oilLevel = 'some';
             if (planets[i].oil <= 0) {oilLevel = 'none'}       
@@ -33,7 +33,7 @@ function calculatePlanetaryOil() {
         }
         if (planets[i].oil < 0) {
             planets[i].population += (planets[i].oil * .1);
-            planets[i].oil = 0
+            planets[i].oil = 0;
             if (oilLevel != 'none' && oilLevel == 'some') {
                 alert('planet ' + planets[i].name + ' out of oil!');
             }
