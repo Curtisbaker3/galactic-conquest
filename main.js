@@ -28,7 +28,7 @@ function onNewTurn() {
         }
 
         if (planets[i].population < planets[i].maxpopulation) {
-            tempPopIncrease = planets[i].population * .05 * (planets[i].safetyLevel * .011) - (.3 * planets[i].enemies); //Multiplies pop incr. by 110% of safety level
+            tempPopIncrease = planets[i].population * .1 * (planets[i].safetyLevel * .011) - (.3 * planets[i].enemies); //Multiplies pop incr. by 110% of safety level
             if (planets[i].population + tempPopIncrease <= 0) {
                 planets[i].population = 0;
             } else {
@@ -39,15 +39,14 @@ function onNewTurn() {
                 }
             }
         }
-
-        calculatePlanetaryWater();
-        calculatePlanetaryOil();
-
     }
-    
+    calculatePlanetaryWater();
+    calculatePlanetaryOil();
     drawIncome(calculateIncome());
     drawPlanets();
     drawTotalPopulation(calculateTotalPopulation());
+    shipPopulation *= 1.03;
+    drawShipPopulation();
 };
 
 function takeMoney() {
@@ -57,7 +56,6 @@ function takeMoney() {
     if (isNaN(parsed)) {
         return;
     }
-
     if (promptInput == null || promptInput == "") {
         cashInput = 0;
     } else {
@@ -66,6 +64,22 @@ function takeMoney() {
     money -= Number(cashInput);
     drawMoney();
     drawIncome(calculateIncome());
+}
+
+function takePopulation() {
+    var populationInput;
+    var promptInput = prompt("Enter population to evacuate:", "20");
+    var parsed = Number(promptInput);
+    if (isNaN(parsed)) {
+        return;
+    } 
+    if (promptInput == null || promptInput == "") {
+        populationInput = 0;
+    } else {
+        populationInput = promptInput;
+    }
+    shipPopulation -= Number(populationInput);
+    drawShipPopulation();
 }
 
 function onPlanetDevelopment(index, event) {
@@ -115,6 +129,9 @@ function drawTotalPopulation(population) {
 }
 function drawMoney() {
     document.getElementById('cash').innerText = formatMoney(money);
+};
+function drawShipPopulation() {
+    document.getElementById('shipPopulation').innerText = shipPopulation.toFixed(0);
 };
 
 function drawPlanets() {
@@ -209,6 +226,8 @@ function erase() {
 var planets = [];
 var money = 500;
 drawMoney();
+var shipPopulation = 70;
+drawShipPopulation();
 var housecost = 100;
 var housequantity = 0;
 var houseimprovementfx = 50;
