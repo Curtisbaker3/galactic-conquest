@@ -6,10 +6,12 @@ function openBuildMenu(planetIndex) {
   currentBuildPlanetIndex = planetIndex;  
   drawBuildMenu();
   document.getElementById('build-menu').classList.add('shown');  
+  document.body.classList.add('bottom-drawer-shown');
 }
 
 function closeBuildMenu() {
   document.getElementById('build-menu').classList.remove('shown');  
+  document.body.classList.remove('bottom-drawer-shown');
   currentBuildPlanetIndex = -1;
 }
 

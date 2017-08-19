@@ -81,7 +81,7 @@ div.navbar h1 {
   align-items: center;
 }
 
-div.navbar h1>span {
+span.title-bar-button {
   padding: 5px;
   font-size: 18px;
   font-weight: 800;
@@ -93,7 +93,7 @@ div.navbar h1>span {
   background-color: rgba(0,0,0,0.03);
 }
 
-div.navbar h1>span:hover {
+span.title-bar-button:hover {
   background-color: rgba(0,0,0,0.1);
 }
 

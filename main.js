@@ -159,16 +159,21 @@ const renderPlanet = (planet, i) => {
     `
 };
 
-function onSubmitPlanet() {
-    var nameInput = document.getElementById('stringinput');
-    var populationInput = document.getElementById('input');
-    if (!nameInput.value || !populationInput.value) {
-        return;
-    }
-    var population = Number(populationInput.value);
+function onSubmitPlanet(planetResourceIndex) {
+    var populationInput = prompt('Enter population you\'d like to send to this planet.');
+    var population = Number(populationInput);
     var randomIncomeModifier = Math.random();
+    console.log(population, shipPopulation);
+    if (population > 50) {
+        return alert("Can't send more than 50 units at once.");
+    } else if (population > shipPopulation) {
+        return alert('You don\'t have enough population!');
+    } else {
+        shipPopulation -= population;
+        drawShipPopulation();
+    }
     planets.push({
-        name: nameInput.value,
+        name: planetResources[planetResourceIndex].title,
         population: population,
         randomIncomeModifier: randomIncomeModifier,
         level: 0,
@@ -188,9 +193,6 @@ function onSubmitPlanet() {
         incomeBonuses: 0,
         maxpopulation: Number(50 + Math.random() * 50)
     });
-    nameInput.value = '';
-    populationInput.value = '';
-    nameInput.focus();
     findRandomResource(planets.length - 1);
     createSpecialButtons(planets.length - 1);
     drawPlanets();

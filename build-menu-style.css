@@ -1,6 +1,9 @@
 body.bottom-drawer-shown {
   margin-bottom: 400px;
 }
+body {
+  transition: margin 0.4s ease-in-out;
+}
 
 div.bottom-drawer {
   width: 100%;
