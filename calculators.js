@@ -61,6 +61,25 @@ function deductPlanetaryUranium() {
     } 
 }
 
+function deductPlanetaryIron() {
+    for (var i = 0; i < planets.length; i++) {
+        planets[i].iron += planets[i].ironGenerated;
+        if (planets[i].level >= 4) {
+            var ironLevel = 'some';
+            if (planets[i].iron <= 0) {ironLevel = 'none'}       
+            planets[i].iron -= (planets[i].ironUsageFactor * planets[i].population * .1); //10% of population's worth of iron consumed
+        }
+        if (planets[i].iron < 0) { //no iron after deduction
+            planets[i].population += (planets[i].iron * .05);
+            planets[i].iron = 0;
+            if (ironLevel != 'none' && ironLevel == 'some') { //if there was 'some', but now there is none
+                alert('planet ' + planets[i].name + ' out of iron!');
+            }
+            
+        }
+    } 
+}
+
 function calculateTotalPopulation() {
     var totalPopulation = 0
     for (var i = 0; i < planets.length; i++) {
