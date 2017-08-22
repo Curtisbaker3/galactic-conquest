@@ -16,6 +16,12 @@
                 <div class="grid-item">
                     <h1>Galactic Conquest |&nbsp;<span class="title-bar-button" onclick="onNewTurn()" id="TurnCounter">Turn: 1<span></h1>
                 </div>
+                    <div class="nav-item">
+                        <div>Roll: <span id="rollDice" class="title-bar-button" onclick="rollDice()">0</span></div>
+                    </div>   
+                    <div class="nav-item">
+                        <div>Location: <span id="shipLocation">Earth</span></div>
+                    </div>                       
                 <div class="grid-item end">
                     <div class="nav-item">
                         <div>Ship Pop: <span id="shipPopulation" class="title-bar-button" onclick="takePopulation()">70</span></div>
@@ -27,28 +33,30 @@
                         <div>Income: <span id="income">$0.00</span></div>
                     </div>
                     <div class="nav-item">
-                        <div>Total Pop: <span id="population">0</span></div>
+                        <div>Planetary Pop: <span id="population">0</span></div>
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div> 
         <!-- Split section with cards -->
         <div class="section">
             <div class="card" style="flex-grow:2;">
                 
                 <!-- Planet Table -->
                 <div class="table" id="planetcontainer">
+                    
                     <div class="table-header">
                         <div class="table-title">Name</div>
                         <div class="table-title right">Income</div>                        
-                        <div class="table-title right">Population</div>
-                        <div class="table-title right">Max Pop</div>
-                        <div class="table-title center button">Requirements</div>                        
-                        <div class="table-title half right">Safety</div>
-                        <div class="table-title half right">Invaders</div>
-                        <div class="table-title half right">Water</div>
-                        <div class="table-title half right">Oil</div>             
+                        <div class="table-title half center">Rent</div>                        
+                        <div class="table-title half center">Pop</div>
+                        <div class="table-title center">Max Pop</div>
+                        <div class="table-title half center button">Requisite</div>                        
+                        <div class="table-title half center">Safety</div>
+                        <div class="table-title half center">Invaders</div>
+                        <div class="table-title half center">Water</div>
+                        <div class="table-title half center">Oil</div>             
+                        <div class="table-title half right">Uranium</div>             
                     </div>
                     <div id="planetlist" class="table-body">
                         <!-- Planet Items -->

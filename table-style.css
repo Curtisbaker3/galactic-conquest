@@ -1,7 +1,7 @@
 div.table {
   width: 100%;
   color: white;
-  overflow: hidden;
+ /* overflow: hidden; removed this so that tooltips would not be hidden, we need a tooltip override or something*/
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
