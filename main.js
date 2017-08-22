@@ -63,6 +63,7 @@ function onNewTurn() {
     deductPlanetaryWater();
     deductPlanetaryOil();
     deductPlanetaryUranium();
+    deductPlanetaryIron();
     drawIncome(calculateIncome());
     drawPlanets();
     drawTotalPopulation(calculateTotalPopulation());
@@ -213,6 +214,11 @@ function onPlanetDevelopment(index, event) {
         return;
     }
 
+    if (planets[index].iron <= 0 && planets[index].level == 3) {
+        alert('Not enough iron to develop planet!')
+        return;
+    }
+
     var planet = planets[index];
     var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level + 1]
     if (0 < 1) { //removed money > nextPlanetRequirement.cost until LOC developed
@@ -276,12 +282,13 @@ const renderPlanet = (planet, i) => {
             <div class="table-text half right"><button class="tooltip" onclick="onTransferWater(${i}, event)">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
             <div class="table-text half right"><button class="tooltip" onclick="onTransferOil(${i}, event)">${ planet.oil.toFixed(0) }<span class="tooltiptext">Click to transfer oil here from other planets. Cost: 5<span></button></div>
             <div class="table-text half right"><button class="tooltip" onclick="onTransferUranium(${i}, event)">${ planet.uranium.toFixed(0) }<span class="tooltiptext">Click to transfer uranium here from other planets. Cost: 5<span></button></div>
+            <div class="table-text half right"><button class="tooltip" onclick="onTransferIron(${i}, event)">${ planet.iron.toFixed(0) }<span class="tooltiptext">Click to transfer iron here from other planets. Cost: 5<span></button></div>
         </div>
     `
 };
 
 function onSubmitPlanet(planetResourceIndex) {
-    var populationInput = prompt('Enter population you\'d like to send to this planet.');
+    var populationInput = prompt('Enter population you would like to send to this planet.');
     if (populationInput === null) {
         return;
     }
@@ -303,7 +310,7 @@ function onSubmitPlanet(planetResourceIndex) {
         level: 0,
         nextPlanetRequirements: _.clone(nextPlanetRequirements),
         availableBuildItems: _.clone(availableBuildItems),
-        mainPageBuildItems: _.clone(mainPageBuildItems),
+        mainPageBuildItems: _.cloneDeep(mainPageBuildItems),
         expenses: 0,
         safetyLevel: 100,
         water: 0,
@@ -316,7 +323,10 @@ function onSubmitPlanet(planetResourceIndex) {
         oilUsageFactor: 1,
         uranium: 0,
         uraniumGenerated: 0,
-        uraniumUsageFactor: 1,        
+        uraniumUsageFactor: 1,
+        iron: 0,
+        ironGenerated: 0,
+        ironUsageFactor: 1,        
         enemies: 0,
         income: Number(population * .1 - (5 * randomIncomeModifier + 1)),
         rent: 0,    

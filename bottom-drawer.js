@@ -26,10 +26,10 @@ function onPlanetRowClicked(i) {
 }
 
 const mainPageBuildItems = [{
-  description: 'Click to bolster defences. +60 to safety. Decreases risk of invasion.',
+  description: 'Click to bolster defences. +60 to safety. Decreases risk of invasion. Cost 20.',
   cost: 20
 }, {
-  description: 'Click to send troops.',
+  description: 'Click to send troops. Cost 15.',
   cost: 15
 }, ]
 
@@ -114,6 +114,9 @@ function onBuildItemClicked(index) {
       case 'Transfer Uranium': 
         onTransferUranium(currentBuildPlanetIndex);
         break;
+      case 'Transfer Iron': 
+        onTransferIron(currentBuildPlanetIndex);
+        break;
       case 'Hire Foreigners': 
         onHireForeigners(currentBuildPlanetIndex);
         break;
@@ -140,6 +143,9 @@ function onBuildItemClicked(index) {
         break;    
       case 'Fountains': 
         onBuildFountain(currentBuildPlanetIndex, index); //index is the current build item
+        break;    
+      case 'Iron Centre': 
+        onBuildIronCentre(currentBuildPlanetIndex, index); //index is the current build item
         break; 
       default:
         alert('Item not configured: ' + buildItem.title);
@@ -227,6 +233,23 @@ function onBuildUraniumMill(index, buildItem) {
   t.uraniumGenerated *= 2;
   x = t.incomeCost;
   t.description = 'Generates ' + y + 't uranium. Decreases income by ' + x;  
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+
+function onBuildIronCentre(index, buildItem) {
+  var t = planets[index].availableBuildItems[buildItem];
+  planets[index].ironGenerated += t.ironGenerated;
+  x = t.incomeCost;
+  y = t.ironGenerated;
+  t.description = 'Generates ' + y + 't iron. Decreases income by ' + x;  
+  planets[index].expenses += x;
+  t.incomeCost *= 2;
+  t.cost *= 2;
+  t.ironGenerated *= 2;
+  x = t.incomeCost;
+  t.description = 'Generates ' + y + 't iron. Decreases income by ' + x;  
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
@@ -427,6 +450,27 @@ function onTransferUranium(planetIndex) {
   planetTarget.uranium += totalUraniumTaken;
   drawPlanets();
   if (totalUraniumTaken > 0) {money -= 5;} //take money if we did something  
+  drawMoney();
+}
+
+function onTransferIron(planetIndex) {
+  event.preventDefault();
+  event.stopPropagation();  
+  var planetTarget = planets[planetIndex];
+  var totalIronTaken = 0;
+  var eachIronTaken = 0;
+  const ironPlanets = _.filter(planets, {resource: 'Iron'});
+  for (var i = 0; i < planets.length; i++) {
+    if (planetTarget === ironPlanets[i]) { //skips planet if
+      continue;
+    }
+    eachIronTaken = planets[i].iron * .3;
+    totalIronTaken += Number(eachIronTaken);
+    planets[i].iron -= eachIronTaken;
+  }
+  planetTarget.iron += totalIronTaken;
+  drawPlanets();
+  if (totalIronTaken > 0) {money -= 5;} //take money if we did something  
   drawMoney();
 }
 

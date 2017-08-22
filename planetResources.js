@@ -77,6 +77,16 @@ function createSpecialButtons(i) {
             safetyGenerated: 1,
         });
         break;
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Iron Centre',
+            description: 'Increases efficiency of all planets by +1/year. Costs 3 income',
+            cost: 40,
+            incomeCost: 3,
+            buildCount: 0,
+            ironGenerated: 1,
+        });
+        break;
         default:
             console.log('no unique resources');
         break;
@@ -257,23 +267,23 @@ const planetResources = [{
     resource: 'Copper',
     cost: 170,
 }, {
-    title: 'Saturn Space Dock',
+    title: 'Saturn SD',
     resource: 'Uranium',
     cost: 300,
 }, {
-    title: 'Uranus Space Dock',
+    title: 'Uranus SD',
     resource: 'Uranium',
     cost: 300,
 }, {
-    title: 'Neptune Space Dock',
+    title: 'Neptune SD',
     resource: 'Uranium',
     cost: 325,
 }, {
-    title: 'Jupiter Space Dock',
+    title: 'Jupiter SD',
     resource: 'Uranium',
     cost: 275,
 }, {
-    title: 'Solar Space Dock',
+    title: 'Solar SD',
     resource: 'Uranium',
     cost: 350,
 }, {
@@ -302,27 +312,27 @@ const planetResources = [{
     cost: 350,
 }, {
     title: 'Earth',
-    resource: 'Uranium',
+    resource: 'Iron',
     cost: 800,
 }, {
     title: 'Jupiter',
-    resource: 'Uranium',
+    resource: 'Iron',
     cost: 1200,
 }, {
     title: 'Uranus',
-    resource: 'Water',
+    resource: 'Iron',
     cost: 900,
 }, {
     title: 'Saturn',
-    resource: 'Gold',
+    resource: 'Iron',
     cost: 1100,
 }, {
     title: 'Neptune',
-    resource: 'Water',
+    resource: 'Iron',
     cost: 800,
 }, {
     title: 'Sun',
-    resource: 'Uranium',
+    resource: 'Iron',
     cost: 2000,
 }, ];
 
