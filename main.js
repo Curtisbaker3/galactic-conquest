@@ -277,7 +277,7 @@ const renderPlanet = (planet, i) => {
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
             <div class="table-text half right" style="display:flex;"><button class="tooltip" onclick="onPlanetDevelopment(${i}, event)">${ pr.name }<span class="tooltiptext">Cost: ${ formatMoney(pr.cost) }. <br>Income Cost: ${ formatMoney(pr.incomeCost) } <span></button></div>            
             <div class="table-text half right"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
-            ${ formatMoney(planets[q].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[q].mainPageBuildItems[0].cost) } <span></button></div>          
+            ${ formatMoney(planets[i].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[i].mainPageBuildItems[0].cost) } <span></button></div>          
             <div class="table-text half right"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mainPageBuildItems[1].description) } <br>Cost: ${ formatMoney(mainPageBuildItems[1].cost) } <span></button></div>          
             <div class="table-text half right"><button class="tooltip" onclick="onTransferWater(${i}, event)">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
             <div class="table-text half right"><button class="tooltip" onclick="onTransferOil(${i}, event)">${ planet.oil.toFixed(0) }<span class="tooltiptext">Click to transfer oil here from other planets. Cost: 5<span></button></div>
