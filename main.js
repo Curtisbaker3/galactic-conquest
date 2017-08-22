@@ -55,7 +55,9 @@ function onNewTurn() {
             }
         }
         calculateRent(i);
-
+        if (planets[i].waterAutoTransfer > 0) {
+            addWaterTransfer(i);
+        }
  
     }
     deductPlanetaryWater();
@@ -259,7 +261,7 @@ function drawPlanets() {
 
 const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
-    const mp = mainPageBuildItems;
+    var q = planets.length - 1    
     return `
         <div onclick="onPlanetRowClicked(${i})" class="table-row clickable">
             <div class="table-text">${ planet.name }</div>
@@ -268,8 +270,9 @@ const renderPlanet = (planet, i) => {
             <div class="table-text half left"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
             <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
             <div class="table-text half right" style="display:flex;"><button class="tooltip" onclick="onPlanetDevelopment(${i}, event)">${ pr.name }<span class="tooltiptext">Cost: ${ formatMoney(pr.cost) }. <br>Income Cost: ${ formatMoney(pr.incomeCost) } <span></button></div>            
-            <div class="table-text half right"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">${ formatMoney(mp[0].description) } <br>Cost: ${ formatMoney(mp[0].cost) } <span></button></div>          
-            <div class="table-text half right"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mp[1].description) } <br>Cost: ${ formatMoney(mp[1].cost) } <span></button></div>          
+            <div class="table-text half right"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
+            ${ formatMoney(planets[q].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[q].mainPageBuildItems[0].cost) } <span></button></div>          
+            <div class="table-text half right"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mainPageBuildItems[1].description) } <br>Cost: ${ formatMoney(mainPageBuildItems[1].cost) } <span></button></div>          
             <div class="table-text half right"><button class="tooltip" onclick="onTransferWater(${i}, event)">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
             <div class="table-text half right"><button class="tooltip" onclick="onTransferOil(${i}, event)">${ planet.oil.toFixed(0) }<span class="tooltiptext">Click to transfer oil here from other planets. Cost: 5<span></button></div>
             <div class="table-text half right"><button class="tooltip" onclick="onTransferUranium(${i}, event)">${ planet.uranium.toFixed(0) }<span class="tooltiptext">Click to transfer uranium here from other planets. Cost: 5<span></button></div>
@@ -306,6 +309,7 @@ function onSubmitPlanet(planetResourceIndex) {
         water: 0,
         waterGenerated: 0,
         waterUsageFactor: 1,
+        waterAutoTransfer: 0, //add 1 to increase autotransfer by 10%
         waterPopRateMod: 1,
         oil: 0,
         oilGenerated: 0,
@@ -319,6 +323,7 @@ function onSubmitPlanet(planetResourceIndex) {
         incomeBonuses: 0,
         maxpopulation: Number(50 + Math.random() * 50)
     });
+
     findRandomResource(planets.length - 1);
     createSpecialButtons(planets.length - 1);
     var findPlanetName = _.find(planetResources, {title: planets[planets.length - 1].name});

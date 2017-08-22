@@ -330,9 +330,30 @@ function onRelocateCitizens(index) {
       drawPlanets();
 }
 
-function onTransferWater(planetIndex) {
+function onTransferWater(planetIndex, event) {
   event.preventDefault();
-  event.stopPropagation();
+  event.stopPropagation();  
+  console.log(event);
+      if (event.ctrlKey) {
+        planets[planetIndex].waterAutoTransfer += 1;
+      }
+      if (event.shiftKey) {
+        if (planets[planetIndex].waterAutoTransfer = 0) {
+        planets[planetIndex].waterAutoTransfer = 0;
+        return;
+        } else {
+          planets[planetIndex].waterAutoTransfer -= 1;
+          return;
+        }
+    }
+    if (!event.shiftKey && !event.ctrlKey) {
+      manualTransfer = true
+    }
+    addWaterTransfer(planetIndex);
+}
+  var manualTransfer = false
+
+function addWaterTransfer(planetIndex) {
   var planetTarget = planets[planetIndex];
   var totalWaterTaken = 0;
   var eachWaterTaken = 0;
@@ -341,13 +362,29 @@ function onTransferWater(planetIndex) {
     if (planetTarget === waterPlanets[i]) {
       continue;
     }
-    eachWaterTaken = waterPlanets[i].water * .3;
+    if (planets[planetIndex].waterAutoTransfer > 0) {
+      if (planets[planetIndex].water < planets[planetIndex].population) {
+      transferAmount = planets[planetIndex].waterAutoTransfer / 10
+      var charge = 5
+      } else {
+        transferAmount = 0
+      }
+    }
+      if (manualTransfer === true) {
+      var charge = 5;
+      transferAmount = .3;
+      manualTransfer = false;
+     
+      }
+    
+
+    eachWaterTaken = waterPlanets[i].water * transferAmount;
     totalWaterTaken += Number(eachWaterTaken);
     waterPlanets[i].water -= eachWaterTaken;
   }
   planetTarget.water += totalWaterTaken;
   drawPlanets();
-  if (totalWaterTaken > 0) {money -= 5;} //take money if we did something
+  if (totalWaterTaken > 0) {money -= charge;} //take money if we did something
   drawMoney();
 }
 
