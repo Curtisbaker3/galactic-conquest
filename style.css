@@ -164,15 +164,19 @@ div.card {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
+    transition: all 0.2s ease-in-out;
     /*overflow: visible;*/
 }
 
 .tooltip .tooltiptext {
+    transition: all 0.2s ease-in-out;
     visibility: hidden;
     width: 150px;
-    background-color: #90BF60;
-    color: black;
+    opacity: 0;
+    background-color: #77b395;
+    color: white;
     text-align: center;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.48);
     border-radius: 6px;
     padding: 5px 0;
     
@@ -187,7 +191,6 @@ div.card {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
-    /*overflow: visible !important;*/
-    
+    opacity: 1;
 }
 
