@@ -35,11 +35,11 @@ function createSpecialButtons(i) {
         case 'Water': 
             planets[i].availableBuildItems.push({
             title: 'Water Well',
-            description: 'Generates 200t water/yr. -1 inc.',
+            description: 'Generates 20t water/yr. -1 inc.',
             cost: 20,
             incomeCost: 1,
             buildCount: 0,
-            waterGenerated: 200
+            waterGenerated: 20
         });
         case 'Water': 
             planets[i].availableBuildItems.push({
@@ -58,21 +58,21 @@ function createSpecialButtons(i) {
         case 'Oil': 
             planets[i].availableBuildItems.push({
             title: 'Oil Extractor',
-            description: 'Generates 50t oil/yr. -1 inc.',
-            cost: 40,
-            incomeCost: 1,
+            description: 'Generates 40t oil/yr. -2 inc.',
+            cost: 50,
+            incomeCost: 2,
             buildCount: 0,
-            oilGenerated: 50,
+            oilGenerated: 40,
         });
         break;
         case 'Uranium': 
             planets[i].availableBuildItems.push({
             title: 'Uranium Mill',
-            description: 'Generates 20t uranium/yr. -2 inc.',
+            description: 'Generates 60t uranium/yr. -3 inc.',
             cost: 80,
-            incomeCost: 2,
+            incomeCost: 3,
             buildCount: 0,
-            uraniumGenerated: 20,
+            uraniumGenerated: 60,
         });
         case 'Uranium': 
             planets[i].availableBuildItems.push({
@@ -87,11 +87,11 @@ function createSpecialButtons(i) {
         case 'Iron': 
             planets[i].availableBuildItems.push({
             title: 'Iron Centre',
-            description: 'Increases efficiency of all planets by +1/year. Costs 3 income',
-            cost: 40,
-            incomeCost: 3,
+            description: 'Generates 80t iron/yr. -4 inc.',
+            cost: 100,
+            incomeCost: 4,
             buildCount: 0,
-            ironGenerated: 1,
+            ironGenerated: 80,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({

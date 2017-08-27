@@ -11,10 +11,10 @@ function deductPlanetaryWater() {
         if (planets[i].level >= 2) {
             var waterLevel = 'some';
             if (planets[i].water <= 0) {waterLevel = 'none'}       
-            planets[i].water -= (planets[i].waterUsageFactor * planets[i].population);
+            planets[i].water -= (planets[i].waterUsageFactor * planets[i].population * .1);
         }
         if (planets[i].water < 0) {
-            planets[i].population += (planets[i].water * .1);
+            planets[i].population += (planets[i].water);
             planets[i].water = 0
             if (waterLevel != 'none' && waterLevel == 'some') {
                 alert('planet ' + planets[i].name + ' out of water!');
@@ -30,10 +30,10 @@ function deductPlanetaryOil() {
         if (planets[i].level >= 3) {
             var oilLevel = 'some';
             if (planets[i].oil <= 0) {oilLevel = 'none'}       
-            planets[i].oil = planets[i].oil - (planets[i].oilUsageFactor * planets[i].population * .2); //20% of population's worth of oil consumed
+            planets[i].oil = planets[i].oil - (planets[i].oilUsageFactor * planets[i].population * .1); //20% of population's worth of oil consumed
         }
         if (planets[i].oil < 0) {
-            planets[i].population += (planets[i].oil * .05);
+            planets[i].population += (planets[i].oil);
             planets[i].oil = 0;
             if (oilLevel != 'none' && oilLevel == 'some') {
                 alert('planet ' + planets[i].name + ' out of oil!');
@@ -52,7 +52,7 @@ function deductPlanetaryUranium() {
             planets[i].uranium -= (planets[i].uraniumUsageFactor * planets[i].population * .1); //10% of population's worth of uranium consumed
         }
         if (planets[i].uranium < 0) { //no uranium after deduction
-            planets[i].population += (planets[i].uranium * .05);
+            planets[i].population += (planets[i].uranium);
             planets[i].uranium = 0;
             if (uraniumLevel != 'none' && uraniumLevel == 'some') { //if there was 'some', but now there is none
                 alert('planet ' + planets[i].name + ' out of uranium!');
@@ -71,7 +71,7 @@ function deductPlanetaryIron() {
             planets[i].iron -= (planets[i].ironUsageFactor * planets[i].population * .1); //10% of population's worth of iron consumed
         }
         if (planets[i].iron < 0) { //no iron after deduction
-            planets[i].population += (planets[i].iron * .05);
+            planets[i].population += (planets[i].iron);
             planets[i].iron = 0;
             if (ironLevel != 'none' && ironLevel == 'some') { //if there was 'some', but now there is none
                 alert('planet ' + planets[i].name + ' out of iron!');

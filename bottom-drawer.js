@@ -224,7 +224,6 @@ function onBuildOilExtractor(index, buildItem) {
   planets[index].oilGenerated += t.oilGenerated;
   x = t.incomeCost;
   y = t.oilGenerated;
-  console.log('paid this in income:' + x)
   planets[index].expenses += x;
   t.incomeCost *= 2;
   t.cost *= 2;
@@ -241,7 +240,6 @@ function onBuildUraniumMill(index, buildItem) {
   planets[index].uraniumGenerated += t.uraniumGenerated;
   x = t.incomeCost;
   y = t.uraniumGenerated;
-  t.description = 'Generates ' + y + 't uranium. Decreases income by ' + x;  
   planets[index].expenses += x;
   t.incomeCost *= 2;
   t.cost *= 2;
@@ -258,7 +256,6 @@ function onBuildIronCentre(index, buildItem) {
   planets[index].ironGenerated += t.ironGenerated;
   x = t.incomeCost;
   y = t.ironGenerated;
-  t.description = 'Generates ' + y + 't iron. Decreases income by ' + x;  
   planets[index].expenses += x;
   t.incomeCost *= 2;
   t.cost *= 2;
@@ -392,35 +389,40 @@ function onTransferCitizens(index) {
       planets[index].population = planetTarget.maxpopulation;
       } 
     }
-      drawTotalPopulation(calculateTotalPopulation());
-      calculateIndividualPlanetIncomes();
-      drawIncome(calculateIncome());
-      drawPlanets();
+  drawTotalPopulation(calculateTotalPopulation());
+  calculateIndividualPlanetIncomes();
+  drawIncome(calculateIncome());
+  drawPlanets();
 }
 
 function onRelocateCitizens(index) {
     var planetTarget = planets[index];
-    var tempPopulationToSend = planetTarget.population * .3;
-    var popToSendToEach = tempPopulationToSend / (planets.length -1)
+    var totalPopulationToSend = planetTarget.population * .3;
+    var popToSendToEach = totalPopulationToSend / (planets.length -1)
+    var int = 0
 
       for (var i = 0; i < planets.length; i++) {
+        int += 1;
         if (planets[i].population + popToSendToEach < planets[i].maxpopulation) {
           if (planets[i] === planetTarget) {
             continue;
           }
       planets[i].population += popToSendToEach;
-      tempPopulationToSend -= popToSendToEach;
+      totalPopulationToSend -= popToSendToEach;
       planetTarget.population -= popToSendToEach;
       } else {
-      tempPopulationToSend -= planets[i].maxpopulation - planets[i].population;
+      
+      populationToSendNow = planets[i].maxpopulation - planets[i].population;
+      totalPopulationToSend -= planets[i].maxpopulation - planets[i].population;
       planets[i].population = planets[i].maxpopulation
-      planetTarget.population -= tempPopulationToSend;
+      planetTarget.population -= populationToSendNow;
+      popToSendToEach += totalPopulationToSend / (planets.length - (int - 1));
       } 
     }
-      drawTotalPopulation(calculateTotalPopulation());
-      calculateIndividualPlanetIncomes();
-      drawIncome(calculateIncome());
-      drawPlanets();
+  drawTotalPopulation(calculateTotalPopulation());
+  calculateIndividualPlanetIncomes();
+  drawIncome(calculateIncome());
+  drawPlanets();
 }
 
 function onTransferWater(planetIndex, event) {
@@ -447,17 +449,24 @@ function onTransferWater(planetIndex, event) {
   var manualTransfer = false
 
 function addWaterTransfer(planetIndex) {
-  var planetTarget = planets[planetIndex];
-  var totalWaterTaken = 0;
-  var eachWaterTaken = 0;
+  var receivingPlanet = planets[planetIndex];
+  var totalAmountTaken = 0;
+  var individualAmountTaken = 0;
+  var totalAmountAvailable = 0;
   const waterPlanets = _.filter(planets, {resource: 'Water'}); // filtered version, with all the water planets
   for (var i = 0; i < waterPlanets.length; i++) {
-    if (planetTarget === waterPlanets[i]) {
+    totalAmountAvailable += planets[i].water;
+  }
+  if (totalAmountAvailable < 1) {
+    return;
+  } else {
+  for (var i = 0; i < waterPlanets.length; i++) {
+    if (receivingPlanet === waterPlanets[i]) {
       continue;
     }
     if (planets[planetIndex].waterAutoTransfer > 0) {
-      if (planets[planetIndex].water < planets[planetIndex].population) {
-      transferAmount = planets[planetIndex].waterAutoTransfer / 10
+      if (receivingPlanet.water < planets[planetIndex].population / 10) {
+      transferAmount = (receivingPlanet.population / 10) / totalAmountAvailable;
       var charge = 5
       } else {
         transferAmount = 0
@@ -469,15 +478,14 @@ function addWaterTransfer(planetIndex) {
       manualTransfer = false;
      
       }
-    
-
-    eachWaterTaken = waterPlanets[i].water * transferAmount;
-    totalWaterTaken += Number(eachWaterTaken);
-    waterPlanets[i].water -= eachWaterTaken;
+    individualAmountTaken = waterPlanets[i].water * transferAmount;
+    totalAmountTaken += Number(individualAmountTaken);
+    waterPlanets[i].water -= individualAmountTaken;
+    }
   }
-  planetTarget.water += totalWaterTaken;
+  receivingPlanet.water += totalAmountTaken;
   drawPlanets();
-  if (totalWaterTaken > 0) {money -= charge;} //take money if we did something
+  if (totalAmountTaken > 0) {money -= charge;} //take money if we did something
   drawMoney();
 }
 

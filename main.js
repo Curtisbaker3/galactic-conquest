@@ -1,5 +1,6 @@
 /* 100 turns high records list -- 476.29 curtis
-
+make federations stations and earth give money
+added extrasolar moons for extra $$
 Add random event cards. Bonus population, water, oil, uranium. Collect on space docks. Free colony ship, which can be sent to an extrasolar moon
 make alert for on maxpopulation reached, fulfill planet requirements to develop planet
 
@@ -9,6 +10,11 @@ Add iron resource -- decreases cost of buildings with manufacturing centers
 
 Add highlight to planets with low resources or safety or invaders
 explore function
+
+Trade module -- adds main ship to planet list, 25% chance to open trade menu when land on foreign moon
+Auto transfer oil and others
+Add fuel and oil upgrade
+autoreplenish fuel
 */
 var waterBaseRateModUniversalFountain = 0
 function onNewTurn() {
@@ -476,5 +482,5 @@ planetLocations[201] = "Titania";
 planetLocations[300] = "Titan";
 planetLocations[301] = "FS VII";
 
-planetLocations[401] = "Naiad";
+planetLocations[400] = "Naiad";
 var planetLocationsJupiterSideTrack = 1;
