@@ -164,7 +164,9 @@ function rollDice() {
       default:
         break;
     }
-    document.getElementById('shipLocation').innerText = planetLocations[shipLocation];    
+    document.getElementById('shipLocation').innerText = planetLocations[shipLocation];
+    document.getElementById('planet-search').value = planetLocations[shipLocation].toLowerCase();
+    handlePlanetSearch();  
 }
 
 function drawIncome(income) {
@@ -457,22 +459,22 @@ var turrets = [{
 if (localStorage.getItem('game')) {
     load();
 }
-var planetLocations = ['Earth', 'hole1', 'Moon', 'Solar SD', 'Mercury', 'FS I', 'dot1', 'dot2', 'IO', 'Jupiter SD', 'dot3', 'Elara', 'Callisto', 'FS II', 'Thebe', 
-'dot4', 'Metis', 'Ganymede', 'Sinope', 'hole2', 'hole3', 'hole4', 'FS III', 'dot4', 'Mirdanda', 'Uranus SD', 'Umbriel', 'Oberon', 'Portia', 'Uranus RL', 'dot5', 'Ariel', 'hole5',
-'hole6', 'hole7', 'Pluto', 'Charon', 'dot6', 'FS 5', 'dot7', 'dot8', 'Phobos', 'Mars', 'Deimos', 'dot9', 'Venus RL', 'Venus', 'hole8', 'Phoebe', 'Mimas', 'Saturn SD', 'Dione',
-'dot10', 'Iapetus', 'Rhea', 'Tethys', 'FS VI', 'Janus', 'Enceladus', 'Saturn RL', 'Hyperion', 'hole8', 'hole9', 'hole10', 'hole11', 'FS VIII',
-'Proteus', 'Neried', 'Larissa', 'Neptune SD', 'Thalassa', 'Neptune RL', 'Despina', 'Triton', 'FS IV', 'Galatea', 'hole12', 'hole13', 'hole14', 'Earth RL'];
-planetLocations[100] = 'Jupiter RL';
-planetLocations[101] = 'Himalia';
-planetLocations[102] = 'Europa';
-planetLocations[103] = 'Amalthea';
-planetLocations[104] = 'Adrastea';
+var planetLocations = ["Earth", "hole1", "Moon", "Solar SD", "Mercury", "FS I", "dot1", "dot2", "IO", "Jupiter SD", "dot3", "Elara", "Callisto", "FS II", "Thebe", 
+"dot4", "Metis", "Ganymede", "Sinope", "hole2", "hole3", "hole4", "FS III", "dot4", "Miranda", "Uranus SD", "Umbriel", "Oberon", "Portia", "Uranus RL", "dot5", "Ariel", "hole5",
+"hole6", "hole7", "Pluto", "Charon", "dot6", "FS 5", "dot7", "dot8", "Phobos", "Mars", "Deimos", "dot9", "Venus RL", "Venus", "hole8", "Phoebe", "Mimas", "Saturn SD", "Dione",
+"dot10", "Iapetus", "Rhea", "Tethys", "FS VI", "Janus", "Enceladus", "Saturn RL", "Hyperion", "hole8", "hole9", "hole10", "hole11", "FS VIII",
+"Proteus", "Nereid", "Larissa", "Neptune SD", "Thalassa", "Neptune RL", "Despina", "Triton", "FS IV", "Galatea", "hole12", "hole13", "hole14", "Earth RL"];
+planetLocations[100] = "Jupiter RL";
+planetLocations[101] = "Himalia";
+planetLocations[102] = "Europa";
+planetLocations[103] = "Amalthea";
+planetLocations[104] = "Adrastea";
 
-planetLocations[200] = 'FS IV';
-planetLocations[201] = 'Titania';
+planetLocations[200] = "FS IV";
+planetLocations[201] = "Titania";
 
-planetLocations[300] = 'Titan';
-planetLocations[301] = 'FS VII';
+planetLocations[300] = "Titan";
+planetLocations[301] = "FS VII";
 
-planetLocations[401] = 'Naiad';
+planetLocations[401] = "Naiad";
 var planetLocationsJupiterSideTrack = 1;

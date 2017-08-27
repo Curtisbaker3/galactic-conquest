@@ -396,7 +396,7 @@ function drawUniqueUnknownPlanets() {
 function synthesizeOtherPlanetData() {
     for (var index = 0; index < planetResources.length; index++) {
         planetResources[index].maxPopulation = (Math.pow(planetResources[index].cost, 1.5) / 50 ).toFixed(0);
-        planetResources[index].upkeep = Number((Math.pow(planetResources[index].cost, 1.9) / 10000 ).toFixed(2));
+        planetResources[index].upkeep = Number((Math.pow(planetResources[index].cost, 2) / 17000 ).toFixed(2));
     }
 }
 
@@ -405,6 +405,13 @@ function handlePlanetSearch() {
     searchstr = input.value;
     drawUniqueUnknownPlanets();
 };
+
+function erasePlanetSearch() {
+    if (document.getElementById('planet-search').value != '') {
+    document.getElementById('planet-search').value = ''
+    handlePlanetSearch();
+    }
+}
 
 function renderUniquePlanet (i) {
     synthesizeOtherPlanetData();
