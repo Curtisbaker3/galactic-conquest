@@ -8,7 +8,9 @@ Add iron resource -- decreases cost of buildings with manufacturing centers
     decrease waterusagefactor, oilusagefactor -- efficiency buildings - ex. water recycle plant
 
 Add highlight to planets with low resources or safety or invaders
+explore function
 */
+var waterBaseRateModUniversalFountain = 0
 function onNewTurn() {
     var tempIncome = calculateIncome();
     money = money + tempIncome;
@@ -42,8 +44,15 @@ function onNewTurn() {
             planets[i].enemies += tempEnemyIncrease;
         }
 
-        if (planets[i].population < planets[i].maxpopulation) {
-            tempPopIncrease = planets[i].population * .08 * (planets[i].safetyLevel * .011) * planets[i].waterPopRateMod - (.3 * planets[i].enemies); //Multiplies pop incr. by 110% of safety level
+            
+            var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 1.7))/15) / 200
+            tempPopIncrease = planets[i].population * (.02 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].safetyLevel * .011); //Multiplies pop incr. by 110% of safety level
+            if (tempPopIncrease > 0) { //increase positive increases, and decrease decreases
+                tempPopIncrease = tempPopIncrease * planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+            } else {
+                tempPopIncrease = tempPopIncrease / planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+            }
+        if (planets[i].population < planets[i].maxpopulation || tempPopIncrease < 0) {
             if (planets[i].population + tempPopIncrease <= 0) {
                 planets[i].population = 0;
             } else {
@@ -271,10 +280,15 @@ const renderPlanet = (planet, i) => {
     return `
         <div onclick="onPlanetRowClicked(${i})" class="table-row clickable">
             <div class="table-text">${ planet.name }</div>
-            <div class="table-text right">${ formatMoney(planet.income) }</div>            
+            <div id="${i}" class="table-text right">${ formatMoney(planet.income) }</div>            
+            <div class="table-text half center form"><form class="form" onclick="onChangeTax(${i}, event)" onkeyup="onChangeTax(${i}, event)" onsubmit="onChangeTax(${i}, event)">
+            
+            
+            <input id="taxForm${i}" type="number" step="1" style="height: 8px; width: 60px" value=${ (planet.tax * 100).toFixed(0) }>
+            
+            </form></div>            
             <div class="table-text half right button"><button class="tooltip" onclick="onCollectRent(${i}, event)">${ planet.rent.toFixed(0) }<span class="tooltiptext">Click to collect rent from opponent<span></button></div>             
-            <div class="table-text half left button"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
-            <div class="table-text right">${ planet.maxpopulation.toFixed(0) }</div>
+            <div class="table-text left button"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) } / ${ planet.maxpopulation.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
             <div class="table-text half right button" style="display:flex;"><button class="tooltip" onclick="onPlanetDevelopment(${i}, event)">${ pr.name }<span class="tooltiptext">Cost: ${ formatMoney(pr.cost) }. <br>Income Cost: ${ formatMoney(pr.incomeCost) } <span></button></div>            
             <div class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
             ${ formatMoney(planets[i].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[i].mainPageBuildItems[0].cost) } <span></button></div>          
@@ -329,6 +343,7 @@ function onSubmitPlanet(planetResourceIndex) {
         ironUsageFactor: 1,        
         enemies: 0,
         income: Number(population * .1 - (5 * randomIncomeModifier + 1)),
+        tax: .2,
         rent: 0,    
         incomeBonuses: 0,
         maxpopulation: Number(50 + Math.random() * 50)

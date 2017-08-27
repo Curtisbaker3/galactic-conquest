@@ -143,6 +143,9 @@ function onBuildItemClicked(index) {
         break;    
       case 'Fountains': 
         onBuildFountain(currentBuildPlanetIndex, index); //index is the current build item
+        break;        
+      case 'Universal Fountains': 
+        onBuildUniversalFountain(currentBuildPlanetIndex, index); //index is the current build item
         break;    
       case 'Iron Centre': 
         onBuildIronCentre(currentBuildPlanetIndex, index); //index is the current build item
@@ -258,6 +261,17 @@ function onBuildIronCentre(index, buildItem) {
 function onBuildFountain(index, buildItem) {
   planets[index].waterPopRateMod += .3;
   planets[index].availableBuildItems[buildItem].cost *= 1.5
+  drawBuildMenu();
+}
+
+function onBuildUniversalFountain(index, buildItem) {
+  waterBaseRateModUniversalFountain += .01;
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
+  planets[index].availableBuildItems[buildItem].description = 'Adds +1% to the base pop. growth rate of all planets. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
+  drawIncome(calculateIncome());
+  drawPlanets();
   drawBuildMenu();
 }
 

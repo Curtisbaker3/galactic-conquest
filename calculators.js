@@ -1,6 +1,7 @@
 function calculateIndividualPlanetIncomes() { //static function that does not increment income values, just sets it to it's current actual this turn based on pop
     for (var i = 0; i < planets.length; i++) {
-        planets[i].income = planets[i].population * .1 - planets[i].upkeep - (0 * planets[i].randomIncomeModifier + 0) - planets[i].expenses + planets[i].incomeBonuses; //random income modifier not in use currently
+        baseRate = planets[i].tax/2
+        planets[i].income = planets[i].population * baseRate - planets[i].upkeep - (0 * planets[i].randomIncomeModifier + 0) - planets[i].expenses + planets[i].incomeBonuses; //random income modifier not in use currently
     }
 }
 
@@ -114,4 +115,22 @@ function onCollectRent(i) {
 
 function calculateRent(i) {
     planets[i].rent = planets[i].population / 2
+}
+
+function onChangeTax(i) {
+    event.preventDefault();
+    event.stopPropagation();
+    planets[i].tax = document.getElementById('taxForm' + i).value / 100;
+    if (planets[i].tax < 0) {
+        planets[i].tax = 0;
+        document.getElementById('taxForm' + i).value = 0
+    }
+    if (planets[i].tax > 100) {
+        planets[i].tax = 100;
+        document.getElementById('taxForm' + i).value = 100
+    }
+    document.getElementById(i).innerText = formatMoney(planets[i].income);
+    calculateIndividualPlanetIncomes();
+    drawIncome(calculateIncome());
+    console.log("ran change tax");
 }

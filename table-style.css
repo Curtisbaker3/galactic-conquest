@@ -104,3 +104,18 @@ div.table-row-unique:nth-child(odd) {
 div.table-row-unique.table-row:hover {
   background-color: #e3f7ed;
 }
+
+/*form {
+  letter-spacing: normal;
+  border-radius: 1px;
+  color: white;
+  padding: 0;
+  width: 50%;
+  height: 50%;
+  border: none;
+  user-select: none;
+  background-color: rgba(0,0,0,0.1);
+}*/
+
+
+

@@ -47,6 +47,13 @@ function createSpecialButtons(i) {
             description: 'Increases this planets population growth by 30%',
             cost: 20,
         });
+        case 'Water': 
+            planets[i].availableBuildItems.push({
+            title: 'Universal Fountains',
+            description: 'Adds +1% to the base pop. growth rate of all planets. -1 inc.',
+            cost: 40,
+            incomeCost: 1,
+        });
         break;
         case 'Oil': 
             planets[i].availableBuildItems.push({
