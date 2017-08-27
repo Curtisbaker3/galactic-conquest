@@ -382,6 +382,7 @@ function shuffleResources() {
     }*/
 }
 
+var searchstr = '';
 drawUniqueUnknownPlanets();
 function drawUniqueUnknownPlanets() {
     var unknownPlanetList = document.getElementById('uniquePlanetData');
@@ -399,8 +400,23 @@ function synthesizeOtherPlanetData() {
     }
 }
 
+function handlePlanetSearch() {
+    var input = document.getElementById('planet-search');
+    searchstr = input.value;
+    drawUniqueUnknownPlanets();
+};
+
 function renderUniquePlanet (i) {
     synthesizeOtherPlanetData();
+    let title = planetResources[i].title.toLowerCase();
+    let search = searchstr.toLowerCase();
+    if (search) {
+        console.log(search);
+        console.log(title);
+        if (title.indexOf(search) === -1) {
+            return '';
+        }
+    }
     return `
         <div class="table-row-unique table-row" onclick="onSubmitPlanet(${i})">
             <div class="table-text one">${ planetResources[i].title }</div>
