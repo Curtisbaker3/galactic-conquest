@@ -34,7 +34,7 @@ function createSpecialButtons(i) {
         break;
         case 'Water': 
             planets[i].availableBuildItems.push({
-            title: 'Water Generator',
+            title: 'Water Well',
             description: 'Generates 200t water/yr. -1 inc.',
             cost: 20,
             incomeCost: 1,
@@ -93,6 +93,34 @@ function createSpecialButtons(i) {
             buildCount: 0,
             ironGenerated: 1,
         });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgraded Oil Wells',
+            description: 'Increases production of all oil wells by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgraded Water Wells',
+            description: 'Increases production of all water wells by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgraded Uranium Mills',
+            description: 'Increases production of all uranium mills by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgraded Iron Centers',
+            description: 'Increases production of all iron by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
         break;
         default:
             console.log('no unique resources');
@@ -111,7 +139,7 @@ const planetResources = [{
     cost: 170,
 }, {
     title: 'Ganymede',
-    resource: 'Gold',
+    resource: 'Iron',
     cost: 360,
 }, {
     title: 'Sinope',
@@ -183,7 +211,7 @@ const planetResources = [{
     cost: 200,
 }, {
     title: 'Rhea',
-    resource: 'Water',
+    resource: 'Iron',
     cost: 300,
 }, {
     title: 'Umbriel',
@@ -235,7 +263,7 @@ const planetResources = [{
     cost: 465,
 }, {
     title: 'Deimos',
-    resource: 'Water',
+    resource: 'Iron',
     cost: 90,
 }, {
     title: 'Phobos',
@@ -259,7 +287,7 @@ const planetResources = [{
     cost: 195,
 }, {
     title: 'Larissa',
-    resource: 'Water',
+    resource: 'Iron',
     cost: 210,
 }, {
     title: 'Nereid',

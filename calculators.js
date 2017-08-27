@@ -7,7 +7,7 @@ function calculateIndividualPlanetIncomes() { //static function that does not in
 
 function deductPlanetaryWater() {
     for (var i = 0; i < planets.length; i++) {
-        planets[i].water += planets[i].waterGenerated
+        planets[i].water += planets[i].waterGenerated * globalWaterProductionFactor;
         if (planets[i].level >= 2) {
             var waterLevel = 'some';
             if (planets[i].water <= 0) {waterLevel = 'none'}       
@@ -26,7 +26,7 @@ function deductPlanetaryWater() {
 
 function deductPlanetaryOil() {
     for (var i = 0; i < planets.length; i++) {
-        planets[i].oil += planets[i].oilGenerated;
+        planets[i].oil += planets[i].oilGenerated * globalOilProductionFactor;
         if (planets[i].level >= 3) {
             var oilLevel = 'some';
             if (planets[i].oil <= 0) {oilLevel = 'none'}       
@@ -45,7 +45,7 @@ function deductPlanetaryOil() {
 
 function deductPlanetaryUranium() {
     for (var i = 0; i < planets.length; i++) {
-        planets[i].uranium += planets[i].uraniumGenerated;
+        planets[i].uranium += planets[i].uraniumGenerated * globalUraniumProductionFactor;
         if (planets[i].level >= 4) {
             var uraniumLevel = 'some';
             if (planets[i].uranium <= 0) {uraniumLevel = 'none'}       
@@ -64,7 +64,7 @@ function deductPlanetaryUranium() {
 
 function deductPlanetaryIron() {
     for (var i = 0; i < planets.length; i++) {
-        planets[i].iron += planets[i].ironGenerated;
+        planets[i].iron += planets[i].ironGenerated * globalIronProductionFactor;
         if (planets[i].level >= 4) {
             var ironLevel = 'some';
             if (planets[i].iron <= 0) {ironLevel = 'none'}       

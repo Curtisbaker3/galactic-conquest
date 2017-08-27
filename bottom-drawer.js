@@ -129,8 +129,8 @@ function onBuildItemClicked(index) {
       case 'Bank Center': 
         onBuildBank(currentBuildPlanetIndex, index); //index is the current build item
         break;  
-      case 'Water Generator': 
-        onBuildWaterGenerator(currentBuildPlanetIndex, index); //index is the current build item
+      case 'Water Well': 
+        onBuildWaterWell(currentBuildPlanetIndex, index); //index is the current build item
         break;  
       case 'Oil Extractor': 
         onBuildOilExtractor(currentBuildPlanetIndex, index); //index is the current build item
@@ -149,6 +149,18 @@ function onBuildItemClicked(index) {
         break;    
       case 'Iron Centre': 
         onBuildIronCentre(currentBuildPlanetIndex, index); //index is the current build item
+        break;     
+      case 'Upgraded Oil Wells': 
+        onBuildUpgradedOilWells(currentBuildPlanetIndex, index); //index is the current build item
+        break;     
+      case 'Upgraded Water Wells': 
+        onBuildUpgradedWaterWells(currentBuildPlanetIndex, index); //index is the current build item
+        break;     
+      case 'Upgraded Uranium Mills': 
+        onBuildUpgradedUraniumMills(currentBuildPlanetIndex, index); //index is the current build item
+        break;      
+      case 'Upgraded Iron Centers': 
+        onBuildUpgradedIronCenters(currentBuildPlanetIndex, index); //index is the current build item
         break; 
       default:
         alert('Item not configured: ' + buildItem.title);
@@ -191,7 +203,7 @@ function onBuildNuclearWeapons(index, buildItem) {
   drawBuildMenu();
 }
 
-function onBuildWaterGenerator(index, buildItem) {
+function onBuildWaterWell(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].waterGenerated += t.waterGenerated;
   x = t.incomeCost;
@@ -270,6 +282,50 @@ function onBuildUniversalFountain(index, buildItem) {
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
   planets[index].availableBuildItems[buildItem].description = 'Adds +1% to the base pop. growth rate of all planets. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+
+function onBuildUpgradedWaterWells(index, buildItem) {
+  globalWaterProductionFactor *= 1.1;
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
+  planets[index].availableBuildItems[buildItem].description = 'Increases production of all water generators by 10%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+
+function onBuildUpgradedOilWells(index, buildItem) {
+  globalOilProductionFactor *= 1.1;
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
+  planets[index].availableBuildItems[buildItem].description = 'Increases production of all oil generators by 10%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+
+function onBuildUpgradedUraniumMills(index, buildItem) {
+  globalUraniumProductionFactor *= 1.1;
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
+  planets[index].availableBuildItems[buildItem].description = 'Increases production of all uranium generators by 10%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+
+function onBuildUpgradedIronCenters(index, buildItem) {
+  globalIronProductionFactor *= 1.1;
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
+  planets[index].availableBuildItems[buildItem].description = 'Increases production of all iron generators by 10%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();

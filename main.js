@@ -223,7 +223,7 @@ function onPlanetDevelopment(index, event) {
         return;
     }
 
-    if (planets[index].iron <= 0 && planets[index].level == 3) {
+    if (planets[index].iron <= 0 && planets[index].level == 4) {
         alert('Not enough iron to develop planet!')
         return;
     }
@@ -391,6 +391,10 @@ function erase() {
 var planets = [];
 var money = 1000;
 var globalSafetyGenerated = 0;
+var globalWaterProductionFactor = 1;
+var globalOilProductionFactor = 1;
+var globalUraniumProductionFactor = 1;
+var globalIronProductionFactor = 1;
 drawMoney();
 var shipPopulation = 70;
 var shipLocation = 0;
@@ -431,11 +435,11 @@ var nextPlanetRequirements = [{
     cost: 200,
     incomeCost: 8,
 }, {
-    name: 'Market',
+    name: 'Factory',
     cost: 300,
     incomeCost: 12,
 }, ..._.range(100).map((n) => ({
-    name: 'Factory ' + (n + 1), 
+    name: 'Market ' + (n + 1), 
     cost: 300 + (n * n * 30), 
     incomeCost: 12 + (n * n)
 }))];
