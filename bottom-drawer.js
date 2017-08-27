@@ -279,8 +279,8 @@ function onBuildFountain(index, buildItem) {
 function onBuildUniversalFountain(index, buildItem) {
   waterBaseRateModUniversalFountain += .01;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
-  planets[index].availableBuildItems[buildItem].cost *= 1.5
-  planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
+  planets[index].availableBuildItems[buildItem].cost *= 2.2
+  planets[index].availableBuildItems[buildItem].incomeCost *= 2.2
   planets[index].availableBuildItems[buildItem].description = 'Adds +1% to the base pop. growth rate of all planets. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
   drawIncome(calculateIncome());
   drawPlanets();
