@@ -456,9 +456,9 @@ var turrets = [{
     incomeCost: 1
 }]
 
-if (localStorage.getItem('game')) {
-    load();
-}
+//if (localStorage.getItem('game')) {
+   // load();
+//}
 var planetLocations = ["Earth", "hole1", "Moon", "Solar SD", "Mercury", "FS I", "dot1", "dot2", "IO", "Jupiter SD", "dot3", "Elara", "Callisto", "FS II", "Thebe", 
 "dot4", "Metis", "Ganymede", "Sinope", "hole2", "hole3", "hole4", "FS III", "dot4", "Miranda", "Uranus SD", "Umbriel", "Oberon", "Portia", "Uranus RL", "dot5", "Ariel", "hole5",
 "hole6", "hole7", "Pluto", "Charon", "dot6", "FS 5", "dot7", "dot8", "Phobos", "Mars", "Deimos", "dot9", "Venus RL", "Venus", "hole8", "Phoebe", "Mimas", "Saturn SD", "Dione",
