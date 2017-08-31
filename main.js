@@ -71,7 +71,10 @@ function onNewTurn() {
         }
         calculateRent(i);
         if (planets[i].waterAutoTransfer > 0) {
-            addWaterTransfer(i);
+            transferResource(i, 'Water');
+            transferResource(i, 'Oil');
+            transferResource(i, 'Iron');
+            transferResource(i, 'Uranium');
         }
  
     }
@@ -240,10 +243,12 @@ function onPlanetDevelopment(index, event) {
     var nextPlanetRequirement = planet.nextPlanetRequirements[planet.level + 1]
     if (0 < 1) { //removed money > nextPlanetRequirement.cost until LOC developed
         planet.level++;
+        planet.usesResourceAt[planet.level] = true;
+        console.log (planet.usesResourceAt[planet.level]);
         money -= nextPlanetRequirement.cost;
         planet.expenses += nextPlanetRequirement.incomeCost;
         planet.income -= nextPlanetRequirement.incomeCost;
-        planet.maxpopulation = planet.maxpopulation * 1.6 * (1 + (Math.random()/5));
+        planet.maxpopulation = planet.maxpopulation * 1.8 * (1 + (Math.random()/10));
         drawPlanets();
         drawMoney();
         drawIncome(calculateIncome());
@@ -301,10 +306,10 @@ const renderPlanet = (planet, i) => {
             <div class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
             ${ formatMoney(planets[i].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[i].mainPageBuildItems[0].cost) } <span></button></div>          
             <div class="table-text half right button"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mainPageBuildItems[1].description) } <br>Cost: ${ formatMoney(mainPageBuildItems[1].cost) } <span></button></div>          
-            <div class="table-text half right button"><button class="tooltip" onclick="onTransferWater(${i}, event)">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
-            <div class="table-text half right button"><button class="tooltip" onclick="onTransferOil(${i}, event)">${ planet.oil.toFixed(0) }<span class="tooltiptext">Click to transfer oil here from other planets. Cost: 5<span></button></div>
-            <div class="table-text half right button"><button class="tooltip" onclick="onTransferUranium(${i}, event)">${ planet.uranium.toFixed(0) }<span class="tooltiptext">Click to transfer uranium here from other planets. Cost: 5<span></button></div>
-            <div class="table-text half right button"><button class="tooltip" onclick="onTransferIron(${i}, event)">${ planet.iron.toFixed(0) }<span class="tooltiptext">Click to transfer iron here from other planets. Cost: 5<span></button></div>
+            <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Water')">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
+            <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Oil')">${ planet.oil.toFixed(0) }<span class="tooltiptext">Click to transfer oil here from other planets. Cost: 5<span></button></div>
+            <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Uranium')">${ planet.uranium.toFixed(0) }<span class="tooltiptext">Click to transfer uranium here from other planets. Cost: 5<span></button></div>
+            <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Iron')">${ planet.iron.toFixed(0) }<span class="tooltiptext">Click to transfer iron here from other planets. Cost: 5<span></button></div>
         </div>
     `
 };
@@ -325,6 +330,8 @@ function onSubmitPlanet(planetResourceIndex) {
         shipPopulation -= population;
         drawShipPopulation();
     }
+
+    var usesResourceAt = [];
     planets.push({
         name: planetResources[planetResourceIndex].title,
         population: population,
@@ -333,6 +340,7 @@ function onSubmitPlanet(planetResourceIndex) {
         nextPlanetRequirements: _.clone(nextPlanetRequirements),
         availableBuildItems: _.clone(availableBuildItems),
         mainPageBuildItems: _.cloneDeep(mainPageBuildItems),
+        usesResourceAt: _.cloneDeep(usesResourceAt),
         expenses: 0,
         safetyLevel: 100,
         water: 0,
@@ -343,12 +351,15 @@ function onSubmitPlanet(planetResourceIndex) {
         oil: 0,
         oilGenerated: 0,
         oilUsageFactor: 1,
+        oilAutoTransfer: 0,
         uranium: 0,
         uraniumGenerated: 0,
         uraniumUsageFactor: 1,
+        uraniumAutoTransfer: 0,
         iron: 0,
         ironGenerated: 0,
-        ironUsageFactor: 1,        
+        ironUsageFactor: 1,
+        ironAutoTransfer: 0,        
         enemies: 0,
         income: Number(population * .1 - (5 * randomIncomeModifier + 1)),
         tax: .2,
