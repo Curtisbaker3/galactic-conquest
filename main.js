@@ -9,9 +9,6 @@ Add growth rate modifiers
 Add iron resource -- decreases cost of buildings with manufacturing centers
     decrease waterusagefactor, oilusagefactor -- efficiency buildings - ex. water recycle plant
 
-Add highlight to planets with low resources or safety or invaders
-explore function
-
 Trade module -- adds main ship to planet list, 25% chance to open trade menu when land on foreign moon
 Auto transfer oil and others
 Add fuel and oil upgrade
@@ -45,26 +42,24 @@ function onNewTurn() {
             }
         }
        
-
         if (planets[i].safetyLevel < Math.random() * 80) {
             tempEnemyIncrease = planets[i].population * Math.random() * .2;
             planets[i].enemies += tempEnemyIncrease;
         }
-
             
             var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 1.7))/15) / 200
             tempPopIncrease = planets[i].population * (.02 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].safetyLevel * .011); //Multiplies pop incr. by 110% of safety level
             if (tempPopIncrease > 0) { //increase positive increases, and decrease decreases
-                tempPopIncrease = tempPopIncrease * planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+                tempPopIncrease *= planets[i].waterPopRateMod - (.3 * planets[i].enemies);
             } else {
-                tempPopIncrease = tempPopIncrease / planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+                tempPopIncrease /= planets[i].waterPopRateMod - (.3 * planets[i].enemies);
             }
         if (planets[i].population < planets[i].maxpopulation || tempPopIncrease < 0) {
             if (planets[i].population + tempPopIncrease <= 0) {
                 planets[i].population = 0;
             } else {
                 if (planets[i].population + tempPopIncrease < planets[i].maxpopulation) {
-                    planets[i].population = planets[i].population + tempPopIncrease;
+                    planets[i].population += tempPopIncrease;
                 } else {
                     planets[i].population = planets[i].maxpopulation;
                 }

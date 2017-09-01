@@ -26,10 +26,10 @@ function onPlanetRowClicked(i) {
 }
 
 const mainPageBuildItems = [{
-  description: 'Click to bolster defences. +60 to safety. Decreases risk of invasion. Cost 20.',
+  description: 'Click to bolster defences. +60 to safety. Decreases risk of invasion.',
   cost: 20
 }, {
-  description: 'Click to send troops. Cost 15.',
+  description: 'Click to send troops.',
   cost: 15
 }, ]
 

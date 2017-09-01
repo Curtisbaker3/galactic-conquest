@@ -10,27 +10,27 @@ function rollDice() {
     
     if (shipLocation > 400 && shipLocation < 450) {
         console.log('ship location is greater than 400');
-        shipLocation = shipLocation - 400 + 66;        
+        shipLocation -= 400 + 66;        
     }   
 
     if (shipLocation > 301 && shipLocation < 350) {
         console.log('ship location is greater than 301');
-        shipLocation = shipLocation - 301 + 48;        
+        shipLocation -= 301 + 48;        
     }
 
     if (shipLocation > 201 && shipLocation < 250) {
         console.log('ship location is greater than 201');
-        shipLocation = shipLocation - 201 + 23;        
+        shipLocation -= 201 + 23;        
     }
 
     if (shipLocation > 104 && shipLocation < 150) {
         console.log('ship location is greater than 104');
-        shipLocation = shipLocation - 104 + 7;        
+        shipLocation -= 104 + 7;        
     }
 
     if (shipLocation > 79 && shipLocation < 100) {
         console.log('Ship just passed earth');
-        shipLocation = shipLocation - 79;        
+        shipLocation -= 79;        
     }    
     
     switch(planetLocations[shipLocation]) {
