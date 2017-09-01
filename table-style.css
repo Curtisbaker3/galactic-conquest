@@ -105,6 +105,9 @@ div.table-row-unique.table-row:hover {
   background-color: #e3f7ed;
 }
 
+.alert2 {
+    background-color: rgba(245, 0, 0, 0.40);
+  }
 /*form {
   letter-spacing: normal;
   border-radius: 1px;

@@ -41,9 +41,9 @@ function onNewTurn() {
             }
             if (planets[i].safetyLevel > 120) {
                 planets[i].safetyLevel = 120;
+            }
         }
-        }
-
+       
 
         if (planets[i].safetyLevel < Math.random() * 80) {
             tempEnemyIncrease = planets[i].population * Math.random() * .2;
@@ -285,6 +285,15 @@ function drawPlanets() {
         planetList.removeChild(planetList.firstChild);
     }
     planetList.innerHTML = planets.map((p, i) => renderPlanet(p, i)).join('');
+
+    for (var i = 0; i < planets.length; i++) {
+        if (planets[i].safetyLevel < 65) {
+            document.getElementById("safetyalert"+ i).classList.add('alert2');
+        }
+        if (planets[i].enemies > 0.5) {
+            document.getElementById("enemyalert" + i).classList.add('alert2');
+        }
+    }
 };
 
 const renderPlanet = (planet, i) => {
@@ -295,17 +304,14 @@ const renderPlanet = (planet, i) => {
             <div class="table-text">${ planet.name }</div>
             <div id="${i}" class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text half center form"><form class="form" onclick="onChangeTax(${i}, event)" onkeyup="onChangeTax(${i}, event)" onsubmit="onChangeTax(${i}, event)">
-            
-            
             <input id="taxForm${i}" type="number" step="1" style="height: 8px; width: 60px" value=${ (planet.tax * 100).toFixed(0) }>
-            
             </form></div>            
             <div class="table-text half right button"><button class="tooltip" onclick="onCollectRent(${i}, event)">${ planet.rent.toFixed(0) }<span class="tooltiptext">Click to collect rent from opponent<span></button></div>             
             <div class="table-text left button"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) } / ${ planet.maxpopulation.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
             <div class="table-text half right button" style="display:flex;"><button class="tooltip" onclick="onPlanetDevelopment(${i}, event)">${ pr.name }<span class="tooltiptext">Cost: ${ formatMoney(pr.cost) }. <br>Income Cost: ${ formatMoney(pr.incomeCost) } <span></button></div>            
-            <div class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
+            <div id="safetyalert${i}" class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
             ${ formatMoney(planets[i].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[i].mainPageBuildItems[0].cost) } <span></button></div>          
-            <div class="table-text half right button"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mainPageBuildItems[1].description) } <br>Cost: ${ formatMoney(mainPageBuildItems[1].cost) } <span></button></div>          
+            <div id="enemyalert${i}" class="table-text half right button"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mainPageBuildItems[1].description) } <br>Cost: ${ formatMoney(mainPageBuildItems[1].cost) } <span></button></div>          
             <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Water')">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
             <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Oil')">${ planet.oil.toFixed(0) }<span class="tooltiptext">Click to transfer oil here from other planets. Cost: 5<span></button></div>
             <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Uranium')">${ planet.uranium.toFixed(0) }<span class="tooltiptext">Click to transfer uranium here from other planets. Cost: 5<span></button></div>
