@@ -34,10 +34,6 @@ const mainPageBuildItems = [{
 }, ]
 
 const availableBuildItems = [{
-    title: 'Send Troops',
-    description: 'Sends troops to fight invaders',
-    cost: 15
-}, {
     title: 'Relocate Citizens',
     description: 'Transfers citizens to other planets',
     cost: 5
@@ -138,16 +134,16 @@ function onBuildItemClicked(index) {
       case 'Iron Centre': 
         onBuildIronCentre(currentBuildPlanetIndex, index); //index is the current build item
         break;     
-      case 'Upgraded Oil Wells': 
+      case 'Upgrade Oil Wells': 
         onBuildUpgradedOilWells(currentBuildPlanetIndex, index); //index is the current build item
         break;     
-      case 'Upgraded Water Wells': 
+      case 'Upgrade Water Wells': 
         onBuildUpgradedWaterWells(currentBuildPlanetIndex, index); //index is the current build item
         break;     
-      case 'Upgraded Uranium Mills': 
+      case 'Upgrade Uranium Mills': 
         onBuildUpgradedUraniumMills(currentBuildPlanetIndex, index); //index is the current build item
         break;      
-      case 'Upgraded Iron Centers': 
+      case 'Upgrade Iron Centers': 
         onBuildUpgradedIronCenters(currentBuildPlanetIndex, index); //index is the current build item
         break; 
       default:

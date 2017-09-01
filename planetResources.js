@@ -95,28 +95,28 @@ function createSpecialButtons(i) {
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
-            title: 'Upgraded Oil Wells',
+            title: 'Upgrade Oil Wells',
             description: 'Increases production of all oil wells by 10%',
             cost: 20,
             incomeCost: 1,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
-            title: 'Upgraded Water Wells',
+            title: 'Upgrade Water Wells',
             description: 'Increases production of all water wells by 10%',
             cost: 20,
             incomeCost: 1,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
-            title: 'Upgraded Uranium Mills',
+            title: 'Upgrade Uranium Mills',
             description: 'Increases production of all uranium mills by 10%',
             cost: 20,
             incomeCost: 1,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
-            title: 'Upgraded Iron Centers',
+            title: 'Upgrade Iron Centers',
             description: 'Increases production of all iron by 10%',
             cost: 20,
             incomeCost: 1,
@@ -155,7 +155,7 @@ const planetResources = [{
     cost: 350,
 }, {
     title: 'IO',
-    resource: 'Gold',
+    resource: 'Oil',
     cost: 335,
 }, {
     title: 'Metis',
@@ -207,7 +207,7 @@ const planetResources = [{
     cost: 350,
 }, {
     title: 'Phoebe',
-    resource: 'Copper',
+    resource: 'Oil',
     cost: 200,
 }, {
     title: 'Rhea',
@@ -247,7 +247,7 @@ const planetResources = [{
     cost: 450,
 }, {
     title: 'Venus',
-    resource: 'Gold',
+    resource: 'Water',
     cost: 490,
 }, {
     title: 'Pluto',
@@ -255,7 +255,7 @@ const planetResources = [{
     cost: 425,
 }, {
     title: 'Charon',
-    resource: 'Gold',
+    resource: 'Oil',
     cost: 300,
 }, {
     title: 'Mars',
@@ -263,7 +263,7 @@ const planetResources = [{
     cost: 465,
 }, {
     title: 'Deimos',
-    resource: 'Iron',
+    resource: 'Oil',
     cost: 90,
 }, {
     title: 'Phobos',
@@ -271,7 +271,7 @@ const planetResources = [{
     cost: 125,
 }, {
     title: 'Galatea',
-    resource: 'Water',
+    resource: 'Oil',
     cost: 200,
 }, {
     title: 'Triton',
@@ -347,28 +347,48 @@ const planetResources = [{
     cost: 350,
 }, {
     title: 'Earth',
-    resource: 'Iron',
+    resource: 'Water',
     cost: 800,
 }, {
     title: 'Jupiter',
-    resource: 'Iron',
+    resource: 'Oil',
     cost: 1200,
 }, {
     title: 'Uranus',
-    resource: 'Iron',
+    resource: 'Water',
     cost: 900,
 }, {
     title: 'Saturn',
-    resource: 'Iron',
+    resource: 'Gold',
     cost: 1100,
 }, {
     title: 'Neptune',
-    resource: 'Iron',
+    resource: 'Water',
     cost: 800,
 }, {
     title: 'Sun',
     resource: 'Iron',
     cost: 2000,
+}, {
+    title: 'Ceres',
+    resource: 'Water',
+    cost: 700,
+}, {
+    title: 'Eris',
+    resource: 'Iron',
+    cost: 450,
+}, {
+    title: 'Makemake',
+    resource: 'Oil',
+    cost: 550,
+}, {
+    title: 'Haumea',
+    resource: 'Gold',
+    cost: 500,
+}, {
+    title: 'Orcus',
+    resource: 'Iron',
+    cost: 400,
 }, ];
 
 
@@ -396,7 +416,7 @@ function drawUniqueUnknownPlanets() {
 function synthesizeOtherPlanetData() {
     for (var index = 0; index < planetResources.length; index++) {
         planetResources[index].maxPopulation = (Math.pow(planetResources[index].cost, 1.5) / 50 ).toFixed(0);
-        planetResources[index].upkeep = Number((Math.pow(planetResources[index].cost, 2) / 17000 ).toFixed(2));
+        planetResources[index].upkeep = Number((Math.pow(planetResources[index].cost, 2.2) / 40000 ).toFixed(2));
     }
 }
 
