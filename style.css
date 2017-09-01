@@ -181,8 +181,8 @@ div.card {
     /* Position the tooltip */
     position: absolute;
     z-index: 99;
-    top: 25px;
-    right: -75%;
+    top: -20px;
+    right: 110%;
     margin-top: 5px;
     display: block;
     /*overflow: visible !important;*/
