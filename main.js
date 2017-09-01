@@ -72,11 +72,16 @@ function onNewTurn() {
         calculateRent(i);
         if (planets[i].waterAutoTransfer > 0) {
             transferResource(i, 'Water');
-            transferResource(i, 'Oil');
-            transferResource(i, 'Iron');
-            transferResource(i, 'Uranium');
         }
- 
+        if (planets[i].oilAutoTransfer > 0) {
+            transferResource(i, 'Oil');
+        }
+        if (planets[i].ironAutoTransfer > 0) {
+            transferResource(i, 'Iron');
+        }
+        if (planets[i].uraniumAutoTransfer > 0) {
+            transferResource(i, 'Uranium');
+        } 
     }
     deductPlanetaryWater();
     deductPlanetaryOil();
