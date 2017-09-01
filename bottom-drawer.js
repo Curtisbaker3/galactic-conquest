@@ -41,19 +41,7 @@ const availableBuildItems = [{
     title: 'Relocate Citizens',
     description: 'Transfers citizens to other planets',
     cost: 5
-}, /*{
-    title: 'Transfer Water',
-    description: 'Transfers water from other planets to this one',
-    cost: 5
 }, {
-    title: 'Transfer Oil',
-    description: 'Transfers oil from other planets to this one',
-    cost: 5
-}, {
-    title: 'Transfer Uranium',
-    description: 'Transfers uranium from other planets to this one',
-    cost: 10
-}, */{
     title: 'Hire Foreigners',
     description: 'Hires 10 foreigners to repopulate the planet',
     cost: 100
@@ -427,16 +415,16 @@ function onRelocateCitizens(index) {
 
 function onTransferResourceInit(planetIndex, event, currentResource) {
   event.preventDefault();
-  event.stopPropagation();  
+  event.stopPropagation();
       if (event.ctrlKey) {
-        planets[planetIndex].waterAutoTransfer = 1;
+        planets[planetIndex][currentResource.toLowerCase() + 'AutoTransfer'] = 1;
       }
       if (event.shiftKey) {
-        if (planets[planetIndex].waterAutoTransfer = 0) {
-        planets[planetIndex].waterAutoTransfer = 0;
+        if (planets[planetIndex][currentResource.toLowerCase() + 'AutoTransfer'] = 0) {
+        planets[planetIndex][currentResource.toLowerCase() + 'AutoTransfer'] = 0;
         return;
         } else {
-          planets[planetIndex].waterAutoTransfer = 0;
+          planets[planetIndex][currentResource.toLowerCase() + 'AutoTransfer'] = 0;
           return;
         }
     }
@@ -530,101 +518,6 @@ function transferResource(planetIndex, currentResource) {
     drawMoney();
   }
 }
-
-/*function addWaterTransfer(planetIndex, currentResource) {
-  const donatorPlanets = _.filter(planets, {resource: currentResource}); // filtered version, with all the planets that produce that can resource
-  var planet = planets[planetIndex];
-  var donator = donatorPlanets[planetIndex];
-  console.log('current resource: ' + currentResource.toLowerCase().toString());
-  var currentResource = String(currentResource.toLowerCase());
-  planet[currentResource] = planets[planetIndex][currentResource];
-  donatorPlanets.resource = planets[planetIndex][currentResource];
-      
-  console.log(currentResource);
-  console.log(planet.resource);
-  var receivingPlanet = planets[planetIndex];
-  var totalAmountTaken = 0;
-  var individualAmountTaken = 0;
-  var totalAmountAvailable = 0;
-  
-  for (var i = 0; i < donatorPlanets.length; i++) {
-    totalAmountAvailable += donatorPlanets[i].water;
-    console.log('here it is' + donatorPlanets.resource);
-  }
-  if (totalAmountAvailable < 1) {
-    return;
-  } else {
-  for (var i = 0; i < donatorPlanets.length; i++) {
-    if (receivingPlanet === donatorPlanets[i]) {
-      continue;
-    }
-    if (planets[planetIndex].waterAutoTransfer > 0) {
-      if (planet.resource < planets[planetIndex].population / 10) {
-      transferAmount = (receivingPlanet.population / 10) / totalAmountAvailable;
-      var charge = 5
-      } else {
-        transferAmount = 0
-      }
-    }
-      if (manualTransfer == true) {
-      var charge = 5;
-      transferAmount = .3;
-      manualTransfer = false;
-     
-      }
-    console.log(transferAmount);
-    individualAmountTaken = donatorPlanets[i].water * transferAmount;
-    totalAmountTaken += Number(individualAmountTaken);
-    donatorPlanets[i].water -= individualAmountTaken;
-    }
-  }
-  planet.resource += totalAmountTaken; // this line needs fixing
-  planets[currentResource] += totalAmountTaken;
-  drawPlanets();
-  if (totalAmountTaken > 0) {money -= charge;} //take money if we did something
-  drawMoney();
-}*/
-
-/*function addWaterTransfer(planetIndex) {
-  var receivingPlanet = planets[planetIndex];
-  var totalAmountTaken = 0;
-  var individualAmountTaken = 0;
-  var totalAmountAvailable = 0;
-  const waterPlanets = _.filter(planets, {resource: 'Water'}); // filtered version, with all the water planets
-  for (var i = 0; i < waterPlanets.length; i++) {
-    totalAmountAvailable += planets[i].water;
-  }
-  if (totalAmountAvailable < 1) {
-    return;
-  } else {
-  for (var i = 0; i < waterPlanets.length; i++) {
-    if (receivingPlanet === waterPlanets[i]) {
-      continue;
-    }
-    if (planets[planetIndex].waterAutoTransfer > 0) {
-      if (receivingPlanet.water < planets[planetIndex].population / 10) {
-      transferAmount = (receivingPlanet.population / 10) / totalAmountAvailable;
-      var charge = 5
-      } else {
-        transferAmount = 0
-      }
-    }
-      if (manualTransfer === true) {
-      var charge = 5;
-      transferAmount = .3;
-      manualTransfer = false;
-     
-      }
-    individualAmountTaken = waterPlanets[i].water * transferAmount;
-    totalAmountTaken += Number(individualAmountTaken);
-    waterPlanets[i].water -= individualAmountTaken;
-    }
-  }
-  receivingPlanet.water += totalAmountTaken;
-  drawPlanets();
-  if (totalAmountTaken > 0) {money -= charge;} //take money if we did something
-  drawMoney();
-}*/
 
 function onTransferOil(planetIndex, event) {
   event.preventDefault();
