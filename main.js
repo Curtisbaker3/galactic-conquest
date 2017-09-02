@@ -41,7 +41,7 @@ function onNewTurn() {
         }
        
         if (planets[i].shieldLevel < Math.random() * 80) {
-            tempEnemyIncrease = planets[i].population * Math.random() * .2;
+            tempEnemyIncrease = (planets[i].population * Math.random() * .1) + 2.5 * Math.pow(TurnCount, 1.03) + TurnCount;
             planets[i].enemies += tempEnemyIncrease;
         }
             
@@ -79,7 +79,7 @@ function onNewTurn() {
         calculateRent(i);
     }
 
-
+    globalShieldGenerated *= .90;
     deductPlanetaryWater();
     deductPlanetaryOil();
     deductPlanetaryUranium();

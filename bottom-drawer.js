@@ -116,10 +116,10 @@ function createSpecialButtons(i) {
         });
         case 'Uranium': 
             planets[i].availableBuildItems.push({
-            title: 'Nuclear Weapons',
-            description: 'Increases shields of all planets by +1/year. Costs 3 income',
-            cost: 40,
-            incomeCost: 3,
+            title: 'Nuclear Shields',
+            description: 'Increases shields of all planets by +1/year. Shield output decline 10%/turn. Costs 3 income',
+            cost: 30,
+            incomeCost: 1,
             buildCount: 0,
             shieldGenerated: 1,
         });
@@ -267,7 +267,7 @@ function onBuildItemClicked(index) {
       case 'Uranium Mill': 
         onBuildUraniumMill(currentBuildPlanetIndex, index); //index is the current build item
         break;   
-      case 'Nuclear Weapons': 
+      case 'Nuclear Shields': 
         onBuildNuclearWeapons(currentBuildPlanetIndex, index); //index is the current build item
         break;    
       case 'Fountains': 
@@ -338,10 +338,10 @@ function onBuildNuclearWeapons(index, buildItem) {
   globalShieldGenerated += t.ShieldGenerated;
   x = t.incomeCost;
   y = t.ShieldGenerated;
-  t.description = 'Increases shields of all planets by ' + y + ' per year. Costs ' + x + ' income';
+  t.description = 'Increases shields of all planets by ' + y + ' per year. Shield output declines 10%/turn. Costs ' + x + ' income';
   planets[index].expenses += x;
-  t.incomeCost *= 2;
-  t.cost *= 2;
+  t.incomeCost *= 1.4;
+  t.cost *= 1.4;
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
