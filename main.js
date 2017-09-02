@@ -6,11 +6,9 @@ Add random event cards. Bonus population, water, oil, uranium. Collect on space 
 make alert for on maxpopulation reached, fulfill planet requirements to develop planet
 
 Add growth rate modifiers
-Add iron resource -- decreases cost of buildings with manufacturing centers
     decrease waterusagefactor, oilusagefactor -- efficiency buildings - ex. water recycle plant
 
 Trade module -- adds main ship to planet list, 25% chance to open trade menu when land on foreign moon
-Auto transfer oil and others
 Add fuel and oil upgrade
 autoreplenish fuel
 */
@@ -79,6 +77,8 @@ function onNewTurn() {
         } 
         calculateRent(i);
     }
+
+    randomEvent();
     deductPlanetaryWater();
     deductPlanetaryOil();
     deductPlanetaryUranium();
@@ -92,6 +92,17 @@ function onNewTurn() {
 
 function drawIncome(income) {
     document.getElementById('income').innerText = formatMoney(income);
+}
+
+function randomEvent() {
+    var x = Math.random()
+    if (Math.random() < .05) {
+        y = Math.abs((planets.length * Math.random() - .5).toFixed(0))
+        alert('A meteor has struck ' + planets[y].name);
+        planets[y].population *= .5;
+        drawPlanets();
+        
+    }
 }
 
 function takeMoney() {
@@ -381,7 +392,7 @@ var turrets = [{
 //}
 var planetLocations = ["Earth", "hole1", "Moon", "Solar SD", "Mercury", "FS I", "dot1", "dot2", "IO", "Jupiter SD", "dot3", "Elara", "Callisto", "FS II", "Thebe", 
 "dot4", "Metis", "Ganymede", "Sinope", "hole2", "hole3", "hole4", "FS III", "dot4", "Miranda", "Uranus SD", "Umbriel", "Oberon", "Portia", "Uranus RL", "dot5", "Ariel", "hole5",
-"hole6", "hole7", "Pluto", "Charon", "dot6", "FS 5", "dot7", "dot8", "Phobos", "Mars", "Deimos", "dot9", "Venus RL", "Venus", "hole8", "Phoebe", "Mimas", "Saturn SD", "Dione",
+"hole6", "hole7", "Pluto", "Charon", "dot6", "FS V", "dot7", "dot8", "Phobos", "Mars", "Deimos", "dot9", "Venus RL", "Venus", "hole8", "Phoebe", "Mimas", "Saturn SD", "Dione",
 "dot10", "Iapetus", "Rhea", "Tethys", "FS VI", "Janus", "Enceladus", "Saturn RL", "Hyperion", "hole8", "hole9", "hole10", "hole11", "FS VIII",
 "Proteus", "Nereid", "Larissa", "Neptune SD", "Thalassa", "Neptune RL", "Despina", "Triton", "FS IV", "Galatea", "hole12", "hole13", "hole14", "Earth RL"];
 planetLocations[100] = "Jupiter RL";

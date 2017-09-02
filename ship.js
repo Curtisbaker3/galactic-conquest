@@ -30,6 +30,10 @@ function rollDice() {
 
     if (shipLocation > 79 && shipLocation < 100) {
         console.log('Ship just passed earth');
+        var x = 50
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for passing ' + planetLocations[shipLocation]);
         shipLocation -= 79;        
     }    
     
@@ -78,6 +82,54 @@ function rollDice() {
         break;
       case 'hole14': 
         shipLocation = 68
+        break;
+      case 'Earth':
+        var x = 100
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS I':
+        var x = 50
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS II':
+        var x = 50;
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS III':
+        var x = 50;
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS IV':
+        var x = 50;
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS V':
+        var x = 50;
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS VI':
+        var x = 50;
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
+        break;
+      case 'FS VII':
+        var x = 50;
+        money += x;
+        drawMoney();
+        alert('Bonus $' + x + ' received for landing on ' + planetLocations[shipLocation]);
         break;
       default:
         break;
