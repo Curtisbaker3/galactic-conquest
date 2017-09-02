@@ -114,7 +114,7 @@ function onCollectRent(i) {
 }
 
 function calculateRent(i) {
-    planets[i].rent = planets[i].population / 2
+    planets[i].rent = planets[i].population / 2 * planets[i].rentModifier;
 }
 
 function onChangeTax(i) {

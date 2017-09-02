@@ -23,6 +23,13 @@ function createSpecialButtons(i) {
             description: 'Increases income by 3',
             cost: 50,
         });
+        case 'Gold': 
+            planets[i].availableBuildItems.push({
+            title: 'Tax Centre',
+            description: 'Increases rent on planet',
+            cost: 50,
+            incomeCost: 2
+        });
         break;
         case 'Copper': 
             planets[i].availableBuildItems.push({

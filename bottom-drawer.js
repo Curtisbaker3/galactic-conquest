@@ -110,6 +110,9 @@ function onBuildItemClicked(index) {
       case 'Gold Mine': 
         onBuildGoldMine(currentBuildPlanetIndex, index); //index is the current build item
         break; 
+      case 'Tax Centre': 
+        onBuildTaxCentre(currentBuildPlanetIndex, index); //index is the current build item
+        break;
       case 'Bank Center': 
         onBuildBank(currentBuildPlanetIndex, index); //index is the current build item
         break;  
@@ -157,6 +160,15 @@ function onBuildItemClicked(index) {
 
 function onBuildGoldMine(index, buildItem) {
   planets[index].incomeBonuses += 3;
+  drawIncome(calculateIncome());
+  drawPlanets();
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  drawBuildMenu();
+}
+
+function onBuildTaxCentre(index, buildItem) {
+  planets[index].rentModifier *= 1.3;
+  calculateRent(index);
   drawIncome(calculateIncome());
   drawPlanets();
   planets[index].availableBuildItems[buildItem].cost *= 1.5

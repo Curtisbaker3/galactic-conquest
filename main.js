@@ -144,7 +144,7 @@ function onPlanetDevelopment(index, event) {
         money -= nextPlanetRequirement.cost;
         planet.expenses += nextPlanetRequirement.incomeCost;
         planet.income -= nextPlanetRequirement.incomeCost;
-        planet.maxpopulation = planet.maxpopulation * 1.8 * (1 + (Math.random()/10));
+        planet.maxpopulation *= 1.8 * (1 + (Math.random()/10));
         drawPlanets();
         drawMoney();
         drawIncome(calculateIncome());
@@ -265,7 +265,8 @@ function onSubmitPlanet(planetResourceIndex) {
         enemies: 0,
         income: Number(population * .1 - (5 * randomIncomeModifier + 1)),
         tax: .2,
-        rent: 0,    
+        rent: 0,
+        rentModifier: 1,    
         incomeBonuses: 0,
         maxpopulation: Number(50 + Math.random() * 50)
     });
