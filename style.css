@@ -161,7 +161,7 @@ div.card {
 }
 
 .tooltip {
-    position: relative;
+    position: static;
     display: inline-block;
     border-bottom: 1px dotted black;
     /*overflow: visible;*/
@@ -181,8 +181,8 @@ div.card {
     /* Position the tooltip */
     position: absolute;
     z-index: 99;
-    top: -20px;
-    right: 110%;
+    top: -5px;
+    right: 60%;
     margin-top: 5px;
     display: block;
     /*overflow: visible !important;*/
@@ -194,3 +194,14 @@ div.card {
     
 }
 
+.bottom-drawer-item-cost {
+font-size: 14px !important;
+}
+
+.bottom-drawer-item-description{
+font-size: 14px;
+}
+
+.bottom-drawer-item-title {
+font-size: 14px !important;
+}
