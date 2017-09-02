@@ -98,10 +98,10 @@ function drawIncome(income) {
  var naturalDisasters = ['A meteor has struck ', 'A flood has hit ', 'A hurricane has hit ']
 
 function calculateFloodRisk(i) {
-    planets[i].floodRisk = Math.pow(TurnCount, 1.02) * .003 * globalNaturalDisasterModifier * floodRiskGlobalModifier * planets[i].floodRiskModifier;
+    planets[i].floodRisk = Math.pow(TurnCount, 1.01) * .001 * globalNaturalDisasterModifier * floodRiskGlobalModifier * planets[i].floodRiskModifier;
 }
 function calculateHurricaneRisk(i) {
-    planets[i].hurricaneRisk = Math.pow(TurnCount, 1.04) * .001 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
+    planets[i].hurricaneRisk = Math.pow(TurnCount, 1.03) * .0004 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
 }
 function calculateMeteorRisk(i) {
     planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * 0 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
