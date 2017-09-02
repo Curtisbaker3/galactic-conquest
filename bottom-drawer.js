@@ -41,7 +41,7 @@ function createGeoenginneringCenterButtons(i) {
     cost: 20,
     }, {
     title: 'Anti-Hurricane Climate Center',
-    description: 'Decreases risk of floods on this planet by 50%',
+    description: 'Decreases risk of hurricanes on this planet by 50%',
     cost: 35,
     });
   }
@@ -337,7 +337,7 @@ function onBuildNuclearWeapons(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   globalShieldGenerated += t.shieldGenerated;
   x = t.incomeCost;
-  y = t.ShieldGenerated;
+  y = t.shieldGenerated;
   planets[index].expenses += x;
   t.incomeCost *= 1.2;
   t.cost *= 1.3;
