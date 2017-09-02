@@ -29,7 +29,7 @@ const planetResources = [{
     cost: 360,
 }, {
     title: 'Sinope',
-    resource: 'Water',
+    resource: 'Iron',
     cost: 125,
 }, {
     title: 'Europa',

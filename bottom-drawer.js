@@ -90,7 +90,7 @@ function createSpecialButtons(i) {
         case 'Water': 
             planets[i].availableBuildItems.push({
             title: 'Universal Fountains',
-            description: 'Adds +1% to the base pop. growth rate of all planets. -1 inc.',
+            description: 'Adds +1% to the base pop. growth rate of all planets. -2 inc.',
             cost: 50,
             incomeCost: 2,
         });
@@ -652,7 +652,7 @@ function transferResource(planetIndex, currentResource) {
       if (targetPlanet[resourceKey] < targetPlanet.population / 10) {
       var transferPercent = (targetPlanet.population / 10) / totalAmountAvailable;
       console.log('initial auto transfer percent: ' + transferPercent);
-      charge = 5
+      charge = 1
       } else {
         transferPercent = 0;
         charge 

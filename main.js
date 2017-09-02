@@ -101,7 +101,7 @@ function calculateFloodRisk(i) {
     planets[i].floodRisk = Math.pow(TurnCount, 1.01) * .001 * globalNaturalDisasterModifier * floodRiskGlobalModifier * planets[i].floodRiskModifier;
 }
 function calculateHurricaneRisk(i) {
-    planets[i].hurricaneRisk = Math.pow(TurnCount, 1.03) * .0004 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
+    planets[i].hurricaneRisk = Math.pow(TurnCount, 1.03) * .0003 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
 }
 function calculateMeteorRisk(i) {
     planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * 0 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
@@ -112,7 +112,7 @@ function randomEvents(i) {
     calculateHurricaneRisk(i);
     calculateMeteorRisk(i);
     if (Math.random() < planets[i].floodRisk) {
-        x = (planets[i].population * (.1 + Math.random() / 2)).toFixed(0);
+        x = (planets[i].population * (.08 + Math.random() / 4)).toFixed(0);
         alert('A flood has hit ' + planets[i].name + ', killing ' + x + ' citizens');
         planets[i].population -= x;
         drawPlanets();
@@ -124,7 +124,7 @@ function randomEvents(i) {
         drawPlanets();
     }
     if (Math.random() < planets[i].hurricaneRisk) {
-        x = (planets[i].population * (.3 + Math.random() / 2)).toFixed(0);
+        x = (planets[i].population * (.16 + Math.random() / 4)).toFixed(0);
         alert('A hurricane has hit ' + planets[i].name + ', killing ' + x + ' citizens');
         planets[i].population -= x;
         drawPlanets();
