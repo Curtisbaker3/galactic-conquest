@@ -26,12 +26,154 @@ function onPlanetRowClicked(i) {
 }
 
 const mainPageBuildItems = [{
-  description: 'Click to bolster defences. +60 to safety. Decreases risk of invasion.',
+  description: 'Click to bolster defences. +60 to shields. Decreases risk of invasion.',
   cost: 20
 }, {
   description: 'Click to send troops.',
   cost: 15
 }, ]
+
+function createGeoenginneringCenterButtons(i) {
+  if (geoengineeringCenterConstructed == true) {
+    planets[i].availableBuildItems.push({
+    title: 'Anti-Flooding Climate Center',
+    description: 'Decreases risk of floods on this planet by 50%.',
+    cost: 30,
+    }, {
+    title: 'Anti-Hurricane Climate Center',
+    description: 'Decreases risk of floods on this planet by 50%',
+    cost: 50,
+    });
+  }
+}
+
+function createSpecialButtons(i) {
+  createGeoenginneringCenterButtons(i);
+    switch(planets[i].resource) {
+        case 'Gold': 
+            planets[i].availableBuildItems.push({
+            title: 'Gold Mine',
+            description: 'Increases income by 3',
+            cost: 50,
+        });
+        case 'Gold': 
+            planets[i].availableBuildItems.push({
+            title: 'Tax Centre',
+            description: 'Increases rent on planet',
+            cost: 50,
+            incomeCost: 2
+        });
+        break;
+        case 'Copper': 
+            planets[i].availableBuildItems.push({
+            title: 'Bank Center',
+            description: 'Decreases income by 2',
+            cost: -150,
+            incomeCost: 2
+        });
+        break;
+        case 'Water': 
+            planets[i].availableBuildItems.push({
+            title: 'Water Well',
+            description: 'Generates 20t water/yr. -1 inc.',
+            cost: 20,
+            incomeCost: 1,
+            buildCount: 0,
+            waterGenerated: 20
+        });
+        case 'Water': 
+            planets[i].availableBuildItems.push({
+            title: 'Fountains',
+            description: 'Increases this planets population growth by 30%',
+            cost: 20,
+        });
+        case 'Water': 
+            planets[i].availableBuildItems.push({
+            title: 'Universal Fountains',
+            description: 'Adds +1% to the base pop. growth rate of all planets. -1 inc.',
+            cost: 50,
+            incomeCost: 2,
+        });
+        break;
+        case 'Oil': 
+            planets[i].availableBuildItems.push({
+            title: 'Oil Extractor',
+            description: 'Generates 40t oil/yr. -2 inc.',
+            cost: 50,
+            incomeCost: 2,
+            buildCount: 0,
+            oilGenerated: 40,
+        });
+        break;
+        case 'Uranium': 
+            planets[i].availableBuildItems.push({
+            title: 'Uranium Mill',
+            description: 'Generates 60t uranium/yr. -3 inc.',
+            cost: 80,
+            incomeCost: 3,
+            buildCount: 0,
+            uraniumGenerated: 60,
+        });
+        case 'Uranium': 
+            planets[i].availableBuildItems.push({
+            title: 'Nuclear Weapons',
+            description: 'Increases shields of all planets by +1/year. Costs 3 income',
+            cost: 40,
+            incomeCost: 3,
+            buildCount: 0,
+            shieldGenerated: 1,
+        });
+        break;
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Iron Centre',
+            description: 'Generates 80t iron/yr. -4 inc.',
+            cost: 100,
+            incomeCost: 4,
+            buildCount: 0,
+            ironGenerated: 80,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgrade Oil Wells',
+            description: 'Increases production of all oil wells by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgrade Water Wells',
+            description: 'Increases production of all water wells by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgrade Uranium Mills',
+            description: 'Increases production of all uranium mills by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Upgrade Iron Centers',
+            description: 'Increases production of all iron by 10%',
+            cost: 20,
+            incomeCost: 1,
+        });
+        case 'Iron': 
+            planets[i].availableBuildItems.push({
+            title: 'Geoengineering Center',
+            description: 'Allows planets to build climate control centers. Also, reduces risk of all floods & hurricanes by 30%. -1 inc.',
+            cost: 30,
+            incomeCost: 1,
+        });
+        break;
+        default:
+            console.log('no unique resources');
+        break;
+    }
+}
 
 const availableBuildItems = [{
     title: 'Relocate Citizens',
@@ -148,7 +290,16 @@ function onBuildItemClicked(index) {
         break;      
       case 'Upgrade Iron Centers': 
         onBuildUpgradedIronCenters(currentBuildPlanetIndex, index); //index is the current build item
-        break; 
+        break;   
+      case 'Geoengineering Center': 
+        onBuildGeoengineeringCenter(currentBuildPlanetIndex, index); //index is the current build item
+        break;   
+      case 'Anti-Flooding Climate Center': 
+        onBuildAntiFloodingClimateCenter(currentBuildPlanetIndex, index); //index is the current build item
+        break;   
+      case 'Anti-Hurricane Climate Center': 
+        onBuildAntiFloodingClimateCenter(currentBuildPlanetIndex, index); //index is the current build item
+        break;
       default:
         alert('Item not configured: ' + buildItem.title);
         break;
@@ -165,7 +316,6 @@ function onBuildGoldMine(index, buildItem) {
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   drawBuildMenu();
 }
-
 function onBuildTaxCentre(index, buildItem) {
   planets[index].rentModifier *= 1.3;
   calculateRent(index);
@@ -174,7 +324,6 @@ function onBuildTaxCentre(index, buildItem) {
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   drawBuildMenu();
 }
-
 function onBuildBank(index, buildItem) {
   x = planets[index].availableBuildItems[buildItem].incomeCost;
   planets[index].availableBuildItems[buildItem].description = 'Decreases income by ' + x;  
@@ -184,13 +333,12 @@ function onBuildBank(index, buildItem) {
   drawBuildMenu();
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5;  
 }
-
 function onBuildNuclearWeapons(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
-  globalSafetyGenerated += t.safetyGenerated;
+  globalShieldGenerated += t.ShieldGenerated;
   x = t.incomeCost;
-  y = t.safetyGenerated;
-  t.description = 'Increases safety level of all planets by ' + y + ' per year. Costs ' + x + ' income';
+  y = t.ShieldGenerated;
+  t.description = 'Increases shields of all planets by ' + y + ' per year. Costs ' + x + ' income';
   planets[index].expenses += x;
   t.incomeCost *= 2;
   t.cost *= 2;
@@ -198,7 +346,6 @@ function onBuildNuclearWeapons(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildWaterWell(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].waterGenerated += t.waterGenerated;
@@ -214,7 +361,6 @@ function onBuildWaterWell(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildOilExtractor(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].oilGenerated += t.oilGenerated;
@@ -230,7 +376,6 @@ function onBuildOilExtractor(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildUraniumMill(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].uraniumGenerated += t.uraniumGenerated;
@@ -246,7 +391,6 @@ function onBuildUraniumMill(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildIronCentre(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   planets[index].ironGenerated += t.ironGenerated;
@@ -262,13 +406,11 @@ function onBuildIronCentre(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildFountain(index, buildItem) {
   planets[index].waterPopRateMod += .3;
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   drawBuildMenu();
 }
-
 function onBuildUniversalFountain(index, buildItem) {
   waterBaseRateModUniversalFountain += .01;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
@@ -279,7 +421,6 @@ function onBuildUniversalFountain(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildUpgradedWaterWells(index, buildItem) {
   globalWaterProductionFactor *= 1.1;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
@@ -290,7 +431,6 @@ function onBuildUpgradedWaterWells(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildUpgradedOilWells(index, buildItem) {
   globalOilProductionFactor *= 1.1;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
@@ -301,7 +441,6 @@ function onBuildUpgradedOilWells(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildUpgradedUraniumMills(index, buildItem) {
   globalUraniumProductionFactor *= 1.1;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
@@ -312,7 +451,6 @@ function onBuildUpgradedUraniumMills(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
 function onBuildUpgradedIronCenters(index, buildItem) {
   globalIronProductionFactor *= 1.1;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
@@ -323,6 +461,45 @@ function onBuildUpgradedIronCenters(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
+var geoengineeringCenterConstructed = false;
+function onBuildGeoengineeringCenter(index, buildItem) {
+  globalNaturalDisasterModifier *= .7;
+  calculateHurricaneRisk(index);
+  calculateMeteorRisk(index);
+  calculateFloodRisk(index);
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.3
+  planets[index].availableBuildItems[buildItem].description = 'Allows planets to build climate control centers. Also, reduces risk of all floods & hurricanes by 30%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc.'
+  if (geoengineeringCenterConstructed == false) {
+    geoengineeringCenterConstructed = true;
+      for (var i = 0; i < planets.length; i++) {
+        createGeoenginneringCenterButtons(i); 
+        }
+  }
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
+function onBuildAntiFloodingClimateCenter(index, buildItem) {
+  planets[index].floodRiskModifier *= .5;
+  calculateFloodRisk(index);
+  planets[index].availableBuildItems[buildItem].cost *= 1.3
+  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of floods on this planet by 50%. Current risk: ' + (planets[index].floodRisk*100).toFixed(1) + '%';
+  drawPlanets();
+  drawBuildMenu();
+}
+function onBuildAntiHurricaneClimateCenter(index, buildItem) {
+  planets[index].hurricaneRiskModifier *= .5;
+  calculateHurricaneRisk(index);
+  planets[index].availableBuildItems[buildItem].cost *= 1.3
+  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of hurricanes on this planet by 50%. Current risk: ' + (planets[index].hurricaneRisk*100).toFixed(1) + '%';
+  drawPlanets();
+  drawBuildMenu();
+}
+
+
+
 
 function onSendTroops(index) {
   event.preventDefault();
@@ -345,7 +522,6 @@ function onSendTroops(index) {
   drawMoney();
   drawIncome(calculateIncome());
 }
-
 function onBolsterDefences(index) {
   event.preventDefault();
   event.stopPropagation();
@@ -353,15 +529,14 @@ function onBolsterDefences(index) {
   planets[index].mainPageBuildItems[0].cost += 1
   console.log(index)
     var planet = planets[index];
-    if (planet.safetyLevel + 60 >= 110) {
-      planet.safetyLevel = 110
+    if (planet.shieldLevel + 60 >= 110) {
+      planet.shieldLevel = 110
     } else {
-      planet.safetyLevel += 60;
+      planet.shieldLevel += 60;
     }
     drawPlanets();
     drawMoney();
 }
-
 function onTransferCitizens(index) {
   event.preventDefault();
   event.stopPropagation();
@@ -390,7 +565,6 @@ function onTransferCitizens(index) {
   drawIncome(calculateIncome());
   drawPlanets();
 }
-
 function onRelocateCitizens(index) {
     var planetTarget = planets[index];
     var totalPopulationToSend = planetTarget.population * .3;
@@ -420,7 +594,6 @@ function onRelocateCitizens(index) {
   drawIncome(calculateIncome());
   drawPlanets();
 }
-
 function onTransferResourceInit(planetIndex, event, currentResource) {
   event.preventDefault();
   event.stopPropagation();
@@ -442,8 +615,7 @@ function onTransferResourceInit(planetIndex, event, currentResource) {
     }
     transferResource(planetIndex, currentResource);
 }
-  var manualTransfer = false
-
+var manualTransfer = false
 function transferResource(planetIndex, currentResource) {
   console.log('ran transferResource on: ' + planetIndex);
   
@@ -526,72 +698,6 @@ function transferResource(planetIndex, currentResource) {
     drawMoney();
   }
 }
-
-function onTransferOil(planetIndex, event) {
-  event.preventDefault();
-  event.stopPropagation();  
-  console.log(event);
-      if (event.ctrlKey) {
-        planets[planetIndex].oilAutoTransfer = 1;
-      }
-      if (event.shiftKey) {
-        if (planets[planetIndex].oilAutoTransfer = 0) {
-        planets[planetIndex].oilAutoTransfer = 0;
-        return;
-        } else {
-          planets[planetIndex].oilAutoTransfer = 0;
-          return;
-        }
-    }
-    if (!event.shiftKey && !event.ctrlKey) {
-      manualTransfer = true
-    }
-    addOilTransfer(planetIndex);
-}
-  var manualTransfer = false
-
-function addOilTransfer(planetIndex) {
-  var receivingPlanet = planets[planetIndex];
-  var totalAmountTaken = 0;
-  var individualAmountTaken = 0;
-  var totalAmountAvailable = 0;
-  const oilPlanets = _.filter(planets, {resource: 'Oil'}); // filtered version, with all the oil planets
-  for (var i = 0; i < oilPlanets.length; i++) {
-    totalAmountAvailable += planets[i].oil;
-  }
-  if (totalAmountAvailable < 1) {
-    return;
-  } else {
-  for (var i = 0; i < oilPlanets.length; i++) {
-    if (receivingPlanet === oilPlanets[i]) {
-      continue;
-    }
-    if (planets[planetIndex].oilAutoTransfer > 0) {
-      if (receivingPlanet.oil < planets[planetIndex].population / 10) {
-      transferAmount = (receivingPlanet.population / 10) / totalAmountAvailable;
-      var charge = 5
-      } else {
-        transferAmount = 0
-      }
-    }
-      if (manualTransfer === true) {
-      var charge = 5;
-      transferAmount = .3;
-      manualTransfer = false;
-     
-      }
-    individualAmountTaken = oilPlanets[i].oil * transferAmount;
-    totalAmountTaken += Number(individualAmountTaken);
-    oilPlanets[i].oil -= individualAmountTaken;
-    }
-  }
-  receivingPlanet.oil += totalAmountTaken;
-  drawPlanets();
-  if (totalAmountTaken > 0) {money -= charge;} //take money if we did something
-  drawMoney();
-}
-
-
 function onHireForeigners(index) {
     var planetTarget = planets[index];
     var tempPopulationToSend = 10;
@@ -606,7 +712,6 @@ function onHireForeigners(index) {
     }
 
 }
-
 function onEvacuateCitizens(index) {
     var planetTarget = planets[index];
     var tempPopulationToSend = 10;

@@ -26,26 +26,26 @@ function onNewTurn() {
 
     for (var i = 0; i < planets.length; i++) {
         calculateIndividualPlanetIncomes();
-        var safetyModification = ((120 - planets[i].safetyLevel) * Math.random() * .15 + Math.random() * 1.5) - globalSafetyGenerated //modfication set to 20% of the current difference + 2
-        console.log(safetyModification);
-        if (planets[i].safetyLevel > 0) {
-            if (planets[i].safetyLevel - safetyModification > 0) {
-                planets[i].safetyLevel -= safetyModification;
+        var shieldModification = ((120 - planets[i].shieldLevel) * Math.random() * .15 + Math.random() * 1.5) - globalShieldGenerated //modfication set to 20% of the current difference + 2
+        console.log(shieldModification);
+        if (planets[i].shieldLevel > 0) {
+            if (planets[i].shieldLevel - shieldModification > 0) {
+                planets[i].shieldLevel -= shieldModification;
             } else {
-                planets[i].safetyLevel = 0
+                planets[i].shieldLevel = 0
             }
-            if (planets[i].safetyLevel > 120) {
-                planets[i].safetyLevel = 120;
+            if (planets[i].shieldLevel > 120) {
+                planets[i].shieldLevel = 120;
             }
         }
        
-        if (planets[i].safetyLevel < Math.random() * 80) {
+        if (planets[i].shieldLevel < Math.random() * 80) {
             tempEnemyIncrease = planets[i].population * Math.random() * .2;
             planets[i].enemies += tempEnemyIncrease;
         }
             
             var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 1.7))/15) / 200
-            tempPopIncrease = planets[i].population * (.02 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].safetyLevel * .011); //Multiplies pop incr. by 110% of safety level
+            tempPopIncrease = planets[i].population * (.02 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].shieldLevel * .011); //Multiplies pop incr. by 110% of shield level
             if (tempPopIncrease > 0) { //increase positive increases, and decrease decreases
                 tempPopIncrease *= planets[i].waterPopRateMod - (.3 * planets[i].enemies);
             } else {
@@ -73,11 +73,12 @@ function onNewTurn() {
         }
         if (planets[i].uraniumAutoTransfer > 0) {
             transferResource(i, 'Uranium');
-        } 
+        }
+        randomEvents(i);
         calculateRent(i);
     }
 
-    randomEvent();
+
     deductPlanetaryWater();
     deductPlanetaryOil();
     deductPlanetaryUranium();
@@ -93,14 +94,40 @@ function drawIncome(income) {
     document.getElementById('income').innerText = formatMoney(income);
 }
 
-function randomEvent() {
-    var x = Math.random()
-    if (Math.random() < .05) {
-        y = Math.abs((planets.length * Math.random() - .5).toFixed(0))
-        alert('A meteor has struck ' + planets[y].name);
-        planets[y].population *= .5;
+ //y = Math.abs((planets.length * Math.random() - .5).toFixed(0)) -- old system to choose random planet
+ var naturalDisasters = ['A meteor has struck ', 'A flood has hit ', 'A hurricane has hit ']
+
+function calculateFloodRisk(i) {
+    planets[i].floodRisk = Math.pow(TurnCount, 1.02) * .003 * globalNaturalDisasterModifier * floodRiskGlobalModifier * planets[i].floodRiskModifier;
+}
+function calculateHurricaneRisk(i) {
+    planets[i].hurricaneRisk = Math.pow(TurnCount, 1.04) * .001 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
+}
+function calculateMeteorRisk(i) {
+    planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * 0 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
+}
+
+function randomEvents(i) {
+    calculateFloodRisk(i);
+    calculateHurricaneRisk(i);
+    calculateMeteorRisk(i);
+    if (Math.random() < planets[i].floodRisk) {
+        x = (planets[i].population * (.1 + Math.random() / 2)).toFixed(0);
+        alert('A flood has hit ' + planets[i].name + ', killing ' + x + ' citizens');
+        planets[i].population -= x;
         drawPlanets();
-        
+    }
+    if (Math.random() < planets[i].meteorRisk) {
+        x = (planets[i].population * (.4 + Math.random() / 2)).toFixed(0);
+        alert('A meteor has hit ' + planets[i].name + ', killing ' + x + ' citizens');
+        planets[i].population -= x;
+        drawPlanets();
+    }
+    if (Math.random() < planets[i].hurricaneRisk) {
+        x = (planets[i].population * (.3 + Math.random() / 2)).toFixed(0);
+        alert('A hurricane has hit ' + planets[i].name + ', killing ' + x + ' citizens');
+        planets[i].population -= x;
+        drawPlanets();
     }
 }
 
@@ -193,8 +220,8 @@ function drawPlanets() {
     planetList.innerHTML = planets.map((p, i) => renderPlanet(p, i)).join('');
 
     for (var i = 0; i < planets.length; i++) {
-        if (planets[i].safetyLevel < 65) {
-            document.getElementById("safetyalert"+ i).classList.add('alert2');
+        if (planets[i].shieldLevel < 65) {
+            document.getElementById("shieldalert"+ i).classList.add('alert2');
         }
         if (planets[i].enemies > 0.5) {
             document.getElementById("enemyalert" + i).classList.add('alert2');
@@ -207,7 +234,7 @@ const renderPlanet = (planet, i) => {
     var q = planets.length - 1    
     return `
         <div onclick="onPlanetRowClicked(${i})" class="table-row clickable">
-            <div class="table-text">${ planet.name }</div>
+            <div class="table-text tooltip">${ planet.name }<span class="tooltiptext">Flood risk: ${((planet.floodRisk)*100).toFixed(1)}%<br>Hurricane risk: ${((planet.hurricaneRisk)*100).toFixed(1)}%<br>Meteor risk: ${((planet.meteorRisk)*100).toFixed(1)}%<span></div>
             <div id="${i}" class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text half center form"><form class="form" onclick="onChangeTax(${i}, event)" onkeyup="onChangeTax(${i}, event)" onsubmit="onChangeTax(${i}, event)">
             <input id="taxForm${i}" type="number" step="1" style="height: 8px; width: 60px" value=${ (planet.tax * 100).toFixed(0) }>
@@ -215,7 +242,7 @@ const renderPlanet = (planet, i) => {
             <div class="table-text half right button"><button class="tooltip" onclick="onCollectRent(${i}, event)">${ planet.rent.toFixed(0) }<span class="tooltiptext">Click to collect rent from opponent<span></button></div>             
             <div class="table-text left button"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) } / ${ planet.maxpopulation.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
             <div class="table-text half right button" style="display:flex;"><button class="tooltip" onclick="onPlanetDevelopment(${i}, event)">${ pr.name }<span class="tooltiptext">Cost: ${ formatMoney(pr.cost) }. <br>Income Cost: ${ formatMoney(pr.incomeCost) } <span></button></div>            
-            <div id="safetyalert${i}" class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.safetyLevel.toFixed(0) }<span class="tooltiptext">
+            <div id="shieldalert${i}" class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.shieldLevel.toFixed(0) }<span class="tooltiptext">
             ${ formatMoney(planets[i].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[i].mainPageBuildItems[0].cost) } <span></button></div>          
             <div id="enemyalert${i}" class="table-text half right button"><button class="tooltip" onclick="onSendTroops(${i}, event)">${ planet.enemies.toFixed(0) }<span class="tooltiptext">${ formatMoney(mainPageBuildItems[1].description) } <br>Cost: ${ formatMoney(mainPageBuildItems[1].cost) } <span></button></div>          
             <div class="table-text half right button"><button class="tooltip" onclick="onTransferResourceInit(${i}, event, 'Water')">${ planet.water.toFixed(0) }<span class="tooltiptext">Click to transfer water here from other planets. Cost: 5<span></button></div> 
@@ -254,7 +281,13 @@ function onSubmitPlanet(planetResourceIndex) {
         mainPageBuildItems: _.cloneDeep(mainPageBuildItems),
         usesResourceAt: _.cloneDeep(usesResourceAt),
         expenses: 0,
-        safetyLevel: 100,
+        shieldLevel: 100,
+        floodRisk: 0,
+        floodRiskModifier: 1,
+        meteorRisk: 0,
+        meteorRiskModifier: 1,
+        hurricaneRisk: 0,
+        hurricaneRiskModifier: 1,
         water: 0,
         waterGenerated: 0,
         waterUsageFactor: 1,
@@ -322,7 +355,12 @@ function erase() {
 
 var planets = [];
 var money = 1000;
-var globalSafetyGenerated = 0;
+
+var floodRiskGlobalModifier = 1;
+var hurricaneRiskGlobalModifier = 1;
+var meteorRiskGlobalModifier = 1;
+var globalNaturalDisasterModifier = 1;
+var globalShieldGenerated = 0;
 var globalWaterProductionFactor = 1;
 var globalOilProductionFactor = 1;
 var globalUraniumProductionFactor = 1;

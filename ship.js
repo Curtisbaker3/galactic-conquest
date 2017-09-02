@@ -10,22 +10,22 @@ function rollDice() {
     
     if (shipLocation > 400 && shipLocation < 450) {
         console.log('ship location is greater than 400');
-        shipLocation -= 400 + 66;        
+        shipLocation -= 400 - 66;        
     }   
 
     if (shipLocation > 301 && shipLocation < 350) {
         console.log('ship location is greater than 301');
-        shipLocation -= 301 + 48;        
+        shipLocation -= 301 - 48;        
     }
 
     if (shipLocation > 201 && shipLocation < 250) {
         console.log('ship location is greater than 201');
-        shipLocation -= 201 + 23;        
+        shipLocation -= 201 - 23;        
     }
 
     if (shipLocation > 104 && shipLocation < 150) {
         console.log('ship location is greater than 104');
-        shipLocation -= 104 + 7;        
+        shipLocation -= 104 - 7;        
     }
 
     if (shipLocation > 79 && shipLocation < 100) {
@@ -33,8 +33,8 @@ function rollDice() {
         var x = 50
         money += x;
         drawMoney();
+        shipLocation -= 79;
         alert('Bonus $' + x + ' received for passing ' + planetLocations[shipLocation]);
-        shipLocation -= 79;        
     }    
     
     switch(planetLocations[shipLocation]) {
