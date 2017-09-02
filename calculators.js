@@ -125,8 +125,8 @@ function onChangeTax(i) {
         planets[i].tax = 0;
         document.getElementById('taxForm' + i).value = 0
     }
-    if (planets[i].tax > 100) {
-        planets[i].tax = 100;
+    if (planets[i].tax > 1) {
+        planets[i].tax = 1;
         document.getElementById('taxForm' + i).value = 100
     }
     document.getElementById(i).innerText = formatMoney(planets[i].income);

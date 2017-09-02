@@ -27,10 +27,10 @@ function onPlanetRowClicked(i) {
 
 const mainPageBuildItems = [{
   description: 'Click to bolster defences. +60 to shields. Decreases risk of invasion.',
-  cost: 20
+  cost: 14
 }, {
   description: 'Click to send troops.',
-  cost: 15
+  cost: 10
 }, ]
 
 function createGeoenginneringCenterButtons(i) {
@@ -38,11 +38,11 @@ function createGeoenginneringCenterButtons(i) {
     planets[i].availableBuildItems.push({
     title: 'Anti-Flooding Climate Center',
     description: 'Decreases risk of floods on this planet by 50%.',
-    cost: 30,
+    cost: 20,
     }, {
     title: 'Anti-Hurricane Climate Center',
     description: 'Decreases risk of floods on this planet by 50%',
-    cost: 50,
+    cost: 35,
     });
   }
 }
@@ -118,7 +118,7 @@ function createSpecialButtons(i) {
             planets[i].availableBuildItems.push({
             title: 'Nuclear Shields',
             description: 'Increases shields of all planets by +1/year. Shield output decline 10%/turn. Costs 1 income',
-            cost: 30,
+            cost: 20,
             incomeCost: 1,
             buildCount: 0,
             shieldGenerated: 1,
@@ -464,9 +464,6 @@ function onBuildUpgradedIronCenters(index, buildItem) {
 var geoengineeringCenterConstructed = false;
 function onBuildGeoengineeringCenter(index, buildItem) {
   globalNaturalDisasterModifier *= .7;
-  calculateHurricaneRisk(index);
-  calculateMeteorRisk(index);
-  calculateFloodRisk(index);
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.3
@@ -474,7 +471,10 @@ function onBuildGeoengineeringCenter(index, buildItem) {
   if (geoengineeringCenterConstructed == false) {
     geoengineeringCenterConstructed = true;
       for (var i = 0; i < planets.length; i++) {
-        createGeoenginneringCenterButtons(i); 
+        createGeoenginneringCenterButtons(i);
+        calculateHurricaneRisk(i);
+        calculateMeteorRisk(i);
+        calculateFloodRisk(i);
         }
   }
   drawIncome(calculateIncome());
@@ -526,7 +526,7 @@ function onBolsterDefences(index) {
   event.preventDefault();
   event.stopPropagation();
   money -= Number(planets[index].mainPageBuildItems[0].cost)
-  planets[index].mainPageBuildItems[0].cost += 1
+  planets[index].mainPageBuildItems[0].cost += 2
   console.log(index)
     var planet = planets[index];
     if (planet.shieldLevel + 60 >= 110) {

@@ -40,16 +40,18 @@ function onNewTurn() {
         }
        
         if (planets[i].shieldLevel < Math.random() * 80) {
-            tempEnemyIncrease = (planets[i].population * Math.random() * .1) + 2.5 * Math.pow(TurnCount, 1.03) + TurnCount;
+            tempEnemyIncrease = (planets[i].population * Math.random() * .1) + .5 * Math.pow(TurnCount, 1.01) + TurnCount;
             planets[i].enemies += tempEnemyIncrease;
         }
             
             var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 1.7))/15) / 200
             tempPopIncrease = planets[i].population * (.02 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].shieldLevel * .011); //Multiplies pop incr. by 110% of shield level
             if (tempPopIncrease > 0) { //increase positive increases, and decrease decreases
-                tempPopIncrease *= planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+                tempPopIncrease = tempPopIncrease * planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+                console.log(tempPopIncrease);
             } else {
-                tempPopIncrease /= planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+                tempPopIncrease = tempPopIncrease / planets[i].waterPopRateMod - (.3 * planets[i].enemies);
+                console.log(tempPopIncrease);
             }
         if (planets[i].population < planets[i].maxpopulation || tempPopIncrease < 0) {
             if (planets[i].population + tempPopIncrease <= 0) {
