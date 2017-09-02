@@ -1,5 +1,4 @@
 /* 100 turns high records list -- 476.29 curtis
-Add gold upgrade that increases planet's rent
 make federations stations and earth give money
 added extrasolar moons for extra $$
 Add random event cards. Bonus population, water, oil, uranium. Collect on space docks. Free colony ship, which can be sent to an extrasolar moon

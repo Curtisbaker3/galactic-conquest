@@ -139,7 +139,6 @@ function rollDice() {
     handlePlanetSearch();  
 }
 
-
 function takePopulation() {
     var populationInput;
     var promptInput = prompt("Enter population to evacuate:", "20");
