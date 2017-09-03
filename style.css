@@ -193,15 +193,10 @@ div.card {
     opacity: 1;
     
 }
-
-.bottom-drawer-item-cost {
-font-size: 14px !important;
-}
-
-.bottom-drawer-item-description{
-font-size: 14px;
-}
-
-.bottom-drawer-item-title {
-font-size: 14px !important;
-}
+  
+.your-turn {
+  background-color: #4B956F;
+  padding: 5px;
+  border-radius: 5px;
+  opacity: .8;
+  }

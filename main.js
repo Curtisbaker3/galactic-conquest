@@ -1,6 +1,6 @@
 /*
 add conditions for adding money and populations to things -- not ....!
-100 turns high records list -- 476.29 curtis
+100 turns high records list -- 476.29 curtis, 2500
 make federations stations and earth give money
 added extrasolar moons for extra $$
 Add random event cards. Bonus population, water, oil, uranium. Collect on space docks. Free colony ship, which can be sent to an extrasolar moon
@@ -13,8 +13,42 @@ Trade module -- adds main ship to planet list, 25% chance to open trade menu whe
 Add fuel and oil upgrade
 autoreplenish fuel
 */
+var numberOfPlayers = 0;
+var turnPoint = 0;
+
+//function whoseTurnIsIt () {
+
+//}
 var waterBaseRateModUniversalFountain = 0
 function onNewTurn() {
+    if (event.ctrlKey) {
+        var promptInput1 = prompt("Enter number of players:", "2");
+        var parsed1 = Number(promptInput1);
+        numberOfPlayers = Number(promptInput1);
+        return;
+        if (isNaN(parsed)) {
+            return;
+        }
+      }
+    if (event.shiftKey) {
+        var promptInput2 = prompt("When is your turn?", "2");
+        var parsed2 = Number(promptInput2);
+        turnPoint = Number(promptInput2);
+        return;
+    }
+    if (numberOfPlayers > 0 && turnPoint > 0) {
+        var z = ((TurnCount - turnPoint - 1) + numberOfPlayers) / numberOfPlayers;
+        console.log(TurnCount);
+        console.log(turnPoint);
+        console.log(numberOfPlayers);
+        console.log(z);
+        if (Number.isInteger(z) === true) {
+            console.log('woot!!!');
+            document.getElementById("conquestTitle").classList.add('your-turn');
+        } else {
+            document.getElementById("conquestTitle").classList.remove('your-turn');
+        }
+    }
     var tempIncome = calculateIncome();
     money = money + tempIncome;
     drawMoney();
@@ -90,7 +124,7 @@ function onNewTurn() {
     drawIncome(calculateIncome());
     drawPlanets();
     drawTotalPopulation(calculateTotalPopulation());
-    shipPopulation *= 1.02;
+    shipPopulation = (shipPopulation * 1.02 + 1) + shipPopulationBonus;
     drawShipPopulation();
 };
 
@@ -259,7 +293,7 @@ const renderPlanet = (planet, i) => {
 
 function onSubmitPlanet(planetResourceIndex) {
     var populationInput = prompt('Enter population you would like to send to this planet.');
-    if (populationInput === null) {
+    if (populationInput === null || isNaN(populationInput = true)) {
         return;
     }
     var population = Number(populationInput);
@@ -371,6 +405,7 @@ var globalUraniumProductionFactor = 1;
 var globalIronProductionFactor = 1;
 drawMoney();
 var shipPopulation = 70;
+var shipPopulationBonus = 0;
 var shipLocation = 0;
 drawShipPopulation();
 var housecost = 100;
