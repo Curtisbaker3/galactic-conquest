@@ -293,7 +293,10 @@ const renderPlanet = (planet, i) => {
 
 function onSubmitPlanet(planetResourceIndex) {
     var populationInput = prompt('Enter population you would like to send to this planet.');
-    if (populationInput === null || isNaN(populationInput = true)) {
+    if (populationInput === null) {
+        return;
+    }
+    if (isNaN(populationInput)) {
         return;
     }
     var population = Number(populationInput);
