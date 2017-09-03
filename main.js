@@ -1,4 +1,6 @@
-/* 100 turns high records list -- 476.29 curtis
+/*
+add conditions for adding money and populations to things -- not ....!
+100 turns high records list -- 476.29 curtis
 make federations stations and earth give money
 added extrasolar moons for extra $$
 Add random event cards. Bonus population, water, oil, uranium. Collect on space docks. Free colony ship, which can be sent to an extrasolar moon
@@ -80,7 +82,7 @@ function onNewTurn() {
         calculateRent(i);
     }
 
-    globalShieldGenerated *= .90;
+    globalShieldGenerated *= .93;
     deductPlanetaryWater();
     deductPlanetaryOil();
     deductPlanetaryUranium();

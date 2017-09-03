@@ -117,7 +117,7 @@ function createSpecialButtons(i) {
         case 'Uranium': 
             planets[i].availableBuildItems.push({
             title: 'Nuclear Shields',
-            description: 'Increases shields of all planets by +1/year. Shield output decline 10%/turn. Costs 1 income',
+            description: 'Increases shields of all planets by +1/year. Shield output decline 7%/turn. Costs 1 income',
             cost: 20,
             incomeCost: 1,
             buildCount: 0,
