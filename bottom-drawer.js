@@ -130,11 +130,7 @@ function createSpecialButtons(i) {
         case 'Uranium': 
             planets[i].availableBuildItems.push({
             title: 'Nuclear Shields',
-<<<<<<< HEAD
             description: 'Increases shields of all planets by +1/year. Shield output decline 7%/turn.',
-=======
-            description: 'Increases shields of all planets by +1/year. Shield output decline 7%/turn. -1 inc.',
->>>>>>> 23d0eceda41376ccb84c6bb9d56b3335052d29cf
             cost: 20,
             incomeCost: 1,
             buildCount: 0,
@@ -143,7 +139,7 @@ function createSpecialButtons(i) {
         case 'Uranium': 
             planets[i].availableBuildItems.push({
             title: 'Nuclear Facility',
-            description: 'Nuclear explosives reduce risk of meteors striking all planets by 30%. -2 inc.',
+            description: 'Nuclear explosives reduce risk of meteors striking all planets by 30%.',
             cost: 20,
             incomeCost: 2,
             buildCount: 0,
@@ -528,7 +524,7 @@ function onBuildNuclearFacility(index, buildItem) {
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.3
-  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of meteors on all planets by 30%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc. Current risk: ' + (planets[index].meteorRisk*100).toFixed(1) + '%';
+  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of meteors on all planets by 30%. Current risk: ' + (planets[index].meteorRisk*100).toFixed(1) + '%';
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
