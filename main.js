@@ -108,7 +108,7 @@ function calculateHurricaneRisk(i) {
     planets[i].hurricaneRisk = Math.pow(TurnCount, 1.03) * .0003 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
 }
 function calculateMeteorRisk(i) {
-    planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * 0 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
+    planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * .00009 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
 }
 
 function randomEvents(i) {

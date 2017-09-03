@@ -117,11 +117,20 @@ function createSpecialButtons(i) {
         case 'Uranium': 
             planets[i].availableBuildItems.push({
             title: 'Nuclear Shields',
-            description: 'Increases shields of all planets by +1/year. Shield output decline 7%/turn. Costs 1 income',
+            description: 'Increases shields of all planets by +1/year. Shield output decline 7%/turn. -1 inc.',
             cost: 20,
             incomeCost: 1,
             buildCount: 0,
             shieldGenerated: 1,
+        });
+        case 'Uranium': 
+            planets[i].availableBuildItems.push({
+            title: 'Nuclear Facility',
+            description: 'Nuclear explosives reduce risk of meteors striking all planets by 30%. -2 inc.',
+            cost: 20,
+            incomeCost: 2,
+            buildCount: 0,
+            nuclearFacility: 1,
         });
         break;
         case 'Iron': 
@@ -267,6 +276,9 @@ function onBuildItemClicked(index) {
       case 'Uranium Mill': 
         onBuildUraniumMill(currentBuildPlanetIndex, index); //index is the current build item
         break;   
+        case 'Nuclear Facility': 
+          onBuildNuclearFacility(currentBuildPlanetIndex, index); //index is the current build item
+          break;  
       case 'Nuclear Shields': 
         onBuildNuclearWeapons(currentBuildPlanetIndex, index); //index is the current build item
         break;    
@@ -481,6 +493,19 @@ function onBuildGeoengineeringCenter(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
+function onBuildNuclearFacility(index, buildItem) {
+  meteorRiskGlobalModifier *= .7;
+    for (var i = 0; i < planets.length; i++) {
+      calculateMeteorRisk(i);
+    }
+  planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
+  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].incomeCost *= 1.3
+  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of meteors on all planets by 30%. -' + (planets[index].availableBuildItems[buildItem].incomeCost).toFixed(1) + ' inc. Current risk: ' + (planets[index].meteorRisk*100).toFixed(1) + '%';
+  drawIncome(calculateIncome());
+  drawPlanets();
+  drawBuildMenu();
+}
 function onBuildAntiFloodingClimateCenter(index, buildItem) {
   planets[index].floodRiskModifier *= .5;
   calculateFloodRisk(index);
@@ -497,9 +522,6 @@ function onBuildAntiHurricaneClimateCenter(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-
-
-
 
 function onSendTroops(index) {
   event.preventDefault();
