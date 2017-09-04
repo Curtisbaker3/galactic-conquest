@@ -268,7 +268,7 @@ function drawPlanets() {
     planetList.innerHTML = planets.map((p, i) => renderPlanet(p, i)).join('');
 
     for (var i = 0; i < planets.length; i++) {
-        if (planets[i].shieldLevel < 75) {
+        if (planets[i].shieldLevel < 80) {
             document.getElementById("shieldalert"+ i).classList.add('alert2');
         }
         if (planets[i].enemies > 0.5) {
