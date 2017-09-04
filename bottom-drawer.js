@@ -158,28 +158,28 @@ function createSpecialButtons(i) {
         case 'Iron': 
             planets[i].availableBuildItems.push({
             title: 'Upgrade Oil Wells',
-            description: 'Increases production of all oil wells by 10%',
+            description: 'Increases production of all oil wells by 25%',
             cost: 20,
             incomeCost: 1,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
             title: 'Upgrade Water Wells',
-            description: 'Increases production of all water wells by 10%',
+            description: 'Increases production of all water wells by 25%',
             cost: 20,
             incomeCost: 1,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
             title: 'Upgrade Uranium Mills',
-            description: 'Increases production of all uranium mills by 10%',
+            description: 'Increases production of all uranium mills by 25%',
             cost: 20,
             incomeCost: 1,
         });
         case 'Iron': 
             planets[i].availableBuildItems.push({
             title: 'Upgrade Iron Centers',
-            description: 'Increases production of all iron by 10%',
+            description: 'Increases production of all iron by 25%',
             cost: 20,
             incomeCost: 1,
         });
@@ -457,37 +457,34 @@ function onBuildUniversalFountain(index, buildItem) {
   drawBuildMenu();
 }
 function onBuildUpgradedWaterWells(index, buildItem) {
-  globalWaterProductionFactor *= 1.1;
+  globalProductionFactor.water *= 1.25;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
-  planets[index].availableBuildItems[buildItem].description = 'Increases production of all water generators by 10%.'
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
 }
 function onBuildUpgradedOilWells(index, buildItem) {
-  globalOilProductionFactor *= 1.1;
+  globalProductionFactor.oil *= 1.25;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
-  planets[index].availableBuildItems[buildItem].description = 'Increases production of all oil generators by 10%.'
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
 }
 function onBuildUpgradedUraniumMills(index, buildItem) {
-  globalUraniumProductionFactor *= 1.1;
+  globalProductionFactor.uranium *= 1.25;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5
-  planets[index].availableBuildItems[buildItem].description = 'Increases production of all uranium generators by 10%.'
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
 }
 function onBuildUpgradedIronCenters(index, buildItem) {
-  globalIronProductionFactor *= 1.1;
+  globalProductionFactor.iron *= 1.25;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5

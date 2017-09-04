@@ -7,9 +7,6 @@ added extrasolar moons for extra $$
 Add random event cards. Bonus population, water, oil, uranium. Collect on space docks. Free colony ship, which can be sent to an extrasolar moon
 make alert for on maxpopulation reached, fulfill planet requirements to develop planet
 
-Add growth rate modifiers
-    decrease waterusagefactor, oilusagefactor -- efficiency buildings - ex. water recycle plant
-
 Trade module -- adds main ship to planet list, 25% chance to open trade menu when land on foreign moon
 Add fuel and oil upgrade
 autoreplenish fuel
@@ -27,7 +24,7 @@ function onNewTurn() {
         var parsed1 = Number(promptInput1);
         numberOfPlayers = Number(promptInput1);
         return;
-        if (isNaN(parsed)) {
+        if (isNaN(parsed1)) {
             return;
         }
       }
@@ -61,6 +58,7 @@ function onNewTurn() {
     randomBankRate = Math.random();
     randomTradeString = randomTradeRate.toString() + (randomNumber*randomTradeRate*.01).toFixed(2).toString() + randomNumber.toString() + (Math.round(money)).toString();
 
+
     for (var i = 0; i < planets.length; i++) {
         calculateIndividualPlanetIncomes();
         var shieldModification = ((120 - planets[i].shieldLevel) * Math.random() * .15 + Math.random() * 1.5) - globalShieldGenerated //modfication set to 20% of the current difference + 2
@@ -82,7 +80,7 @@ function onNewTurn() {
         }
             
             var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 1.7))/15) / 200
-            tempPopIncrease = planets[i].population * (.02 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].shieldLevel * .011); //Multiplies pop incr. by 110% of shield level
+            tempPopIncrease = planets[i].population * (0 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].shieldLevel * .011); //Multiplies pop incr. by 110% of shield level // decreased by 2% Sept. 3 2017
             if (tempPopIncrease > 0) { //increase positive increases, and decrease decreases
                 tempPopIncrease = tempPopIncrease * planets[i].waterPopRateMod - (.3 * planets[i].enemies);
                 console.log(tempPopIncrease);
@@ -118,10 +116,11 @@ function onNewTurn() {
     }
 
     globalShieldGenerated *= .93;
-    deductPlanetaryWater();
-    deductPlanetaryOil();
-    deductPlanetaryUranium();
-    deductPlanetaryIron();
+    //var tempResource = 'water';
+    deductPlanetaryResource('water');
+    deductPlanetaryResource('oil');
+    deductPlanetaryResource('iron');
+    deductPlanetaryResource('uranium');
     drawIncome(calculateIncome());
     drawPlanets();
     drawTotalPopulation(calculateTotalPopulation());
@@ -143,7 +142,7 @@ function calculateHurricaneRisk(i) {
     planets[i].hurricaneRisk = Math.pow(TurnCount, 1.03) * .0003 * globalNaturalDisasterModifier * hurricaneRiskGlobalModifier * planets[i].hurricaneRiskModifier;
 }
 function calculateMeteorRisk(i) {
-    planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * .00009 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
+    planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * .00015 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
 }
 
 function randomEvents(i) {
@@ -403,10 +402,18 @@ var hurricaneRiskGlobalModifier = 1;
 var meteorRiskGlobalModifier = 1;
 var globalNaturalDisasterModifier = 1;
 var globalShieldGenerated = 0;
-var globalWaterProductionFactor = 1;
-var globalOilProductionFactor = 1;
-var globalUraniumProductionFactor = 1;
-var globalIronProductionFactor = 1;
+var globalProductionFactor = {
+    water: 1,
+    oil: 1,
+    uranium: 1,
+    iron: 1
+};
+var planetLevelOfResource = {
+    water: 2,
+    oil: 3,
+    uranium: 4,
+    iron: 5
+};
 drawMoney();
 var shipPopulation = 70;
 var shipPopulationBonus = 0;
