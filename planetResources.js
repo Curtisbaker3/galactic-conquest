@@ -332,7 +332,7 @@ function renderUniquePlanet (i) {
     }
     return `
         <div id="soldPlanets${i}" class="table-row-unique table-row" onclick="onSubmitPlanet(${i})">
-            <div class="table-text one">${ planetResources[i].title }</div>
+            <div class="table-text one">${ planetResources[i].title}</div>
             <div class="table-text right one style="display:flex;">${ planetResources[i].resource }</div>           
             <div class="table-text right one style="display:flex;">${ planetResources[i].cost }</div>           
             <div class="table-text right one style="display:flex;">${ planetResources[i].maxPopulation }</div>           
