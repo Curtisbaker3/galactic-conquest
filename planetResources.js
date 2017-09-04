@@ -289,6 +289,12 @@ function shuffleResources() {
 }
 
 var searchstr = '';
+planetResourcesInit();
+function planetResourcesInit () {
+    for (var i = 0; i < planetResources.length; i++) {
+        planetResources[i].sold = false;
+    }
+}
 drawUniqueUnknownPlanets();
 function drawUniqueUnknownPlanets() {
     var unknownPlanetList = document.getElementById('uniquePlanetData');
@@ -296,6 +302,13 @@ function drawUniqueUnknownPlanets() {
         unknownPlanetList.removeChild(unknownPlanetList.firstChild);
     }
     unknownPlanetList.innerHTML = planetResources.map((p, i) => renderUniquePlanet(i)).join('');
+    for (i = 0; i < planetResources.length; i++) {
+        if (planetResources[i].sold == true && document.getElementById("soldPlanets"+i) != null)
+            {
+            console.log('soldPlanets test'+i);
+            document.getElementById("soldPlanets"+i).classList.add('soldPlanets');
+            } 
+    }
 };
 
 

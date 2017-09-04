@@ -6,8 +6,7 @@ add conditions for adding money and populations to things -- not ....!
 make federations stations and earth give money
 added extrasolar moons for extra $$
 Add random event cards. Bonus population, water, oil, uranium. Collect on space docks. Free colony ship, which can be sent to an extrasolar moon
-make alert for on maxpopulation reached, fulfill planet requirements to develop planet
-
+fulfill planet requirements to develop planet
 Trade module -- adds main ship to planet list, 25% chance to open trade menu when land on foreign moon
 Add fuel and oil upgrade
 autoreplenish fuel
@@ -269,7 +268,7 @@ function drawPlanets() {
     planetList.innerHTML = planets.map((p, i) => renderPlanet(p, i)).join('');
 
     for (var i = 0; i < planets.length; i++) {
-        if (planets[i].shieldLevel < 75) {
+        if (planets[i].shieldLevel < 80) {
             document.getElementById("shieldalert"+ i).classList.add('alert2');
         }
         if (planets[i].enemies > 0.5) {
@@ -305,6 +304,7 @@ const renderPlanet = (planet, i) => {
 function onSubmitPlanet(planetResourceIndex) {
     if (event.ctrlKey)
         {
+        planetResources[planetResourceIndex].sold = true;
         document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
         console.log('soldPlanets'+planetResourceIndex);
         return;
@@ -323,6 +323,8 @@ function onSubmitPlanet(planetResourceIndex) {
         return alert("Can't send more than"+planetResources[planetResourceIndex.maxPopulation]+"units at once.");
     } else if (population > shipPopulation) {
         return alert('You don\'t have enough population!');
+    } else if (planetResources[planetResourceIndex].sold = true) {
+        return alert('Can\'t send units here! Your opponent has occupied this planet');
     } else {
         shipPopulation -= population;
         drawShipPopulation();

@@ -141,7 +141,7 @@ function createSpecialButtons(i) {
             title: 'Nuclear Facility',
             description: 'Nuclear explosives reduce risk of meteors striking all planets by 30%.',
             cost: 20,
-            incomeCost: 2,
+            incomeCost: .5,
             buildCount: 0,
             nuclearFacility: 1,
         });
@@ -186,7 +186,7 @@ function createSpecialButtons(i) {
         case 'Iron': 
             planets[i].availableBuildItems.push({
             title: 'Geoengineering Center',
-            description: 'Allows planets to build climate control centers. Also, reduces risk of all floods & hurricanes by 30%.',
+            description: 'Allows planets to build climate control centers. Also, reduces risk of all floods & hurricanes by 40%.',
             cost: 30,
             incomeCost: 1,
         });
@@ -495,7 +495,7 @@ function onBuildUpgradedIronCenters(index, buildItem) {
 }
 var geoengineeringCenterConstructed = false;
 function onBuildGeoengineeringCenter(index, buildItem) {
-  globalNaturalDisasterModifier *= .7;
+  globalNaturalDisasterModifier *= .6;
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.3
