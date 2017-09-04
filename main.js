@@ -323,7 +323,7 @@ function onSubmitPlanet(planetResourceIndex) {
         return alert("Can't send more than"+planetResources[planetResourceIndex.maxPopulation]+"units at once.");
     } else if (population > shipPopulation) {
         return alert('You don\'t have enough population!');
-    } else if (planetResources[planetResourceIndex].sold = true) {
+    } else if (planetResources[planetResourceIndex].sold == true) {
         return alert('Can\'t send units here! Your opponent has occupied this planet');
     } else {
         shipPopulation -= population;
