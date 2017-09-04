@@ -5,23 +5,33 @@ function calculateIndividualPlanetIncomes() { //static function that does not in
     }
 }
 
-function deductPlanetaryResource(tempResource) {
+function addPlanetaryResource(tempResource) {
     for (var i = 0; i < planets.length; i++) {
         planets[i][tempResource] += planets[i][tempResource + 'Generated'] * globalProductionFactor[tempResource];
+        console.log(planets[i].name + 'resource level: ' + planets[i][tempResource]);
         if (planets[i].level >= planetLevelOfResource[tempResource]) {
             var currentLevel = 'some';
             if (planets[i][tempResource] <= 0) {currentLevel = 'none'}       
-            planets[i][tempResource] -= (planets[i][tempResource + 'UsageFactor'] * planets[i].population * .1);
+        }
+    } 
+}
+
+function deductPlanetaryResource(tempResource) {
+    for (var i = 0; i < planets.length; i++) {
+        if (planets[i].level >= planetLevelOfResource[tempResource]) {
+        planets[i][tempResource] -= (planets[i][tempResource + 'UsageFactor'] * planets[i].population * .1);
+        console.log(planets[i].name + 'resource level: ' + planets[i][tempResource]);
         }
         if (planets[i][tempResource] < 0) {
             planets[i].population += (planets[i][tempResource]);
             planets[i][tempResource] = 0
-            if (currentLevel != 'none' && currentLevel == 'some') {
-                alert('planet ' + planets[i].name + ' out of ' + tempResource + '!');
-            }
-            
+        console.log(planets[i].name + 'resource level: ' + planets[i][tempResource]);
+        //if (currentLevel != 'none' && currentLevel == 'some') {
+        //    alert('planet ' + planets[i].name + ' out of ' + tempResource + '!');
+        //}
+        
         }
-    } 
+    }
 }
 
 function calculateTotalPopulation() {

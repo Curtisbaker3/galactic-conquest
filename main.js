@@ -1,4 +1,4 @@
-/*
+/* ADD TRANSFER THEN DEDUCT ! REESOURCE ORDER BRO!
 //fix relocate citizens -- negative population
 add conditions for adding money and populations to things -- not ....!
 100 turns high records list -- 476.29 curtis, 2500
@@ -58,6 +58,10 @@ function onNewTurn() {
     randomBankRate = Math.random();
     randomTradeString = randomTradeRate.toString() + (randomNumber*randomTradeRate*.01).toFixed(2).toString() + randomNumber.toString() + (Math.round(money)).toString();
 
+    addPlanetaryResource('water');
+    addPlanetaryResource('oil');
+    addPlanetaryResource('iron');
+    addPlanetaryResource('uranium');
 
     for (var i = 0; i < planets.length; i++) {
         calculateIndividualPlanetIncomes();
@@ -79,7 +83,7 @@ function onNewTurn() {
             planets[i].enemies += tempEnemyIncrease;
         }
             
-            var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 1.7))/15) / 200
+            var taxModifier = (20 - (Math.pow((planets[i].tax * 100), 2))/35.7) / 200 // modified sept. 3 2017 old formula in Tax Calculation excel
             tempPopIncrease = planets[i].population * (0 + waterBaseRateModUniversalFountain + taxModifier) * (planets[i].shieldLevel * .011); //Multiplies pop incr. by 110% of shield level // decreased by 2% Sept. 3 2017
             if (tempPopIncrease > 0) { //increase positive increases, and decrease decreases
                 tempPopIncrease = tempPopIncrease * planets[i].waterPopRateMod - (.3 * planets[i].enemies);
@@ -126,6 +130,7 @@ function onNewTurn() {
     drawTotalPopulation(calculateTotalPopulation());
     shipPopulation = (shipPopulation * 1.02 + 1) + shipPopulationBonus;
     drawShipPopulation();
+    console.log('we did in fact make it!');
 };
 
 function drawIncome(income) {

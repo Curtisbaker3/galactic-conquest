@@ -668,12 +668,13 @@ function transferResource(planetIndex, currentResource) {
   var totalAmountTaken = 0;
   var transferPercent = 0;
   var charge = 0;
+  var y = 'blah'
  
   // Loop through donators to find total amount available.
   donatorPlanets.forEach(donatorPlanet => {
     if (donatorPlanet.population / 10 < donatorPlanet[resourceKey] || donatorPlanet.usesResourceAt[donatorPlanet.level] == false) { //contine if it's currently not using it or has enough
-    totalAmountAvailable += donatorPlanet[resourceKey];
-    console.log('first IF!')  
+    totalAmountAvailable += (donatorPlanet[resourceKey] - (donatorPlanet.population / 10));
+    console.log('first IF! Total amount available: ' + totalAmountAvailable)  ;
     }
   });
  
@@ -683,16 +684,21 @@ function transferResource(planetIndex, currentResource) {
     if (targetPlanet === donatorPlanet) {
       return;
     }
-    if (donatorPlanet.population / 10 > donatorPlanet[resourceKey] && donatorPlanet.usesResourceAt[donatorPlanet.level] == true) {
-      console.log('second if!!');
+    if (donatorPlanet.population / 10 > (donatorPlanet[resourceKey] + donatorPlanet[resourceKey + 'Generated']) && donatorPlanet.usesResourceAt[donatorPlanet.level] == true) {
+      console.log('second if!! STOP!');
+      y = 'we had a stop but didnt stop'
       return;
-    }
- 
+    } else { y = 'we didnt have a stop and didnt stop' }
+    console.log(y);
     if (targetPlanet[resourceKey + 'AutoTransfer']) {
       console.log('autotransfer is true')
       // If auto transfer for the resource is enabled this will run.
       if (targetPlanet[resourceKey] < targetPlanet.population / 10) {
-      var transferPercent = (targetPlanet.population / 10) / (totalAmountAvailable + 1); //this may be a problem when totalAmountAvailable is 0!!
+      var transferPercent = (targetPlanet.population / 10) / (totalAmountAvailable + .01); //this may be a problem when totalAmountAvailable is 0!!
+      if (transferPercent * donatorPlanet[resourceKey] > totalAmountAvailable) {
+        transferPercent = totalAmountAvailable / donatorPlanet[resourceKey];
+        console.log()
+      }
       console.log('initial auto transfer percent: ' + transferPercent);
       charge = 1
       } else {
