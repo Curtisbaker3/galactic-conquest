@@ -64,7 +64,7 @@ function createSpecialButtons(i) {
         case 'Gold': 
             planets[i].availableBuildItems.push({
             title: 'Tax Centre',
-            description: 'Increases rent on planet.',
+            description: 'Increases rent on this planet by 60%.',
             cost: 50,
             incomeCost: 2
         });
@@ -349,7 +349,7 @@ function onBuildGoldMine(index, buildItem) {
   drawBuildMenu();
 }
 function onBuildTaxCentre(index, buildItem) {
-  planets[index].rentModifier *= 1.3;
+  planets[index].rentModifier *= 1.6;
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   calculateRent(index);
   drawIncome(calculateIncome());
