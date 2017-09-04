@@ -248,7 +248,7 @@ function drawIncome(income) {
 function drawTotalPopulation(population) {
     document.getElementById('population').innerText = population.toFixed(0);
     for (var i = 0; i < planets.length; i++) {
-        if(planets[i].population >= planets[i].maxpopulation && planets[i].tax < .3) {
+        if(planets[i].population >= planets[i].maxpopulation && planets[i].tax < .24) {
             document.getElementById("maxPop"+i).classList.add('maxPopWarning');
         }
     }
