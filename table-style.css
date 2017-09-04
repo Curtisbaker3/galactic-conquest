@@ -96,10 +96,10 @@ div.table-row-unique.table-row {
 }
 /* Rows of unique planet resources*/
 div.table-row-unique:nth-child(even) {
-  background-color: #80FFC0;
+  background-color: #7DFFBE;
 }
 div.table-row-unique:nth-child(odd) {
-  background-color: #0CC8E8;
+  background-color: #44C0D5;
 }
 div.table-row-unique.table-row:hover {
   background-color: #e3f7ed;
@@ -108,6 +108,13 @@ div.table-row-unique.table-row:hover {
 .alert2 {
     background-color: rgba(245, 0, 0, 0.40);
   }
+
+.soldPlanets {
+  background-color: rgba(128, 4, 4, 0.75) !important;
+}
+.maxPopWarning {
+  background-color: rgba(128, 4, 4, 0.75);
+}
 
 /*form {
   letter-spacing: normal;
@@ -118,8 +125,5 @@ div.table-row-unique.table-row:hover {
   height: 50%;
   border: none;
   user-select: none;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.1); 
 }*/
-
-
-

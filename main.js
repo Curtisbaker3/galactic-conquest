@@ -243,6 +243,11 @@ function drawIncome(income) {
 }
 function drawTotalPopulation(population) {
     document.getElementById('population').innerText = population.toFixed(0);
+    for (var i = 0; i < planets.length; i++) {
+        if(planets[i].population >= planets[i].maxpopulation && planets[i].tax < .3) {
+            document.getElementById("maxPop"+i).classList.add('maxPopWarning');
+        }
+    }
 }
 function drawMoney() {
     document.getElementById('cash').innerText = formatMoney(money);
@@ -279,7 +284,7 @@ const renderPlanet = (planet, i) => {
             <input id="taxForm${i}" type="number" step="1" style="height: 8px; width: 60px" value=${ (planet.tax * 100).toFixed(0) }>
             </form></div>            
             <div class="table-text half right button"><button class="tooltip" onclick="onCollectRent(${i}, event)">${ planet.rent.toFixed(0) }<span class="tooltiptext">Click to collect rent from opponent<span></button></div>             
-            <div class="table-text left button"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) } / ${ planet.maxpopulation.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
+            <div id="maxPop${i}" class="table-text left button"><button class="tooltip" onclick="onTransferCitizens(${i}, event)">${ planet.population.toFixed(0) } / ${ planet.maxpopulation.toFixed(0) }<span class="tooltiptext">Click to transfer citizens here from other planets. Cost: 5<span></button></div>          
             <div class="table-text half right button" style="display:flex;"><button class="tooltip" onclick="onPlanetDevelopment(${i}, event)">${ pr.name }<span class="tooltiptext">Cost: ${ formatMoney(pr.cost) }. <br>Income Cost: ${ formatMoney(pr.incomeCost) } <span></button></div>            
             <div id="shieldalert${i}" class="table-text half right button"><button class="tooltip" onclick="onBolsterDefences(${i}, event)">${ planet.shieldLevel.toFixed(0) }<span class="tooltiptext">
             ${ formatMoney(planets[i].mainPageBuildItems[0].description) } <br>Cost: ${ formatMoney(planets[i].mainPageBuildItems[0].cost) } <span></button></div>          
@@ -293,6 +298,12 @@ const renderPlanet = (planet, i) => {
 };
 
 function onSubmitPlanet(planetResourceIndex) {
+    if (event.ctrlKey)
+        {
+        document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
+        console.log('soldPlanets'+planetResourceIndex);
+        return;
+        } 
     var populationInput = prompt('Enter population you would like to send to this planet.');
     if (populationInput === null) {
         return;
@@ -303,8 +314,8 @@ function onSubmitPlanet(planetResourceIndex) {
     var population = Number(populationInput);
     var randomIncomeModifier = Math.random();
     console.log(population, shipPopulation);
-    if (population > 50) {
-        return alert("Can't send more than 50 units at once.");
+    if (population > planetResources[planetResourceIndex.maxPopulation]) {
+        return alert("Can't send more than"+planetResources[planetResourceIndex.maxPopulation]+"units at once.");
     } else if (population > shipPopulation) {
         return alert('You don\'t have enough population!');
     } else {
