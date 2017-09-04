@@ -269,7 +269,7 @@ const planetResources = [{
     cost: 550,
 }, {
     title: 'Haumea',
-    resource: 'Iron',
+    resource: 'Uranium',
     cost: 400,
 }, {
     title: 'Orcus',

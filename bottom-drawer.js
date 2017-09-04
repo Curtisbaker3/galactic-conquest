@@ -131,8 +131,8 @@ function createSpecialButtons(i) {
             planets[i].availableBuildItems.push({
             title: 'Nuclear Shields',
             description: 'Increases shields of all planets by +1/year. Shield output decline 7%/turn.',
-            cost: 20,
-            incomeCost: 1,
+            cost: 15,
+            incomeCost: .25,
             buildCount: 0,
             shieldGenerated: 1,
         });
@@ -296,11 +296,11 @@ function onBuildItemClicked(index) {
       case 'Uranium Mill': 
         onBuildUraniumMill(currentBuildPlanetIndex, index); //index is the current build item
         break;   
-        case 'Nuclear Facility': 
+      case 'Nuclear Facility': 
           onBuildNuclearFacility(currentBuildPlanetIndex, index); //index is the current build item
           break;  
       case 'Nuclear Shields': 
-        onBuildNuclearWeapons(currentBuildPlanetIndex, index); //index is the current build item
+        onBuildNuclearShields(currentBuildPlanetIndex, index); //index is the current build item
         break;    
       case 'Fountains': 
         onBuildFountain(currentBuildPlanetIndex, index); //index is the current build item
@@ -374,14 +374,14 @@ function onBuildTourismShipModule(index, buildItem) {
   drawPlanets();
   drawBuildMenu();
 }
-function onBuildNuclearWeapons(index, buildItem) {
+function onBuildNuclearShields(index, buildItem) {
   var t = planets[index].availableBuildItems[buildItem];
   globalShieldGenerated += t.shieldGenerated;
   x = t.incomeCost;
   y = t.shieldGenerated;
   planets[index].expenses += x;
-  t.incomeCost *= 1.2;
-  t.cost *= 1.3;
+  t.incomeCost *= 1.5;
+  t.cost *= 1.4;
   t.description = 'Increases shields of all planets by ' + y + ' per year. Shield output declines 10%/turn.';
   drawIncome(calculateIncome());
   drawPlanets();
