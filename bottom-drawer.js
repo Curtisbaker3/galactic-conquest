@@ -360,7 +360,7 @@ function onBuildBank(index, buildItem) {
   x = planets[index].availableBuildItems[buildItem].incomeCost;
   planets[index].incomeBonuses -= x;
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.5;  
-  planets[index].availableBuildItems[buildItem].description = 'Decreases income by ' + x;  
+  planets[index].availableBuildItems[buildItem].description = 'Loans 150 with interest';  
   drawIncome(calculateIncome());
   drawPlanets();
   drawBuildMenu();
@@ -443,7 +443,7 @@ function onBuildIronCentre(index, buildItem) {
 }
 function onBuildFountain(index, buildItem) {
   planets[index].waterPopRateMod += .3;
-  planets[index].availableBuildItems[buildItem].cost *= 1.5
+  planets[index].availableBuildItems[buildItem].cost *= 3
   drawBuildMenu();
 }
 function onBuildUniversalFountain(index, buildItem) {

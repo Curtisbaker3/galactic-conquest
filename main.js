@@ -1,4 +1,5 @@
 /*
+//fix relocate citizens -- negative population
 add conditions for adding money and populations to things -- not ....!
 100 turns high records list -- 476.29 curtis, 2500
 make federations stations and earth give money
