@@ -154,19 +154,19 @@ function randomEvents(i) {
     calculateFloodRisk(i);
     calculateHurricaneRisk(i);
     calculateMeteorRisk(i);
-    if (Math.random() < planets[i].floodRisk) {
+    if (Math.random() < planets[i].floodRisk && planets[i].population > 0) {
         x = (planets[i].population * (.08 + Math.random() / 4)).toFixed(0);
         alert('A flood has hit ' + planets[i].name + ', killing ' + x + ' citizens');
         planets[i].population -= x;
         drawPlanets();
     }
-    if (Math.random() < planets[i].meteorRisk) {
+    if (Math.random() < planets[i].meteorRisk && planets[i].population > 0) {
         x = (planets[i].population * (.4 + Math.random() / 2)).toFixed(0);
         alert('A meteor has hit ' + planets[i].name + ', killing ' + x + ' citizens');
         planets[i].population -= x;
         drawPlanets();
     }
-    if (Math.random() < planets[i].hurricaneRisk) {
+    if (Math.random() < planets[i].hurricaneRisk && planets[i].population > 0) {
         x = (planets[i].population * (.16 + Math.random() / 4)).toFixed(0);
         alert('A hurricane has hit ' + planets[i].name + ', killing ' + x + ' citizens');
         planets[i].population -= x;
