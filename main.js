@@ -309,6 +309,11 @@ function onSubmitPlanet(planetResourceIndex) {
         console.log('soldPlanets'+planetResourceIndex);
         return;
         } 
+    else if (event.shiftKey) {
+        planetResources[planetResourceIndex].sold = false;
+        document.getElementById("soldPlanets"+planetResourceIndex).classList.remove('soldPlanets');
+        return;
+    }
     var populationInput = prompt('Enter population you would like to send to this planet.');
     if (populationInput === null) {
         return;
