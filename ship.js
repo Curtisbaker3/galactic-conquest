@@ -34,7 +34,7 @@ function rollDice() {
         money += x;
         drawMoney();
         shipLocation -= 79;
-        alert('Bonus $' + x + ' received for passing ' + planetLocations[shipLocation]);
+        alert('Bonus $' + x + ' received for passing earth!');
     }    
     
     switch(planetLocations[shipLocation]) {

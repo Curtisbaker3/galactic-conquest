@@ -23,19 +23,13 @@ function onNewTurn() {
         var promptInput1 = prompt("Enter number of players:", "2");
         var parsed1 = Number(promptInput1);
         numberOfPlayers = Number(promptInput1);
-        return;
-        if (isNaN(parsed1)) {
-            return;
-        }
-      }
-    if (event.shiftKey) {
         var promptInput2 = prompt("When is your turn?", "2");
         var parsed2 = Number(promptInput2);
         turnPoint = Number(promptInput2);
         return;
-    }
+      }
     if (numberOfPlayers > 0 && turnPoint > 0) {
-        var z = ((TurnCount - turnPoint - 1) + numberOfPlayers) / numberOfPlayers;
+        var z = ((TurnCount + turnPoint) + numberOfPlayers + 1) / numberOfPlayers;
         console.log(TurnCount);
         console.log(turnPoint);
         console.log(numberOfPlayers);
@@ -43,8 +37,11 @@ function onNewTurn() {
         if (Number.isInteger(z) === true) {
             console.log('woot!!!');
             document.getElementById("conquestTitle").classList.add('your-turn');
+            rollDice();
         } else {
             document.getElementById("conquestTitle").classList.remove('your-turn');
+            document.getElementById('planet-search').value = '';
+            handlePlanetSearch();
         }
     }
     var tempIncome = calculateIncome();
@@ -78,8 +75,8 @@ function onNewTurn() {
             }
         }
        
-        if (planets[i].shieldLevel < Math.random() * 80) {
-            tempEnemyIncrease = (planets[i].population * Math.random() * .1) + .5 * Math.pow(TurnCount, 1.01) + TurnCount;
+        if (planets[i].shieldLevel < Math.random() * 90 && planets[i].shieldLevel < Math.random() * 90) {
+            tempEnemyIncrease = (planets[i].population * Math.random() * .1) + .35 * Math.pow(TurnCount, 1.01) + TurnCount;
             planets[i].enemies += tempEnemyIncrease;
         }
             
@@ -281,7 +278,7 @@ const renderPlanet = (planet, i) => {
     const pr = nextPlanetRequirements[planet.level + 1];
     var q = planets.length - 1    
     return `
-        <div onclick="onPlanetRowClicked(${i})" class="table-row clickable">
+        <div onclick="onPlanetRowClicked(${i}, event)" class="table-row clickable">
             <div class="table-text tooltip">${ planet.name }<span class="tooltiptext">Flood risk: ${((planet.floodRisk)*100).toFixed(1)}%<br>Hurricane risk: ${((planet.hurricaneRisk)*100).toFixed(1)}%<br>Meteor risk: ${((planet.meteorRisk)*100).toFixed(1)}%<span></div>
             <div id="${i}" class="table-text right">${ formatMoney(planet.income) }</div>            
             <div class="table-text half center form"><form class="form" onclick="onChangeTax(${i}, event)" onkeyup="onChangeTax(${i}, event)" onsubmit="onChangeTax(${i}, event)">
@@ -302,19 +299,19 @@ const renderPlanet = (planet, i) => {
 };
 
 function onSubmitPlanet(planetResourceIndex) {
-    if (event.ctrlKey)
-        {
-        planetResources[planetResourceIndex].sold = true;
-        document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
-        console.log('soldPlanets'+planetResourceIndex);
-        return;
-        } 
-    else if (event.shiftKey) {
-        planetResources[planetResourceIndex].sold = false;
-        document.getElementById("soldPlanets"+planetResourceIndex).classList.remove('soldPlanets');
-        return;
-    }
-    var populationInput = prompt('Enter population you would like to send to this planet.');
+    if (event.ctrlKey) {
+            if (planetResources[planetResourceIndex].sold == false) {
+                planetResources[planetResourceIndex].sold = true;
+                document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
+                return;
+            } else {
+                planetResources[planetResourceIndex].sold = false;
+                console.log('here');
+                document.getElementById("soldPlanets"+planetResourceIndex).classList.remove('soldPlanets');
+                return;
+            }
+    } 
+    var populationInput = prompt('Enter population you would like to send to this planet. Maximum: ' + planetResources[planetResourceIndex].maxPopulation);
     if (populationInput === null) {
         return;
     }
@@ -324,8 +321,8 @@ function onSubmitPlanet(planetResourceIndex) {
     var population = Number(populationInput);
     var randomIncomeModifier = Math.random();
     console.log(population, shipPopulation);
-    if (population > planetResources[planetResourceIndex.maxPopulation]) {
-        return alert("Can't send more than"+planetResources[planetResourceIndex.maxPopulation]+"units at once.");
+    if (population > planetResources[planetResourceIndex].maxPopulation) {
+        return alert("Can't send more than "+planetResources[planetResourceIndex].maxPopulation+" units at once.");
     } else if (population > shipPopulation) {
         return alert('You don\'t have enough population!');
     } else if (planetResources[planetResourceIndex].sold == true) {

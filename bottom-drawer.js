@@ -17,7 +17,14 @@ function closeBuildMenu() {
 
 var currentBuildPlanetIndex = -1;
 
-function onPlanetRowClicked(i) {
+function onPlanetRowClicked(i, event) {
+  if (event.ctrlKey & event.shiftKey) {
+    planets.splice(i, 1);
+    drawPlanets();
+    drawTotalPopulation();
+    drawincome();
+    return;
+  }
   if (i === currentBuildPlanetIndex) {
     closeBuildMenu();
   } else {
@@ -425,7 +432,7 @@ function onBuildIronCentre(index, buildItem) {
 }
 function onBuildFountain(index, buildItem) {
   planets[index].waterPopRateMod += .3;
-  planets[index].availableBuildItems[buildItem].cost *= 3
+  planets[index].availableBuildItems[buildItem].cost *= 2.2
   drawBuildMenu();
 }
 function onBuildUniversalFountain(index, buildItem) {
@@ -550,7 +557,7 @@ function onBolsterDefences(index) {
   event.preventDefault();
   event.stopPropagation();
   money -= Number(planets[index].mainPageBuildItems[0].cost)
-  planets[index].mainPageBuildItems[0].cost += 2
+  planets[index].mainPageBuildItems[0].cost += 3
   console.log(index)
     var planet = planets[index];
     if (planet.shieldLevel + 60 >= 110) {
