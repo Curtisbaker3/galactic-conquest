@@ -17,11 +17,14 @@
                     <h1 id="conquestTitle">Galactic Conquest |&nbsp;<span class="title-bar-button" onclick="onNewTurn()" id="TurnCounter">Turn: 1<span></h1>
                 </div>
                     <div class="nav-item">
-                        <div>Roll: <span id="rollDice" class="title-bar-button">0</span></div>
-                    </div>   
+                        <div>Roll: <span id="rollDice">0</span></div>
+                    </div>
                     <div class="nav-item">
                         <div>Location: <span id="shipLocation">Earth</span></div>
-                    </div>                       
+                    </div>
+                    <div class="nav-item">
+                        <div id="LOCDIV">LOC: <span class="title-bar-button" onclick="takeLOC()"><span id="currentLOC">0</span>/<span id="maxLOC">200</span></span></div>
+                    </div>                    
                 <div class="grid-item end">
                     <div class="nav-item">
                         <div>Ship Pop: <span id="shipPopulation" class="title-bar-button" onclick="takePopulation()">70</span></div>
@@ -33,7 +36,7 @@
                         <div>Income: <span id="income">$0.00</span></div>
                     </div>
                     <div class="nav-item">
-                        <div>Planetary Pop: <span id="population">0</span></div>
+                        <div>Tot. Pop: <span id="population">0</span></div>
                     </div>
                 </div>
             </div>

@@ -34,6 +34,48 @@ function deductPlanetaryResource(tempResource) {
     }
 }
 
+document.getElementById('LOCDIV').style.display = 'none';
+var goldPlanetsCount = 0;
+var maxLOC = 0;
+function calculateMaxLOC() {
+    var totalPopulation = calculateTotalPopulation();
+    maxLOC = (200 * goldPlanetsCount) + (totalPopulation * goldPlanetsCount);
+    document.getElementById('maxLOC').innerText = maxLOC.toFixed(0);  
+}
+
+var currentLOC = 0;
+var transactionfeeLOC = 10;
+function takeLOC() {
+    var cashInput;
+    var promptInput = prompt("Enter amount to borrow:", "$100");
+    var parsed = Number(promptInput);
+    if (isNaN(parsed)) {
+        return;
+    }
+    if (promptInput == null || promptInput == "") {
+        cashInput = 0;
+    } else {
+        cashInput = Number(promptInput);
+    }
+    if (currentLOC + cashInput > maxLOC) {
+        x = maxLOC - currentLOC;
+        alert('Cannot go above maximum LOC, you have been given ' + formatMoney(x));
+        cashInput = x;
+    }
+    if (currentLOC + cashInput < 0) {
+        x = currentLOC * -1;
+        cashInput = x;
+    }
+    money += cashInput;
+    money -= transactionfeeLOC; //transaction fee for exchanging
+    currentLOC += cashInput;
+    document.getElementById('currentLOC').innerText = currentLOC.toFixed(0);      
+    drawMoney();
+    drawIncome(calculateIncome());
+}
+
+
+drawTotalPopulation(70);
 function calculateTotalPopulation() {
     var totalPopulation = 0
     for (var i = 0; i < planets.length; i++) {
@@ -41,6 +83,7 @@ function calculateTotalPopulation() {
         totalPopulation += planet.population;
         //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
     }
+    totalPopulation += shipPopulation;
     return totalPopulation
 }
 
@@ -52,9 +95,10 @@ function calculateIncome() {
         incomeTotal += planet.income;
     }
     if (money < 0) {
-        var x = money * .08; //interest on debt
+        var x = money * (.07 - money / 20000); //interest on debt
         incomeTotal += x;
     }
+    incomeTotal -= (currentLOC * .05);
     return incomeTotal
         //incomeTotal -= planet.nextPlanetRequirements[planet.level].incomeCost;
     } 

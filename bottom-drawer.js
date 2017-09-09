@@ -82,6 +82,12 @@ function createSpecialButtons(i) {
             cost: 30,
             incomeCost: .5
         });
+        case 'Gold':
+            if (document.getElementById('LOCDIV').style.display === 'none' ) {
+              document.getElementById('LOCDIV').style.display = 'block';
+            }
+            goldPlanetsCount += 1;
+            calculateMaxLOC();
         break;
         case 'Copper': 
             planets[i].availableBuildItems.push({
@@ -212,7 +218,7 @@ const availableBuildItems = [{
 }, {
     title: 'Hire Foreigners',
     description: 'Hires 10 foreigners to repopulate the planet',
-    cost: 100,
+    cost: 40,
     incomeCost: 0,
 }, {
     title: 'Evacuate Citizens',

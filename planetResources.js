@@ -57,7 +57,7 @@ const planetResources = [{
     cost: 200,
 }, {
     title: 'Himalia',
-    resource: 'Water',
+    resource: 'Gold',
     cost: 200,
 }, {
     title: 'Mimas',

@@ -18,6 +18,7 @@ var turnPoint = 0;
 
 //}
 var waterBaseRateModUniversalFountain = 0
+var travelersLandRate = .03;
 function onNewTurn() {
     if (event.ctrlKey) {
         var promptInput1 = prompt("Enter number of players:", "2");
@@ -26,6 +27,11 @@ function onNewTurn() {
         var promptInput2 = prompt("When is your turn?", "2");
         var parsed2 = Number(promptInput2);
         turnPoint = Number(promptInput2);
+        travelersLandRate = travelersLandRate/numberOfPlayers;
+        if (turnPoint == 1 && TurnCount == 1) {
+            document.getElementById("conquestTitle").classList.add('your-turn');
+            rollDice();
+        }
         return;
       }
     if (numberOfPlayers > 0 && turnPoint > 0) {
@@ -116,6 +122,7 @@ function onNewTurn() {
         calculateRent(i);
     }
 
+    shipPopulation = (shipPopulation * 1.02 + 1) + shipPopulationBonus;
     globalShieldGenerated *= .93;
     //var tempResource = 'water';
     deductPlanetaryResource('water');
@@ -125,8 +132,8 @@ function onNewTurn() {
     drawIncome(calculateIncome());
     drawPlanets();
     drawTotalPopulation(calculateTotalPopulation());
-    shipPopulation = (shipPopulation * 1.02 + 1) + shipPopulationBonus;
     drawShipPopulation();
+    calculateMaxLOC();
     console.log('we did in fact make it!');
 };
 
@@ -169,6 +176,16 @@ function randomEvents(i) {
         planets[i].population -= x;
         drawPlanets();
     }
+    if (Math.random() < travelersLandRate) {
+        if (planetLocations.indexOf(planets[i].name) > -1 && planets[i].rent > 0) {
+                alert('Travellers have landed on ' + planets[i].name + ', collect ' + formatMoney(planets[i].rent) + ' in rent');
+                money += planets[i].rent;    
+            } else {
+                    console.log('not in array');
+                    }
+    }
+
+    
 }
 
 function takeMoney() {
@@ -300,17 +317,17 @@ const renderPlanet = (planet, i) => {
 
 function onSubmitPlanet(planetResourceIndex) {
     if (event.ctrlKey) {
-            if (planetResources[planetResourceIndex].sold == false) {
-                planetResources[planetResourceIndex].sold = true;
-                document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
-                return;
-            } else {
-                planetResources[planetResourceIndex].sold = false;
-                console.log('here');
-                document.getElementById("soldPlanets"+planetResourceIndex).classList.remove('soldPlanets');
-                return;
-            }
-    } 
+      if (planetResources[planetResourceIndex].sold == false) {
+          planetResources[planetResourceIndex].sold = true;
+          document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
+          return;
+      } else {
+          planetResources[planetResourceIndex].sold = false;
+          console.log('here');
+          document.getElementById("soldPlanets"+planetResourceIndex).classList.remove('soldPlanets');
+          return;
+      }
+    }
     var populationInput = prompt('Enter population you would like to send to this planet. Maximum: ' + planetResources[planetResourceIndex].maxPopulation);
     if (populationInput === null) {
         return;
@@ -388,8 +405,9 @@ function onSubmitPlanet(planetResourceIndex) {
     drawPlanets();
     drawIncome(calculateIncome());
     drawTotalPopulation(calculateTotalPopulation());
+    planetResources[planetResourceIndex].sold = true;
+    document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');
 }
-
 
 function save() {
     localStorage.setItem('game', JSON.stringify({
