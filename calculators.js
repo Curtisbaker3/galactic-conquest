@@ -39,8 +39,8 @@ var goldPlanetsCount = 0;
 var maxLOC = 0;
 function calculateMaxLOC() {
     var totalPopulation = calculateTotalPopulation();
-    maxLOC = (200 * goldPlanetsCount) + (totalPopulation * goldPlanetsCount);
-    document.getElementById('maxLOC').innerText = maxLOC.toFixed(0);  
+    maxLOC = (150 * goldPlanetsCount) + (totalPopulation * goldPlanetsCount * .25);
+    document.getElementById('maxLOC').innerText = maxLOC.toFixed(0);
 }
 
 var currentLOC = 0;
