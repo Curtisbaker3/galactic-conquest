@@ -1,4 +1,5 @@
-/* ADD TRANSFER THEN DEDUCT ! REESOURCE ORDER BRO!
+/* color code planets by resource
+  Add out of water highlights
 //fix change color when buy planetgit
 //fix relocate citizens -- negative population
 add conditions for adding money and populations to things -- not ....!
@@ -82,7 +83,7 @@ function onNewTurn() {
         }
        
         if (planets[i].shieldLevel < Math.random() * 90 && planets[i].shieldLevel < Math.random() * 90) {
-            tempEnemyIncrease = (planets[i].population * Math.random() * .1) + .35 * Math.pow(TurnCount, 1.01) + TurnCount;
+            tempEnemyIncrease = calculateInvaders(i);
             planets[i].enemies += tempEnemyIncrease;
         }
             
@@ -118,9 +119,10 @@ function onNewTurn() {
         if (planets[i].uraniumAutoTransfer > 0) {
             transferResource(i, 'Uranium');
         }
-        randomEvents(i);
+        randomPlanetaryEvents(i);
         calculateRent(i);
     }
+      randomGalacticEvents();
 
     shipPopulation = (shipPopulation * 1.02 + 1) + shipPopulationBonus;
     globalShieldGenerated *= .93;
@@ -154,7 +156,17 @@ function calculateMeteorRisk(i) {
     planets[i].meteorRisk = Math.pow(TurnCount, 1.02) * .00015 * globalNaturalDisasterModifier * meteorRiskGlobalModifier * planets[i].meteorRiskModifier;
 }
 
-function randomEvents(i) {
+function randomGalacticEvents() {
+    if (Math.random() < interplanetaryCivilWarRisk) {
+        for (var q = 0; q < planets.length; q++) {
+          planets[q].enemies = calculateInvaders(q) * .5;      
+        }
+        alert('An Interplanetary civil war has occured!');
+        drawPlanets();
+    }
+}
+
+function randomPlanetaryEvents(i) {
     calculateFloodRisk(i);
     calculateHurricaneRisk(i);
     calculateMeteorRisk(i);
@@ -454,6 +466,7 @@ var planetLevelOfResource = {
     iron: 5
 };
 drawMoney();
+var interplanetaryCivilWarRisk = .04;
 var shipPopulation = 70;
 var shipPopulationBonus = 0;
 var shipLocation = 0;

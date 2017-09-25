@@ -37,9 +37,14 @@ function deductPlanetaryResource(tempResource) {
 document.getElementById('LOCDIV').style.display = 'none';
 var goldPlanetsCount = 0;
 var maxLOC = 0;
+
+function calculateInvaders(i) {
+    return ((planets[i].population * Math.random() * .1) + .35 * Math.pow(TurnCount, 1.01) + TurnCount) * .5
+}
+
 function calculateMaxLOC() {
     var totalPopulation = calculateTotalPopulation();
-    maxLOC = (150 * goldPlanetsCount) + (totalPopulation * goldPlanetsCount * .25);
+    maxLOC = (150 * goldPlanetsCount) + (totalPopulation * goldPlanetsCount * .1);
     document.getElementById('maxLOC').innerText = maxLOC.toFixed(0);
 }
 

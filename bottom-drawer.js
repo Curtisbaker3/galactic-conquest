@@ -491,10 +491,14 @@ function onBuildUpgradedIronCenters(index, buildItem) {
 var geoengineeringCenterConstructed = false;
 function onBuildGeoengineeringCenter(index, buildItem) {
   globalNaturalDisasterModifier *= .6;
+  for (var i = 0; i < planets.length; i++) {
+    calculateFloodRisk(i);
+    calculateHurricaneRisk(i);    
+  }
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 1.5
   planets[index].availableBuildItems[buildItem].incomeCost *= 1.3
-  planets[index].availableBuildItems[buildItem].description = 'Allows planets to build climate control centers. Also, reduces risk of all floods & hurricanes by 30%.'
+  planets[index].availableBuildItems[buildItem].description = 'Allows planets to build climate control centers. Also, reduces risk of all floods & hurricanes by 40%.'
   if (geoengineeringCenterConstructed == false) {
     geoengineeringCenterConstructed = true;
       for (var i = 0; i < planets.length; i++) {
@@ -577,24 +581,27 @@ function onBolsterDefences(index) {
 function onTransferCitizens(index) {
   event.preventDefault();
   event.stopPropagation();
+  var tempPercentToSend = 0;
   money -= 5;
   drawMoney();
     var planetTarget = planets[index];
-    var tempPopulationToSend = calculateTotalPopulation() * .1;
+    var tempPopulationToSend = (calculateTotalPopulation() - shipPopulation - planetTarget.population) * .1;
 
     if (planetTarget.population + tempPopulationToSend < planetTarget.maxpopulation) {
       planetTarget.population += tempPopulationToSend;
 
-
       for (var i = 0; i < planets.length; i++) {
+        if (planetTarget === planets[i]) {
+          continue;
+        }
         planets[i].population *= .9;
       }
     } else {
       tempPopulationToSend = planets[index].maxpopulation - planets[index].population;
-      var popToSendFromEachPlanet = tempPopulationToSend / planets.length;
-      for (var i = 0; i < planets.length; i++) {
-      planets[i].population -= popToSendFromEachPlanet;
+      tempPercentToSend = tempPopulationToSend / (calculateTotalPopulation() - shipPopulation - planetTarget.population);
       planets[index].population = planetTarget.maxpopulation;
+      for (var i = 0; i < planets.length; i++) {
+      planets[i].population *= (1 - tempPercentToSend);
       } 
     }
   drawTotalPopulation(calculateTotalPopulation());
