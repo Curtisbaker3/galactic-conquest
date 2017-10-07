@@ -12,6 +12,7 @@ Trade module -- adds main ship to planet list, 25% chance to open trade menu whe
 Add fuel and oil upgrade
 autoreplenish fuel
 */
+var negativeCashInterestRate = 0;
 var numberOfPlayers = 0;
 var turnPoint = 0;
 
@@ -191,7 +192,8 @@ function randomPlanetaryEvents(i) {
     if (Math.random() < travelersLandRate) {
         if (planetLocations.indexOf(planets[i].name) > -1 && planets[i].rent > 0) {
                 alert('Travellers have landed on ' + planets[i].name + ', collect ' + formatMoney(planets[i].rent) + ' in rent');
-                money += planets[i].rent;    
+                money += planets[i].rent;
+                drawMoney();
             } else {
                     console.log('not in array');
                     }
@@ -215,6 +217,7 @@ function takeMoney() {
     money -= Number(cashInput);
     drawMoney();
     drawIncome(calculateIncome());
+    drawMoney();
 }
 
 function onPlanetDevelopment(index, event) {
@@ -279,8 +282,16 @@ function drawTotalPopulation(population) {
         }
     }
 }
+
 function drawMoney() {
-    document.getElementById('cash').innerText = formatMoney(money);
+    //document.getElementById('cash').innerText = formatMoney(money);
+    //document.getElementById('cash').classList.add('tooltiptext');
+    if (money < 0) {
+      document.getElementById('cash').innerHTML = formatMoney(money) + `<span class="tooltiptext">interest rate on debt: ${(negativeCashInterestRate * 100).toFixed(2)}%<br>Cost: ${(negativeCashInterestRate * money).toFixed(2)}/turn</span>`
+    } else {
+      document.getElementById('cash').innerHTML = formatMoney(money);
+    }
+    //</span>
 };
 function drawShipPopulation() {
     document.getElementById('shipPopulation').innerText = shipPopulation.toFixed(0);

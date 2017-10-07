@@ -46,12 +46,12 @@ function createGeoenginneringCenterButtons(i) {
   if (geoengineeringCenterConstructed == true) {
     planets[i].availableBuildItems.push({
     title: 'Anti-Flooding Climate Center',
-    description: 'Decreases risk of floods on this planet by 50%.',
+    description: 'Decreases risk of floods on this planet by 70%.',
     cost: 20,
     incomeCost: 0,
     }, {
     title: 'Anti-Hurricane Climate Center',
-    description: 'Decreases risk of hurricanes on this planet by 50%',
+    description: 'Decreases risk of hurricanes on this planet by 70%',
     cost: 35,
     incomeCost: 0,
     });
@@ -117,7 +117,7 @@ function createSpecialButtons(i) {
             planets[i].availableBuildItems.push({
             title: 'Universal Fountains',
             description: 'Adds +1% to the base pop. growth rate of all planets.',
-            cost: 50,
+            cost: (40 * (Math.pow(1.4, totalUniversalFountains))),
             incomeCost: 2,
         });
         break;
@@ -325,7 +325,7 @@ function onBuildItemClicked(index) {
         onBuildAntiFloodingClimateCenter(currentBuildPlanetIndex, index); //index is the current build item
         break;   
       case 'Anti-Hurricane Climate Center': 
-        onBuildAntiFloodingClimateCenter(currentBuildPlanetIndex, index); //index is the current build item
+        onBuildAntiHurricaneClimateCenter(currentBuildPlanetIndex, index); //index is the current build item
         break;
       default:
         alert('Item not configured: ' + buildItem.title);
@@ -441,8 +441,14 @@ function onBuildFountain(index, buildItem) {
   planets[index].availableBuildItems[buildItem].cost *= 2.2
   drawBuildMenu();
 }
+
+var totalUniversalFountains = 0;
 function onBuildUniversalFountain(index, buildItem) {
   waterBaseRateModUniversalFountain += .01;
+  totalUniversalFountains += 1;
+  for (var i = 0; i < planets.length; i++) {
+    planets[i].availableBuildItems[buildItem].cost *= 1.4
+  }
   planets[index].expenses += planets[index].availableBuildItems[buildItem].incomeCost
   planets[index].availableBuildItems[buildItem].cost *= 2.2
   planets[index].availableBuildItems[buildItem].incomeCost *= 2.2
@@ -526,18 +532,18 @@ function onBuildNuclearFacility(index, buildItem) {
   drawBuildMenu();
 }
 function onBuildAntiFloodingClimateCenter(index, buildItem) {
-  planets[index].floodRiskModifier *= .5;
+  planets[index].floodRiskModifier *= .3;
   calculateFloodRisk(index);
   planets[index].availableBuildItems[buildItem].cost *= 1.3
-  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of floods on this planet by 50%. Current risk: ' + (planets[index].floodRisk*100).toFixed(1) + '%';
+  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of floods on this planet by 70%. Current risk: ' + (planets[index].floodRisk*100).toFixed(1) + '%';
   drawPlanets();
   drawBuildMenu();
 }
 function onBuildAntiHurricaneClimateCenter(index, buildItem) {
-  planets[index].hurricaneRiskModifier *= .5;
+  planets[index].hurricaneRiskModifier *= .3;
   calculateHurricaneRisk(index);
   planets[index].availableBuildItems[buildItem].cost *= 1.3
-  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of hurricanes on this planet by 50%. Current risk: ' + (planets[index].hurricaneRisk*100).toFixed(1) + '%';
+  planets[index].availableBuildItems[buildItem].description = 'Decreases risk of hurricanes on this planet by 70%. Current risk: ' + (planets[index].hurricaneRisk*100).toFixed(1) + '%';
   drawPlanets();
   drawBuildMenu();
 }

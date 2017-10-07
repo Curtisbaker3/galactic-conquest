@@ -100,7 +100,8 @@ function calculateIncome() {
         incomeTotal += planet.income;
     }
     if (money < 0) {
-        var x = money * (.07 - money / 20000); //interest on debt
+        negativeCashInterestRate = .07 - money / 20000
+        var x = money * negativeCashInterestRate; //interest on debt
         incomeTotal += x;
     }
     incomeTotal -= (currentLOC * .05);
