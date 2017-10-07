@@ -22,7 +22,7 @@ var turnPoint = 0;
 var waterBaseRateModUniversalFountain = 0
 var travelersLandRate = .03;
 function onNewTurn() {
-    if (event.ctrlKey) {
+    if ((event.ctrlKey || event.metaKey)) {
         var promptInput1 = prompt("Enter number of players:", "2");
         var parsed1 = Number(promptInput1);
         numberOfPlayers = Number(promptInput1);
@@ -339,7 +339,7 @@ const renderPlanet = (planet, i) => {
 };
 
 function onSubmitPlanet(planetResourceIndex) {
-    if (event.ctrlKey) {
+    if ((event.ctrlKey || event.metaKey)) {
       if (planetResources[planetResourceIndex].sold == false) {
           planetResources[planetResourceIndex].sold = true;
           document.getElementById("soldPlanets"+planetResourceIndex).classList.add('soldPlanets');

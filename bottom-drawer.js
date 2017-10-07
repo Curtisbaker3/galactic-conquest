@@ -18,7 +18,7 @@ function closeBuildMenu() {
 var currentBuildPlanetIndex = -1;
 
 function onPlanetRowClicked(i, event) {
-  if (event.ctrlKey & event.shiftKey) {
+  if ((event.ctrlKey || event.metaKey) & event.shiftKey) {
     planets.splice(i, 1);
     drawPlanets();
     drawTotalPopulation();
@@ -647,7 +647,7 @@ function onRelocateCitizens(index) {
 function onTransferResourceInit(planetIndex, event, currentResource) {
   event.preventDefault();
   event.stopPropagation();
-      if (event.ctrlKey) {
+      if ((event.ctrlKey || event.metaKey)) {
         planets[planetIndex][currentResource.toLowerCase() + 'AutoTransfer'] = 1;
       }
       if (event.shiftKey) {
@@ -659,7 +659,7 @@ function onTransferResourceInit(planetIndex, event, currentResource) {
           return;
         }
     }
-    if (!event.shiftKey && !event.ctrlKey) {
+    if (!event.shiftKey && (!event.ctrlKey && !event.metaKey)) {
       manualTransfer = true;
       console.log('manual transfer: ' + manualTransfer)
     }
